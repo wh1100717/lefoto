@@ -40,9 +40,9 @@
     </bean>
 
      <!-- 拦截器 -->
-    <mvc:interceptors>
+<!--    <mvc:interceptors>
         <bean class="com.lefoto.common.filter.AuthorityInterceptor" />
-    </mvc:interceptors>
+    </mvc:interceptors>-->
     
     <!-- 对静态资源文件的访问 -->  
     <mvc:resources mapping="/src/images/**" location="/resource/images/" cache-period="31556926"/>
