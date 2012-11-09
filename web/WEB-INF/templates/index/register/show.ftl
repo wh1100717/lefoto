@@ -69,5 +69,5 @@
                 </div> <!-- traditional -->
             </div> <!-- mainContent-->
         </div> <!--container-->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+        <script src="/lefoto/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://cdnstatic.visualizeus.com/js/jquery.cookie.v1.js,register.v2659.js"></script>

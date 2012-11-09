@@ -20,7 +20,7 @@
           p:password="${jdbc.password}" />
 
     <!-- 使用annotation定义事务 -->  
-    <tx:annotation-driven transaction-manager="transactionManager" />  
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>  
     
     <!-- 配置hibernate相关信息 -->  
     <bean id="sessionFactory"
