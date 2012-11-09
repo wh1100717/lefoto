@@ -24,14 +24,6 @@
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
 
-    <!-- 允许对静态资源文件的访问 --> 
-    <mvc:default-servlet-handler/>
-    
-    <!-- 对静态资源文件的访问 -->  
-    <mvc:resources mapping="/src/images/**" location="/resource/images/" cache-period="31556926"/>
-    <mvc:resources mapping="/src/js/**" location="/resource/js/" cache-period="31556926"/>
-    <mvc:resources mapping="/src/css/**" location="/resource/css/" cache-period="31556926"/>
-    <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>
               
     <!-- 针对freemarker的视图配置 -->  
     <bean id="viewResolver"  
@@ -53,5 +45,11 @@
             <bean class="com.lefoto.common.filter.AuthorityInterceptor" />
         </mvc:interceptor>  
     </mvc:interceptors>
+
     
+    <!-- 对静态资源文件的访问 -->  
+    <mvc:resources mapping="/src/images/**" location="/resource/images/" cache-period="31556926"/>
+    <mvc:resources mapping="/src/js/**" location="/resource/js/" cache-period="31556926"/>
+    <mvc:resources mapping="/src/css/**" location="/resource/css/" cache-period="31556926"/>
+    <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>    
 </beans>

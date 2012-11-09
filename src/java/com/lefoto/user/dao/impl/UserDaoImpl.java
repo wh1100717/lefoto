@@ -48,9 +48,15 @@ public class UserDaoImpl implements UserDao {
     public LeUser findUserByEmail(String email) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        LeUser user = (LeUser) session.get(LeUser.class, email);
+        Criteria criteria = session.createCriteria(LeUser.class);
+        criteria.add(Restrictions.eq("email", email));
+        List users = criteria.list();
         session.getTransaction().commit();
-        return user;
+        if (users != null && users.isEmpty()) {
+            return (LeUser) users.get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -108,5 +114,4 @@ public class UserDaoImpl implements UserDao {
         session.getTransaction().commit();
         return leUserInfo;
     }
-    
 }
