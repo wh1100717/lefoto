@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * 登录模块
@@ -36,7 +37,7 @@ public class LoginController {
     @RequestMapping(value = "/submit")
     public ModelAndView submit(HttpServletRequest request) {
         //如果登录成功，转到index页面
-        ModelAndView mv = new ModelAndView("/index/index");
+        ModelAndView mv = new ModelAndView("/index/login/show");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         LeUser user = this.userService.findUserByEmail(email);
@@ -55,6 +56,6 @@ public class LoginController {
             return mv;
         }
         request.getSession().setAttribute("email", email);
-        return mv;
+        return new ModelAndView(new RedirectView("/lefoto/index/show.html"));
     }
 }

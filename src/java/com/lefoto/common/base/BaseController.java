@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 public abstract class BaseController {
 
     private FormatUtil formatUtil;
-    private LeUser user;
 
     public BaseController() {
         this.formatUtil = new FormatUtil();
@@ -27,15 +26,7 @@ public abstract class BaseController {
         this.formatUtil = formatUtil;
     }
 
-    public LeUser getUser() {
-        return user;
-    }
-
     public LeUser getRequestUser(HttpServletRequest request) {
         return (LeUser)request.getAttribute("user");
-    }
-
-    public void setUser(LeUser user) {
-        this.user = user;
     }
 }

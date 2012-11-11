@@ -19,19 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/index")
 public class indexController extends BaseController {
 
-    LeUser user;
-
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
-        ModelAndView mv;
-        user = this.getRequestUser(request);
-        if (user == null) {
-            //未登录状态的主页
-            mv = new ModelAndView("/index/index");
-        } else {
-            mv = new ModelAndView("/index/home");
-            //登录状态下的主页
-        }
+        ModelAndView mv = new ModelAndView("/index/home");
         return mv;
     }
 }

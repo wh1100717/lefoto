@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
         criteria.add(Restrictions.eq("email", email));
         List users = criteria.list();
         session.getTransaction().commit();
-        if (users != null && users.isEmpty()) {
+        if (users != null && !users.isEmpty()) {
             return (LeUser) users.get(0);
         } else {
             return null;
