@@ -41,7 +41,7 @@
     <!-- 拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*" /><!-- 如果不配置或/*,将拦截所有的Controller -->
+            <mvc:mapping path="/**" /><!-- 如果不配置或/**,将拦截所有的Controller -->
             <bean class="com.lefoto.common.filter.AuthorityInterceptor" />
         </mvc:interceptor>  
     </mvc:interceptors>
