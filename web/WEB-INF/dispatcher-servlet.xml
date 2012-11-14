@@ -28,8 +28,8 @@
     <mvc:resources mapping="/src/images/**" location="/resource/images/" cache-period="31556926"/>
     <mvc:resources mapping="/src/js/**" location="/resource/js/" cache-period="31556926"/>
     <mvc:resources mapping="/src/css/**" location="/resource/css/" cache-period="31556926"/>
-    <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>   
-              
+    <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>
+    <mvc:resources mapping="/back/**" location="/WEB-INF/back/" cache-period="31556926"/>              
     <!-- 针对freemarker的视图配置 -->  
     <bean id="viewResolver"  
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
