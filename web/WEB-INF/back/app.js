@@ -1,6 +1,11 @@
-Ext.require('Ext.container.Viewport');
+Ext.Loader.setConfig({
+    enabled: true
+});
+
 Ext.application({
-    name: 'lefoto',
-    appFolder : 'app',
-    controllers : ['home']
+    autoCreateViewport: true,
+    name: 'app',
+    controllers: [
+        'HomeController'
+    ]
 });
