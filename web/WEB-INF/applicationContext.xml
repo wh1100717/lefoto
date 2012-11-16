@@ -57,5 +57,7 @@
                 <prop key="template_exception_handler">ignore</prop>  
             </props>  
         </property>  
-    </bean>  
+    </bean>
+    <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>
