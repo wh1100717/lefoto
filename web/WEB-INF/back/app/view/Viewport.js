@@ -1,5 +1,8 @@
-Ext.define('app.view.Viewport', {
+Ext.define('lefoto.view.Viewport', {
     extend: 'Ext.container.Viewport',
+    requires: [
+        'Ext.ux.multiupload.Panel'
+    ],
 
     initComponent: function() {
         var me = this;
@@ -20,10 +23,50 @@ Ext.define('app.view.Viewport', {
                             title: '图片上传',
                             items: [
                                 {
+                                    xtype: 'ux-multiupload-panel',
+                                    title: '上传',
+                                    x: 50,
+                                    y: 60,
+                                    width: 600,
+                                    height: 300,
+                                    frame: true,
+                                    uploadConfig: {
+                                        uploadUrl: '/lefoto/media/upload.html',
+                                        maxFileSize: 4 * 1024 * 1024,
+                                        maxQueueLength: 5
+                                    }
+                                },
+                                {
+                                    xtype:'gridpanel',
+                                    title: '图片',
+                                    x: 50,
+                                    y: 350,
+                                    width: 600,
+                                    height: 300,
+                                    frame: true,
+                                    margin: '5 0 0',
+                                    store: {
+                                        fields: ['id']
+                                    },
+                                    columns: [
+                                        { header: 'Id', dataIndex: 'id', width: 250 },
+                                        {
+                                            header: 'Image',
+                                            dataIndex: 'id',
+                                            width: 120,
+                                            align: 'center',
+                                            sortable: false,
+                                            renderer: function (v) {
+                                                return Ext.String.format('<img src="/lefoto/upload/{0}" />', v);
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
                                     xtype: 'filefield',
                                     x: 30,
                                     y: 30,
-                                    name: 'photo',
+                                    name: 'myfiles',
                                     fieldLabel: '上传图片',
                                     labelWidth: 60,
                                     msgTarget: 'side',
@@ -62,7 +105,6 @@ Ext.define('app.view.Viewport', {
                 }
             ]
         });
-
         me.callParent(arguments);
     }
 

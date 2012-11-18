@@ -29,8 +29,9 @@
     <mvc:resources mapping="/src/js/**" location="/resource/js/" cache-period="31556926"/>
     <mvc:resources mapping="/src/css/**" location="/resource/css/" cache-period="31556926"/>
     <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>
-    <mvc:resources mapping="/back/app/view/**" location="/WEB-INF/back/app/view/"/>  
-    <mvc:resources mapping="/back/**" location="/WEB-INF/back/"/>              
+    <mvc:resources mapping="/back/**" location="/WEB-INF/back/"/>
+    <mvc:resources mapping="/upload/**" location="/WEB-INF/upload/"/>
+    
     <!-- 针对freemarker的视图配置 -->  
     <bean id="viewResolver"  
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
@@ -43,7 +44,24 @@
         <property name="exposeRequestAttributes" value="true" />  
         <property name="exposeSessionAttributes" value="true" />  
     </bean>
-
+    
+    <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
+        <property name="maxUploadSize" value="2000000"/>  
+    </bean>
+    
+    <!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->  
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->  
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+        <property name="exceptionMappings">  
+            <props>  
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->  
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">/error/error_fileupload</prop>  
+            </props>  
+        </property>  
+    </bean>
+    
     <!-- 拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>

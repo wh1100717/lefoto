@@ -1,4 +1,4 @@
-Ext.define('app.controller.HomeController', {
+Ext.define('lefoto.controller.HomeController', {
     extend: 'Ext.app.Controller',
     views: [
         'Viewport'
