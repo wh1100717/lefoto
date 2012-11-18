@@ -5,6 +5,7 @@
 package com.lefoto.dao.iface.media;
 
 import com.lefoto.model.media.LeAlbum;
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,8 @@ public interface AlbumDao {
     public void deleteAlbum(LeAlbum album);
 
     public void updateAlbum(LeAlbum album);
+
+    public LeAlbum findAlbumById(int id);
+
+    public List<LeAlbum> findAlbumsByUserId(int userId);
 }

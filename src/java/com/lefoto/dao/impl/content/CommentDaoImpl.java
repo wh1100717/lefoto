@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lefoto.dao.impl.media;
+package com.lefoto.dao.impl.content;
 
-import com.lefoto.dao.iface.media.CategoryDao;
-import com.lefoto.model.media.LeCategory;
+import com.lefoto.dao.iface.content.CommentDao;
+import com.lefoto.model.content.LeComment;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -19,39 +19,39 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Eric
  */
-@Repository("categoryDao")
+@Repository("commentDao")
 @Transactional
-public class CategoryDaoImpl implements CategoryDao {
+public class CommentDaoImpl implements CommentDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void addCategory(LeCategory category) {
+    public void addComment(LeComment comment) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.persist(category);
+        session.persist(comment);
         session.getTransaction().commit();
     }
 
     @Override
-    public void deleteCategory(LeCategory category) {
+    public void delComment(LeComment comment) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.delete(category);
+        session.delete(comment);
         session.getTransaction().commit();
     }
 
     @Override
-    public LeCategory findCategoryById(int id) {
-     Session session = this.sessionFactory.getCurrentSession();
+    public LeComment findCommentById(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(LeCategory.class);
+        Criteria criteria = session.createCriteria(LeComment.class);
         criteria.add(Restrictions.eq("id", id));
-        List categories = criteria.list();
+        List comments = criteria.list();
         session.getTransaction().commit();
-        if (categories != null && !categories.isEmpty()) {
-            return (LeCategory) categories.get(0);
+        if (comments != null && !comments.isEmpty()) {
+            return (LeComment) comments.get(0);
         } else {
             return null;
         }

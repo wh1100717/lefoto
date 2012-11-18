@@ -7,6 +7,7 @@ package com.lefoto.service.impl.media;
 import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.service.iface.media.AlbumService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,15 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void editAlbum(LeAlbum album) {
         albumDao.updateAlbum(album);
+    }
+
+    @Override
+    public LeAlbum findAlbumById(int id) {
+        return albumDao.findAlbumById(id);
+    }
+
+    @Override
+    public List<LeAlbum> findAlbumsByUserId(int userId) {
+        return albumDao.findAlbumsByUserId(userId);
     }
 }

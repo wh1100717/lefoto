@@ -15,4 +15,6 @@ public interface CategoryService {
     public void addCategory(LeCategory category);
 
     public void deleteCategotry(LeCategory category);
+    
+    public LeCategory findCategoryById(int id);
 }

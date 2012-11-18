@@ -51,6 +51,8 @@ public class LePhoto implements Serializable {
     String userName;
     @Column(name = "description")
     String description;
+    @Column(name = "channel")
+    int channel = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
     Date create_time = new Date();
@@ -99,6 +101,14 @@ public class LePhoto implements Serializable {
 
     public int getTopicId() {
         return topicId;
+    }
+
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
     }
 
     public void setTopicId(int topicId) {

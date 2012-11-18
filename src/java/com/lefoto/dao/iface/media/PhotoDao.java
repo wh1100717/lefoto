@@ -5,6 +5,7 @@
 package com.lefoto.dao.iface.media;
 
 import com.lefoto.model.media.LePhoto;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,10 @@ public interface PhotoDao {
     public void addPhoto(LePhoto photo);
 
     public void deletePhoto(LePhoto photo);
+
+    public LePhoto findPhotoById(int id);
+
+    public List<LePhoto> findPhotosByAlbumId(int albumId);
+    
+    public List<LePhoto> findPhotosByUserId(int userId);
 }

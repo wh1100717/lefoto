@@ -15,4 +15,6 @@ public interface CategoryDao {
     public void addCategory(LeCategory category);
 
     public void deleteCategory(LeCategory category);
+
+    public LeCategory findCategoryById(int id);
 }

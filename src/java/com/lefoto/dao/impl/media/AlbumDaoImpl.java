@@ -6,8 +6,11 @@ package com.lefoto.dao.impl.media;
 
 import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.model.media.LeAlbum;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +48,35 @@ public class AlbumDaoImpl implements AlbumDao {
         session.beginTransaction();
         session.merge(album);
         session.getTransaction().commit();
+    }
+
+    @Override
+    public LeAlbum findAlbumById(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeAlbum.class);
+        criteria.add(Restrictions.eq("id", id));
+        List albums = criteria.list();
+        session.getTransaction().commit();
+        if (albums != null && !albums.isEmpty()) {
+            return (LeAlbum) albums.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<LeAlbum> findAlbumsByUserId(int userId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeAlbum.class);
+        criteria.add(Restrictions.eq("user_id", userId));
+        List albums = criteria.list();
+        session.getTransaction().commit();
+        if (albums != null && !albums.isEmpty()) {
+            return albums;
+        } else {
+            return null;
+        }
     }
 }
