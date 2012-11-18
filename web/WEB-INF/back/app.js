@@ -8,10 +8,10 @@ Ext.Loader.setConfig({
 Ext.application({
     name: 'lefoto',
     autoCreateViewport: false,
+//    controllers: [
+//        'MultiUploadController'
+//    ]    
     launch: function(){
-        Ext.create('lefoto.view.Viewport');
-    },
-    controllers: [
-        'HomeController'
-    ]
+        Ext.create('lefoto.view.MultiUploadView');
+    }
 });
