@@ -4,8 +4,8 @@
  */
 package com.lefoto.common.filter;
 
-import com.lefoto.user.model.LeUser;
-import com.lefoto.user.service.UserService;
+import com.lefoto.model.user.LeUser;
+import com.lefoto.service.iface.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.lefoto.common.base;
 
 import com.lefoto.common.utils.FormatUtil;
-import com.lefoto.user.model.LeUser;
+import com.lefoto.model.user.LeUser;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 

@@ -11,13 +11,7 @@ package com.lefoto.common.base;
  * @版本：V1.0
  */
 public class Const {
-    //json返回值 
-    public static final String jsonSuccess = "jsonSuccess";
-    public static final String jsonFailure = "jsonFailure";
-    public static final String jsonMessage = "jsonMessage";
-    public static final String jsonData = "jsonData";
-    
-    //
+
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String MESSAGE = "message";

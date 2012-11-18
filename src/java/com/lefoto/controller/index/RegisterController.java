@@ -7,8 +7,8 @@ package com.lefoto.controller.index;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.CipherUtil;
-import com.lefoto.user.model.LeUser;
-import com.lefoto.user.service.UserService;
+import com.lefoto.model.user.LeUser;
+import com.lefoto.service.iface.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 注册模块
+ *
  * @author Eric
  */
 @Controller
@@ -49,13 +50,13 @@ public class RegisterController extends BaseController {
             return mv;
         }
         //检查密码格式是否错误，并比对两次输入密码是否相同
-        String passwordFormat = this.getFormatUtil().checkPasswordFormat(password,passconf);
-        if(passwordFormat.equals("passconfError")){
+        String passwordFormat = this.getFormatUtil().checkPasswordFormat(password, passconf);
+        if (passwordFormat.equals("passconfError")) {
             //两次输入的密码不一致
             mv.addObject(Const.FAILURE, true);
             mv.addObject(Const.MESSAGE, "两次输入的密码不一致");
             return mv;
-        }else if(passwordFormat.equals("lengthError")){
+        } else if (passwordFormat.equals("lengthError")) {
             //密码长度小于六位
             mv.addObject(Const.FAILURE, true);
             mv.addObject(Const.MESSAGE, "密码长度小于6");

@@ -31,7 +31,7 @@ Ext.define('lefoto.view.MultiUploadView', {
                         height: 300,
                         frame: true,
                         uploadConfig: {
-                            uploadUrl: '/lefoto/media/upload.html',
+                            uploadUrl: '/lefoto/backManage/upload.html',
                             maxFileSize: 4 * 1024 * 1024,
                             maxQueueLength: 5
                         },
