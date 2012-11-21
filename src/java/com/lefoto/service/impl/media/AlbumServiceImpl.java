@@ -45,4 +45,9 @@ public class AlbumServiceImpl implements AlbumService {
     public List<LeAlbum> findAlbumsByUserId(int userId) {
         return albumDao.findAlbumsByUserId(userId);
     }
+
+    @Override
+    public LeAlbum findUserAlbumByName(String name, int userId) {
+        return albumDao.findUserAlbumByName(name, userId);
+    }
 }

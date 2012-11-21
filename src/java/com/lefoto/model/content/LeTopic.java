@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
+ * Unused
  *
  * @author Eric
  */
@@ -37,12 +38,6 @@ public class LeTopic implements Serializable {
     int userId;
     @Column(name = "user_name")
     String userName;
-    @Column(name = "comment_count")
-    int commentCount = 0;
-    @Column(name = "forward_count")
-    int forwardCount = 0;
-    @Column(name = "favorite_count")
-    int favoriteCount = 0;
     @Column(name = "channel")
     int channel = 1;
     @Column(name = "create_time")
@@ -105,36 +100,12 @@ public class LeTopic implements Serializable {
         this.userName = userName;
     }
 
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public int getForwardCount() {
-        return forwardCount;
-    }
-
-    public void setForwardCount(int forwardCount) {
-        this.forwardCount = forwardCount;
-    }
-
     public int getChannel() {
         return channel;
     }
 
     public void setChannel(int channel) {
         this.channel = channel;
-    }
-
-    public int getFavoriteCount() {
-        return favoriteCount;
-    }
-
-    public void setFavoriteCount(int favoriteCount) {
-        this.favoriteCount = favoriteCount;
     }
 
     public Date getCreate_time() {

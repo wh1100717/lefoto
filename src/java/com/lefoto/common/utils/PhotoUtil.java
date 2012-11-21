@@ -19,4 +19,5 @@ public class PhotoUtil {
         boolean result = matcher.find();
         return result;
     }
+    
 }

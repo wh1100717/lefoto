@@ -79,4 +79,20 @@ public class AlbumDaoImpl implements AlbumDao {
             return null;
         }
     }
+
+    @Override
+    public LeAlbum findUserAlbumByName(String name, int userId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeAlbum.class);
+        criteria.add(Restrictions.eq("user_id", userId));
+        criteria.add(Restrictions.eq("name", name));
+        List albums = criteria.list();
+        session.getTransaction().commit();
+        if (albums != null && !albums.isEmpty()) {
+            return (LeAlbum) albums.get(0);
+        } else {
+            return null;
+        }
+    }
 }

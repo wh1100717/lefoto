@@ -37,11 +37,13 @@ public class LeComment implements Serializable {
     int replyUserId;
     @Column(name = "reply_user_name")
     String replyUserName;
-    @Column(name = "topic_id")
+    @Column(name = "object_type")
+    int objectType;
+    @Column(name = "object_id")
     int topicId;
-    @Column(name = "topic_user_id")
+    @Column(name = "object_user_id")
     int topicUserId;
-    @Column(name = "topic_user_name")
+    @Column(name = "object_user_name")
     String rtopicUserName;
     @Column(name = "channel")
     int channel = 1;
@@ -105,6 +107,14 @@ public class LeComment implements Serializable {
         this.replyUserName = replyUserName;
     }
 
+    public int getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(int objectType) {
+        this.objectType = objectType;
+    }
+
     public int getTopicId() {
         return topicId;
     }
@@ -144,5 +154,4 @@ public class LeComment implements Serializable {
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
-    
 }

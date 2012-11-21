@@ -44,10 +44,25 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public LeCategory findCategoryById(int id) {
-     Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LeCategory.class);
         criteria.add(Restrictions.eq("id", id));
+        List categories = criteria.list();
+        session.getTransaction().commit();
+        if (categories != null && !categories.isEmpty()) {
+            return (LeCategory) categories.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public LeCategory findCategoryByName(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeCategory.class);
+        criteria.add(Restrictions.eq("name", name));
         List categories = criteria.list();
         session.getTransaction().commit();
         if (categories != null && !categories.isEmpty()) {

@@ -17,4 +17,6 @@ public interface CategoryDao {
     public void deleteCategory(LeCategory category);
 
     public LeCategory findCategoryById(int id);
+
+    public LeCategory findCategoryByName(String name);
 }

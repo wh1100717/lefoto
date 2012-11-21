@@ -1,4 +1,4 @@
-﻿Ext.define('Ext.ux.multiupload.UploadManager', {
+Ext.define('Ext.ux.multiupload.UploadManager', {
     extend: 'Ext.util.MixedCollection',
     singleton: true,
     register: function (item) {

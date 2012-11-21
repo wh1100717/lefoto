@@ -35,4 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.findCategoryById(id);
     }
 
+    @Override
+    public LeCategory findCategoryByName(String name) {
+        return categoryDao.findCategoryByName(name);
+    }
+
 }

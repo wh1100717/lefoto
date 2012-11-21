@@ -29,7 +29,7 @@
     <mvc:resources mapping="/src/js/**" location="/resource/js/" cache-period="31556926"/>
     <mvc:resources mapping="/src/css/**" location="/resource/css/" cache-period="31556926"/>
     <mvc:resources mapping="/src/plugins/**" location="/resource/plugins/" cache-period="31556926"/>
-    <mvc:resources mapping="/back/**" location="/WEB-INF/back/"/>
+    <mvc:resources mapping="/backextjs/**" location="/WEB-INF/backextjs/"/>
     <mvc:resources mapping="/upload/**" location="/WEB-INF/upload/"/>
     
     <!-- 针对freemarker的视图配置 -->  

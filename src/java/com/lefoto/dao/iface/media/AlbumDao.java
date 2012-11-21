@@ -22,4 +22,6 @@ public interface AlbumDao {
     public LeAlbum findAlbumById(int id);
 
     public List<LeAlbum> findAlbumsByUserId(int userId);
+
+    public LeAlbum findUserAlbumByName(String name, int userId);
 }

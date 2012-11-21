@@ -7,7 +7,7 @@ Ext.define('Ext.ux.multiupload.Upload', {
     width: 101,
     height: 22,
     wmode: 'transparent',
-    url: '/lefoto/back/extjs/ux/multiupload/Upload.swf',
+    url: '/lefoto/backextjs/extjs/ux/multiupload/Upload.swf',
     statics: {
         instanceId: 0
     },
@@ -17,8 +17,8 @@ Ext.define('Ext.ux.multiupload.Upload', {
         config.flashVars = config.flashVars || {};
         config.flashVars = Ext.apply({
             instanceId: config.instanceId,
-            buttonImagePath: '/lefoto/back/extjs/ux/multiupload/button.png',
-            buttonImageHoverPath: '/lefoto/back/extjs/ux/multiupload/button_hover.png',
+            buttonImagePath: '/lefoto/backextjs/extjs/ux/multiupload/button.png',
+            buttonImageHoverPath: '/lefoto/backextjs/extjs/ux/multiupload/button_hover.png',
             fileFilters: 'Images (*.jpg)|*.jpg',
             uploadUrl: '/upload/url',
             maxFileSize: 0,

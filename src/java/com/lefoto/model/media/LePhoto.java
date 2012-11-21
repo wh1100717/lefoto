@@ -30,17 +30,15 @@ public class LePhoto implements Serializable {
     @Column(name = "url")
     String url;
     @Column(name = "forward_photo_id")
-    String forwardPhotoId;
-    @Column(name = "topic_id")
-    int topicId;
+    int forwardPhotoId = 0;
     @Column(name = "category_id")
     int categoryId;
     @Column(name = "album_id")
     int albumId;
     @Column(name = "file_size")
-    int fileSize;
+    long fileSize;
     @Column(name = "type")
-    String type;
+    int type = 1;
     @Column(name = "width")
     int width;
     @Column(name = "height")
@@ -51,6 +49,12 @@ public class LePhoto implements Serializable {
     String userName;
     @Column(name = "description")
     String description;
+    @Column(name = "comment_count")
+    int commentCount = 0;
+    @Column(name = "forward_count")
+    int forwardCount = 0;
+    @Column(name = "favorite_count")
+    int favoriteCount = 0;
     @Column(name = "channel")
     int channel = 1;
     @Column(name = "create_time")
@@ -58,22 +62,6 @@ public class LePhoto implements Serializable {
     Date create_time = new Date();
     @Column(name = "is_delete")
     int isDelete = 0;
-
-    public String getForwardPhotoId() {
-        return forwardPhotoId;
-    }
-
-    public void setForwardPhotoId(String forwardPhotoId) {
-        this.forwardPhotoId = forwardPhotoId;
-    }
-
-    public int getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
-    }
 
     public int getId() {
         return id;
@@ -99,20 +87,12 @@ public class LePhoto implements Serializable {
         this.url = url;
     }
 
-    public int getTopicId() {
-        return topicId;
+    public int getForwardPhotoId() {
+        return forwardPhotoId;
     }
 
-    public int getChannel() {
-        return channel;
-    }
-
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
-
-    public void setTopicId(int topicId) {
-        this.topicId = topicId;
+    public void setForwardPhotoId(int forwardPhotoId) {
+        this.forwardPhotoId = forwardPhotoId;
     }
 
     public int getCategoryId() {
@@ -131,24 +111,48 @@ public class LePhoto implements Serializable {
         this.albumId = albumId;
     }
 
-    public int getFileSize() {
+    public long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(int fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     public int getWidth() {
         return width;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getForwardCount() {
+        return forwardCount;
+    }
+
+    public void setForwardCount(int forwardCount) {
+        this.forwardCount = forwardCount;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(int favoriteCount) {
+        this.favoriteCount = favoriteCount;
     }
 
     public void setWidth(int width) {
@@ -187,11 +191,27 @@ public class LePhoto implements Serializable {
         this.description = description;
     }
 
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
+
     public Date getCreate_time() {
         return create_time;
     }
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }

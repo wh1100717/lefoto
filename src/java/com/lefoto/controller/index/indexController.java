@@ -5,7 +5,6 @@
 package com.lefoto.controller.index;
 
 import com.lefoto.common.base.BaseController;
-import com.lefoto.model.user.LeUser;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
