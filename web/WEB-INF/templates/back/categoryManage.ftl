@@ -5,7 +5,7 @@
         <header id="header">
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
-                <h2 class="section_title">Album Manage</h2>
+                <h2 class="section_title">Category Manage</h2>
                 <div class="btn_view_site"><a href="/lefoto/index/show.html">Lefoto</a></div>
             </hgroup>
         </header>
@@ -21,51 +21,46 @@
                     <div class="breadcrumb_divider"></div>
                     <a class="current">AlbumManage</a>
                 </article>
-                <button class="btn btn-mini btn-primary" onclick="showAlbumCreation()" style="float: right; margin: 4px 20px 0 0">创建相册</button>
+                <button class="btn btn-mini btn-primary" onclick="showCategoryCreation()" style="float: right; margin: 4px 20px 0 0">创建分类</button>
             </div>
         </section><!-- end of secondary bar -->
         <#include "/back/layout/aside.ftl">
-
         <section id="main" class="column">
             <!-- 创建分类 -->
-            <article id="albumCreation"class="module" style="display: none;float: right;width: 200px;height: 50px;">
-                <form class="submit_link" action="/lefoto/back/album/add.html" method="post">
-                    <input type="text" name ="albumName" style="width: 100px;margin-top: 7px;">
+            <article id="categoryCreation"class="module" style="display: none;float: right;width: 200px;height: 50px;">
+                <form class="submit_link" action="/lefoto/back/category/add.html" method="post">
+                    <input type="text" name ="cateName" style="width: 100px;margin-top: 7px;">
                     <input type="submit" value="创建" class="alt_btn">
                 </form>
             </article>
-            <div class="clear"></div>
             <!-- END创建分类 -->
+            <div class="clear"></div>
+            <#if message == "">
             <h4 class="alert_info">Welcome to the Album admin panel template, this place will be userd for delivering the target information.</h4>
-            
-
+            <#else>
+            <h4 class="alert_warning">${message}</h4>
+            </#if>
+            <div class="clear"></div>
             <article class="module width_full">
-                <header><h3 class="tabs_involved">相册管理</h3>
-                    <ul class="tabs">
-                        <li><a href="#tab1">Posts</a></li>
-                        <li><a href="#tab2">Comments</a></li>
-                    </ul>
-                </header>
+                <header><h3 class="tabs_involved">分类管理</h3></header>
 
                 <div class="tab_container">
                     <div id="tab1" class="tab_content">
                         <table class="tablesorter" cellspacing="0"> 
-                            <thead> 
+                            <thead>
                                 <tr> 
                                     <th></th> 
-                                    <th>相册名</th> 
-                                    <th>分类</th> 
-                                    <th>创建时间</th> 
+                                    <th>名称</th> 
+                                    <th>图片数量</th>
                                     <th>操作</th> 
                                 </tr> 
                             </thead> 
-                            <tbody> 
-                                <#list albums as album>
+                            <tbody>
+                                <#list categories as category>
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td>${album.name}</td>
-                                    <td>${album.category_id}</td>
-                                    <td>${album.description}</td>
+                                    <td>${category.name}</td> 
+                                    <td>${category.amount}</td> 
                                     <td>
                                         <input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
                                         <input class="categoryDelete" value="${category.name}" type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
@@ -133,13 +128,48 @@
             </article><!-- end of content manager article -->
         </section>
         <script	type="text/javascript">
-            function showAlbumCreation(){
-                if($("#albumCreation").is(":visible")){
-                    $("#albumCreation").fadeOut('slow');
+            function showCategoryCreation(){
+                if($("#categoryCreation").is(":visible")){
+                    $("#categoryCreation").fadeOut('slow');
                 }else{
-                    $("#albumCreation").fadeIn('slow');
+                    $("#categoryCreation").fadeIn('slow');
                 }
             }
+            $(document).ready(function(){
+                $('.categoryDelete').click(function(){
+                    var cateName = $(this).val();
+                    cateName = encodeURI(cateName);
+                    var data = { cateName: cateName};
+                    var elem = $(this).closest('.categoryDelete');
+                    $.confirm({
+                        'title'		: 'Delete Confirmation',
+                        'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+                        'buttons'	: {
+                            'Yes'	: {
+                                'class'	: 'blue',
+                                'action': function(){
+                                    $.ajax({
+                                        type:'post',//可选get
+                                        url:'/lefoto/back/category/delete.html',//这里是接收数据的PHP程序
+                                        data : data,
+                                        success:function(msg){
+                                            //这里是ajax提交成功后，PHP程序返回的数据处理函数。msg是返回的数据，数据类型在dataType参数里定义！
+                                            location.href ="/lefoto/back/categoryManage.html"
+                                        },
+                                        error:function(){
+                                        }
+                                    })
+                                }
+                            },
+                            'No'	: {
+                                'class'	: 'gray',
+                                'action': function(){}	// Nothing to do in this case. You can as well omit the action property.
+                            }
+                        }
+                    });
+                });
+            });
         </script>
+
     </body>
 </html>

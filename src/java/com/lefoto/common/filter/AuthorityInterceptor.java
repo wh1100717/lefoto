@@ -27,6 +27,9 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
         hsr.setAttribute("startTime", System.currentTimeMillis());
         //权限验证
         String email = (String) hsr.getSession().getAttribute("email");
+        //临时测试的时候 添加管理员用户
+        email = "admin@lefoto.com";
+        //Done
         if (email != null) {
             LeUser user = this.userService.findUserByEmail(email);
             hsr.setAttribute("user", user);

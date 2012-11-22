@@ -5,6 +5,7 @@
 package com.lefoto.service.iface.media;
 
 import com.lefoto.model.media.LeCategory;
+import java.util.List;
 
 /**
  *
@@ -19,4 +20,6 @@ public interface CategoryService {
     public LeCategory findCategoryById(int id);
     
     public LeCategory findCategoryByName(String name);
+
+    public List<LeCategory> findCategories();
 }

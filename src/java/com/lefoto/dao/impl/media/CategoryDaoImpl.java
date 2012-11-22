@@ -71,4 +71,18 @@ public class CategoryDaoImpl implements CategoryDao {
             return null;
         }
     }
+
+    @Override
+    public List<LeCategory> findCategories() {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeCategory.class);
+        List categories = criteria.list();
+        session.getTransaction().commit();
+        if (categories != null && !categories.isEmpty()) {
+            return categories;
+        } else {
+            return null;
+        }
+    }
 }

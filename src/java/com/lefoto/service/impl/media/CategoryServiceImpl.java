@@ -7,6 +7,7 @@ package com.lefoto.service.impl.media;
 import com.lefoto.dao.iface.media.CategoryDao;
 import com.lefoto.model.media.LeCategory;
 import com.lefoto.service.iface.media.CategoryService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public LeCategory findCategoryByName(String name) {
         return categoryDao.findCategoryByName(name);
+    }
+
+    @Override
+    public List<LeCategory> findCategories() {
+        return categoryDao.findCategories();
     }
 
 }
