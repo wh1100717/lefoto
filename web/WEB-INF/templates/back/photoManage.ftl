@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
-    <head><#include "/back/layout/head.ftl"></head>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/lefoto/src/plugins/uploadifive/uploadifive.css">
+        <#include "/back/layout/head.ftl">
+        <script src="/lefoto/src/plugins/uploadifive/jquery.uploadifive.min.js" type="text/javascript"></script>
+    </head>
     <body>
         <header id="header">
             <hgroup>
@@ -25,27 +29,17 @@
         </section><!-- end of secondary bar -->
         <#include "/back/layout/aside.ftl"> 
         <section id="main" class="column">
-            <h4 class="alert_warning">A Warning Alert</h4>
-            <h4 class="alert_error">An Error Message</h4>
-            <h4 class="alert_success">A Success Message</h4>
-            <article class="module width_full">
-                <header><h3>Basic Styles</h3></header>
-                <div class="module_content">
-                    <h1>Header 1</h1>
-                    <h2>Header 2</h2>
-                    <h3>Header 3</h3>
-                    <h4>Header 4</h4>
-                    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum. Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                    <p>Donec id elit non mi porta <a href="#">link text</a> gravida at eget metus. Donec ullamcorper nulla non metus auctor fringilla. Cras mattis consectetur purus sit amet fermentum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
-                    <ul>
-                        <li>Donec ullamcorper nulla non metus auctor fringilla. </li>
-                        <li>Cras mattis consectetur purus sit amet fermentum.</li>
-                        <li>Donec ullamcorper nulla non metus auctor fringilla. </li>
-                        <li>Cras mattis consectetur purus sit amet fermentum.</li>
-                    </ul>
-                </div>
-            </article><!-- end of styles article -->
-            <div class="spacer"></div>
+            <form>
+                <input id="file_upload" type="file" name="file_upload" multiple="true"/>
+            </form>
         </section>
+        <script	type="text/javascript">
+            $(function() {
+                $('#file_upload').uploadifive({
+                    'uploadScript' : '/lefoto/back/photo/upload.html'
+                    // Put your options here
+                });
+            });
+        </script>
     </body>
 </html>

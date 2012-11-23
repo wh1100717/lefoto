@@ -37,7 +37,7 @@ public class LeAlbum implements Serializable {
     String description;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    Date create_time;
     @Column(name = "update_time")
     @Temporal(javax.persistence.TemporalType.DATE)
     Date update_time = new Date();

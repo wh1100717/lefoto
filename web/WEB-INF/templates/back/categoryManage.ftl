@@ -138,9 +138,7 @@
             $(document).ready(function(){
                 $('.categoryDelete').click(function(){
                     var cateName = $(this).val();
-                    cateName = encodeURI(cateName);
                     var data = { cateName: cateName};
-                    var elem = $(this).closest('.categoryDelete');
                     $.confirm({
                         'title'		: 'Delete Confirmation',
                         'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',

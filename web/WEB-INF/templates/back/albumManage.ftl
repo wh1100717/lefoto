@@ -36,9 +36,13 @@
             </article>
             <div class="clear"></div>
             <!-- END创建分类 -->
-            <h4 class="alert_info">Welcome to the Album admin panel template, this place will be userd for delivering the target information.</h4>
             
-
+            <#if message == "">
+            <h4 class="alert_info">Welcome to the Album admin panel template, this place will be userd for delivering the target information.</h4>
+            <#else>
+            <h4 class="alert_warning">${message}</h4>
+            </#if>
+            
             <article class="module width_full">
                 <header><h3 class="tabs_involved">相册管理</h3>
                     <ul class="tabs">
@@ -65,68 +69,16 @@
                                     <td><input type="checkbox"></td>
                                     <td>${album.name}</td>
                                     <td>${album.category_id}</td>
-                                    <td>${album.description}</td>
+                                    <td>${album.create_time}</td>
                                     <td>
                                         <input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
-                                        <input class="categoryDelete" value="${category.name}" type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
+                                        <input class="albumDelete" value="${album.name}" type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
                                     </td> 
                                 </tr> 
                                 </#list>
                             </tbody> 
                         </table>
                     </div><!-- end of #tab1 -->
-
-                    <div id="tab2" class="tab_content">
-                        <table class="tablesorter" cellspacing="0"> 
-                            <thead> 
-                                <tr> 
-                                    <th></th> 
-                                    <th>Comment</th> 
-                                    <th>Posted by</th> 
-                                    <th>Posted On</th> 
-                                    <th>Actions</th> 
-                                </tr> 
-                            </thead> 
-                            <tbody> 
-                                <tr> 
-                                    <td><input type="checkbox"></td> 
-                                    <td>Lorem Ipsum Dolor Sit Amet</td> 
-                                    <td>Mark Corrigan</td> 
-                                    <td>5th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
-                                </tr> 
-                                <tr> 
-                                    <td><input type="checkbox"></td> 
-                                    <td>Ipsum Lorem Dolor Sit Amet</td> 
-                                    <td>Jeremy Usbourne</td> 
-                                    <td>6th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
-                                </tr>
-                                <tr> 
-                                    <td><input type="checkbox"></td> 
-                                    <td>Sit Amet Dolor Ipsum</td> 
-                                    <td>Super Hans</td> 
-                                    <td>10th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
-                                </tr> 
-                                <tr> 
-                                    <td><input type="checkbox"></td> 
-                                    <td>Dolor Lorem Amet</td> 
-                                    <td>Alan Johnson</td> 
-                                    <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
-                                </tr> 
-                                <tr> 
-                                    <td><input type="checkbox"></td> 
-                                    <td>Dolor Lorem Amet</td> 
-                                    <td>Dobby</td> 
-                                    <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
-                                </tr> 
-                            </tbody> 
-                        </table>
-
-                    </div><!-- end of #tab2 -->
 
                 </div><!-- end of .tab_container -->
 
@@ -140,6 +92,38 @@
                     $("#albumCreation").fadeIn('slow');
                 }
             }
+            $(document).ready(function(){
+                $('.albumDelete').click(function(){
+                    var albumName = $(this).val();
+                    var data = { albumName:albumName};
+                    $.confirm({
+                        'title'		: 'Delete Confirmation',
+                        'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+                        'buttons'	: {
+                            'Yes'	: {
+                                'class'	: 'blue',
+                                'action': function(){
+                                    $.ajax({
+                                        type:'post',//可选get
+                                        url:'/lefoto/back/album/delete.html',//这里是接收数据的PHP程序
+                                        data : data,
+                                        success:function(msg){
+                                            //这里是ajax提交成功后，PHP程序返回的数据处理函数。msg是返回的数据，数据类型在dataType参数里定义！
+                                            location.href ="/lefoto/back/albumManage.html"
+                                        },
+                                        error:function(){
+                                        }
+                                    })
+                                }
+                            },
+                            'No'	: {
+                                'class'	: 'gray',
+                                'action': function(){}	// Nothing to do in this case. You can as well omit the action property.
+                            }
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 </html>

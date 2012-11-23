@@ -28,27 +28,27 @@ public class LePhoto implements Serializable {
     @Column(name = "name")
     String name;
     @Column(name = "url")
-    String url;
+    String url = "";
     @Column(name = "forward_photo_id")
     int forwardPhotoId = 0;
     @Column(name = "category_id")
-    int categoryId;
+    int categoryId = 0;
     @Column(name = "album_id")
-    int albumId;
+    int albumId = 0;
     @Column(name = "file_size")
-    long fileSize;
+    long fileSize = 0;
     @Column(name = "type")
     int type = 1;
     @Column(name = "width")
-    int width;
+    int width = 0;
     @Column(name = "height")
-    int height;
+    int height = 0;
     @Column(name = "user_id")
     int userId;
     @Column(name = "user_name")
     String userName;
     @Column(name = "description")
-    String description;
+    String description = "";
     @Column(name = "comment_count")
     int commentCount = 0;
     @Column(name = "forward_count")
@@ -131,30 +131,6 @@ public class LePhoto implements Serializable {
         return width;
     }
 
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public int getForwardCount() {
-        return forwardCount;
-    }
-
-    public void setForwardCount(int forwardCount) {
-        this.forwardCount = forwardCount;
-    }
-
-    public int getFavoriteCount() {
-        return favoriteCount;
-    }
-
-    public void setFavoriteCount(int favoriteCount) {
-        this.favoriteCount = favoriteCount;
-    }
-
     public void setWidth(int width) {
         this.width = width;
     }
@@ -191,6 +167,30 @@ public class LePhoto implements Serializable {
         this.description = description;
     }
 
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getForwardCount() {
+        return forwardCount;
+    }
+
+    public void setForwardCount(int forwardCount) {
+        this.forwardCount = forwardCount;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(int favoriteCount) {
+        this.favoriteCount = favoriteCount;
+    }
+
     public int getChannel() {
         return channel;
     }
@@ -214,4 +214,5 @@ public class LePhoto implements Serializable {
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
     }
+
 }

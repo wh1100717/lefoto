@@ -8,6 +8,7 @@ import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.service.iface.media.AlbumService;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,11 +30,18 @@ public class AlbumManageController extends BaseController {
     AlbumService albumService;
 
     @RequestMapping(value = "/add")
-    public ModelAndView index(HttpServletRequest request) throws Exception {
+    public ModelAndView add(HttpServletRequest request) throws Exception {
         this.execute(request);
-        ModelAndView mv = new ModelAndView("/back/categoryManage");
+        ModelAndView mv = new ModelAndView("/back/albumManage");
         String albumName = this.getParaStringFromRequest("albumName");
         String message = "";
+        if (albumName == null || albumName.equals("")) {
+            message = "相册名不能为空";
+            mv.addObject("message", message);
+            List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
+            mv.addObject("albums", albums);
+            return mv;
+        }
         LeAlbum album = albumService.findUserAlbumByName(albumName, this.getUser().getId());
         if (album != null) {
             message = "已存在该相册";
@@ -43,6 +51,8 @@ public class AlbumManageController extends BaseController {
             album.setName(albumName);
             album.setUserId(this.getUser().getId());
             album.setUserName(this.getUser().getNickName());
+            album.setCreate_time(new Date());
+            albumService.addAlbum(album);
         }
         List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
         mv.addObject("albums", albums);
