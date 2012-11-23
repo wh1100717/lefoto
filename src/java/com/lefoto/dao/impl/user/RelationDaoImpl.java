@@ -112,8 +112,8 @@ public class RelationDaoImpl implements RelationDao {
         int userId = user.getId();
         int followUserId = followUser.getId();
         Criteria criteria = session.createCriteria(Relationship.class);
-        criteria.add(Restrictions.eq("user_id", userId));
-        criteria.add(Restrictions.eq("follow_user_id", followUserId));
+        criteria.add(Restrictions.eq("userId", userId));
+        criteria.add(Restrictions.eq("followUserId", followUserId));
         List relationshipList = criteria.list();
         if (relationshipList != null && !relationshipList.isEmpty()) {
             relationship = (Relationship) relationshipList.get(0);
@@ -146,7 +146,7 @@ public class RelationDaoImpl implements RelationDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(RelationGroup.class);
-        criteria.add(Restrictions.eq("user_id", user.getId()));
+        criteria.add(Restrictions.eq("userId", user.getId()));
         List relationGroups = criteria.list();
         session.getTransaction().commit();
         return relationGroups;

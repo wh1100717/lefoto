@@ -45,7 +45,7 @@ public class AlbumManageController extends BaseController {
             album.setUserName(this.getUser().getNickName());
         }
         List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
-        mv.addObject("categories", albums);
+        mv.addObject("albums", albums);
         return mv;
     }
 

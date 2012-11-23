@@ -70,7 +70,7 @@ public class AlbumDaoImpl implements AlbumDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LeAlbum.class);
-        criteria.add(Restrictions.eq("user_id", userId));
+        criteria.add(Restrictions.eq("userId", userId));
         List albums = criteria.list();
         session.getTransaction().commit();
         if (albums != null && !albums.isEmpty()) {
@@ -85,7 +85,7 @@ public class AlbumDaoImpl implements AlbumDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LeAlbum.class);
-        criteria.add(Restrictions.eq("user_id", userId));
+        criteria.add(Restrictions.eq("userId", userId));
         criteria.add(Restrictions.eq("name", name));
         List albums = criteria.list();
         session.getTransaction().commit();

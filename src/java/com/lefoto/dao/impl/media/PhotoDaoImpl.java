@@ -62,7 +62,7 @@ public class PhotoDaoImpl implements PhotoDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
-        criteria.add(Restrictions.eq("album_id", albumId));
+        criteria.add(Restrictions.eq("albumId", albumId));
         List photos = criteria.list();
         session.getTransaction().commit();
         if (photos != null && !photos.isEmpty()) {
@@ -77,7 +77,7 @@ public class PhotoDaoImpl implements PhotoDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
-        criteria.add(Restrictions.eq("user_id", userId));
+        criteria.add(Restrictions.eq("userId", userId));
         List photos = criteria.list();
         session.getTransaction().commit();
         if (photos != null && !photos.isEmpty()) {
