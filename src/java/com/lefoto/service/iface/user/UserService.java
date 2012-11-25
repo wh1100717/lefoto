@@ -4,6 +4,7 @@
  */
 package com.lefoto.service.iface.user;
 
+import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 
@@ -26,4 +27,6 @@ public interface UserService {
     public boolean checkEmailExist(String email);
     
     public void addOrUpdateUserInfo(LeUserInfo userInfo);
+    
+    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace);
 }

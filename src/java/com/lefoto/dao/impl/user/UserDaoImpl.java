@@ -5,6 +5,7 @@
 package com.lefoto.dao.impl.user;
 
 import com.lefoto.dao.iface.user.UserDao;
+import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import java.util.List;
@@ -113,5 +114,13 @@ public class UserDaoImpl implements UserDao {
         LeUserInfo leUserInfo = (LeUserInfo) session.get(LeUserInfo.class, userId);
         session.getTransaction().commit();
         return leUserInfo;
+    }
+
+    @Override
+    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.persist(defaultUserFace);
+        session.getTransaction().commit();
     }
 }

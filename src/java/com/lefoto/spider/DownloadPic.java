@@ -1,4 +1,4 @@
-package com.spider;
+package com.lefoto.spider;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,132 +10,122 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Ê¹ÓÃURLConnectionÏÂÔØÎÄ¼þ»òÍ¼Æ¬²¢±£´æµ½±¾µØ¡£
- * 
- * @author ÀÏ×ÏÖñ(laozizhu.com)
- */
 public class DownloadPic {
 //	static String fileName1 = "D:/imgGrab/imgUrls/woxihuanTongQu.txt";
 //	static String filePath1 = "D:/imgGrab/woxihuanTongQu/";
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		String[] fileNames = 
-			{"D:/imgGrab/imgUrls/woxihuanTongQu.txt",
-			 "D:/imgGrab/imgUrls/woxihuanMeiShi.txt",
-			 "D:/imgGrab/imgUrls/woxihuanMeiNv.txt",
-			 "D:/imgGrab/imgUrls/woxihuanGaoXiao.txt",
-			 "D:/imgGrab/imgUrls/woxihuanDongMan.txt",
-			 "D:/imgGrab/imgUrls/duitangMengTu.txt",
-			 "D:/imgGrab/imgUrls/duitangDongMan.txt"};
-		String[] filePaths = 
-			{"D:/imgGrab/woxihuantongqu/",
-			 "D:/imgGrab/woxihuanmeishi/",
-			 "D:/imgGrab/woxihuanmeinv/",
-			 "D:/imgGrab/woxihuangaoxiao/",
-			 "D:/imgGrab/woxihuandongman/",
-			 "D:/imgGrab/duitangmengtu/",
-			 "D:/imgGrab/duitangdongman/"};
-		for(int index = 0; index < 7; index++){
-			String fileName = fileNames[index];
-			String filePath = filePaths[index];
-			File file = new File(fileName);
-			BufferedReader reader = null;
-			try {
-				System.out.println("ÒÔÐÐÎªµ¥Î»¶ÁÈ¡ÎÄ¼þÄÚÈÝ£¬Ò»´Î¶ÁÒ»ÕûÐÐ£º");
-				reader = new BufferedReader(new FileReader(file));
-				String imgUrl = null;
-				int line = 1;
-				// Ò»´Î¶ÁÈëÒ»ÐÐ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼þ½áÊø
-				while ((imgUrl = reader.readLine()) != null) {
-					// ÏÔÊ¾ÐÐºÅ
-					String imgName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
-					System.out.println(imgName);
-					try {
+        String[] fileNames = {"D:/imgGrab/imgUrls/woxihuanTongQu.txt",
+            "D:/imgGrab/imgUrls/woxihuanMeiShi.txt",
+            "D:/imgGrab/imgUrls/woxihuanMeiNv.txt",
+            "D:/imgGrab/imgUrls/woxihuanGaoXiao.txt",
+            "D:/imgGrab/imgUrls/woxihuanDongMan.txt",
+            "D:/imgGrab/imgUrls/duitangMengTu.txt",
+            "D:/imgGrab/imgUrls/duitangDongMan.txt"};
+        String[] filePaths = {"D:/imgGrab/woxihuantongqu/",
+            "D:/imgGrab/woxihuanmeishi/",
+            "D:/imgGrab/woxihuanmeinv/",
+            "D:/imgGrab/woxihuangaoxiao/",
+            "D:/imgGrab/woxihuandongman/",
+            "D:/imgGrab/duitangmengtu/",
+            "D:/imgGrab/duitangdongman/"};
+        for (int index = 0; index < 7; index++) {
+            String fileName = fileNames[index];
+            String filePath = filePaths[index];
+            File file = new File(fileName);
+            BufferedReader reader = null;
+            try {
+                System.out.println("ä»¥è¡Œä¸ºå•ä½è¯»å–æ–‡ä»¶å†…å®¹ï¼Œä¸€æ¬¡è¯»ä¸€æ•´è¡Œï¼š");
+                reader = new BufferedReader(new FileReader(file));
+                String imgUrl = null;
+                int line = 1;
+                // ä¸€æ¬¡è¯»å…¥ä¸€è¡Œï¼Œç›´åˆ°è¯»å…¥nullä¸ºæ–‡ä»¶ç»“æŸ
+                while ((imgUrl = reader.readLine()) != null) {
+                    // æ˜¾ç¤ºè¡Œå·
+                    String imgName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
+                    System.out.println(imgName);
+                    try {
 
-						download(imgUrl, filePath + imgName);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					line++;
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				if (reader != null) {
-					try {
-						reader.close();
-					} catch (IOException e1) {
-					}
-				}
-			}
-		}
-		System.out.println("Download Finish!£º");
-	}
+                        download(imgUrl, filePath + imgName);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    line++;
+                }
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e1) {
+                    }
+                }
+            }
+        }
+        System.out.println("Download Finish!ï¼š");
+    }
 
-	/**
-	 * ÏÂÔØÎÄ¼þµ½±¾µØ
-	 * 
-	 * @param urlString
-	 *            ±»ÏÂÔØµÄÎÄ¼þµØÖ·
-	 * @param filename
-	 *            ±¾µØÎÄ¼þÃû
-	 * @throws Exception
-	 *             ¸÷ÖÖÒì³£
-	 */
-	public static void download(String urlString, String filename)
-			throws Exception {
-		// ¹¹ÔìURL
-		URL url = new URL(urlString);
-		// ´ò¿ªÁ¬½Ó
-		URLConnection con = url.openConnection();
-		// ÊäÈëÁ÷
-		InputStream is = con.getInputStream();
-		// 1KµÄÊý¾Ý»º³å
-		byte[] bs = new byte[1024];
-		// ¶ÁÈ¡µ½µÄÊý¾Ý³¤¶È
-		int len;
-		// Êä³öµÄÎÄ¼þÁ÷
-		OutputStream os = new FileOutputStream(filename);
-		// ¿ªÊ¼¶ÁÈ¡
-		while ((len = is.read(bs)) != -1) {
-			os.write(bs, 0, len);
-		}
-		// Íê±Ï£¬¹Ø±ÕËùÓÐÁ´½Ó
-		os.close();
-		is.close();
-	}
+    /**
+     * ä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°
+     *
+     * @param urlString è¢«ä¸‹è½½çš„æ–‡ä»¶åœ°å€
+     * @param filename æœ¬åœ°æ–‡ä»¶å
+     * @throws Exception å„ç§å¼‚å¸¸
+     */
+    public static void download(String urlString, String filename)
+            throws Exception {
+        // æž„é€ URL
+        URL url = new URL(urlString);
+        // æ‰“å¼€è¿žæŽ¥
+        URLConnection con = url.openConnection();
+        // è¾“å…¥æµ
+        InputStream is = con.getInputStream();
+        // 1Kçš„æ•°æ®ç¼“å†²
+        byte[] bs = new byte[1024];
+        // è¯»å–åˆ°çš„æ•°æ®é•¿åº¦
+        int len;
+        // è¾“å‡ºçš„æ–‡ä»¶æµ
+        OutputStream os = new FileOutputStream(filename);
+        // å¼€å§‹è¯»å–
+        while ((len = is.read(bs)) != -1) {
+            os.write(bs, 0, len);
+        }
+        // å®Œæ¯•ï¼Œå…³é—­æ‰€æœ‰é“¾æŽ¥
+        os.close();
+        is.close();
+    }
 
-	/**
-	 * ÒÔÐÐÎªµ¥Î»¶ÁÈ¡ÎÄ¼þ£¬³£ÓÃÓÚ¶ÁÃæÏòÐÐµÄ¸ñÊ½»¯ÎÄ¼þ
-	 */
-	public static void readFileByLines(String fileName) {
-		File file = new File(fileName);
-		BufferedReader reader = null;
-		try {
-			System.out.println("ÒÔÐÐÎªµ¥Î»¶ÁÈ¡ÎÄ¼þÄÚÈÝ£¬Ò»´Î¶ÁÒ»ÕûÐÐ£º");
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			int line = 1;
-			// Ò»´Î¶ÁÈëÒ»ÐÐ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼þ½áÊø
-			while ((tempString = reader.readLine()) != null) {
-				// ÏÔÊ¾ÐÐºÅ
-				System.out.println("line " + line + ": " + tempString);
-				line++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-				}
-			}
-		}
-	}
+    /**
+     * ä»¥è¡Œä¸ºå•ä½è¯»å–æ–‡ä»¶ï¼Œå¸¸ç”¨äºŽè¯»é¢å‘è¡Œçš„æ ¼å¼åŒ–æ–‡ä»¶
+     */
+    public static void readFileByLines(String fileName) {
+        File file = new File(fileName);
+        BufferedReader reader = null;
+        try {
+            System.out.println("ä»¥è¡Œä¸ºå•ä½è¯»å–æ–‡ä»¶å†…å®¹ï¼Œä¸€æ¬¡è¯»ä¸€æ•´è¡Œï¼š");
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            int line = 1;
+            // ä¸€æ¬¡è¯»å…¥ä¸€è¡Œï¼Œç›´åˆ°è¯»å…¥nullä¸ºæ–‡ä»¶ç»“æŸ
+            while ((tempString = reader.readLine()) != null) {
+                // æ˜¾ç¤ºè¡Œå·
+                System.out.println("line " + line + ": " + tempString);
+                line++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+    }
 }

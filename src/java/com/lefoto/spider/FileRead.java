@@ -1,7 +1,5 @@
-package com.spider;
+package com.lefoto.spider;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,115 +17,116 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileRead {
-	// ¸ù¾İurl¶ÁÈ¡ÎÄ¼şÄÚÈİ
-	static int i = 0;
+    // æ ¹æ®urlè¯»å–æ–‡ä»¶å†…å®¹
 
-	public String readContent(String url) throws IOException,
-			FileNotFoundException {
-		try {
-			String content = "";
-			StringBuffer strBuffer = new StringBuffer();
-			System.out.println("ÇëÇóµØÖ·Îª£º" + url);
-			if (url.contains("flash")) {
-				return "";
-			}
-			URL requestUrl = new URL(url);
-			// ´ò¿ªÁ´½Ó
-			HttpURLConnection connection = (HttpURLConnection) requestUrl
-					.openConnection();
-			connection.setRequestProperty("User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-			connection.connect();
+    static int i = 0;
 
-			InputStream is = connection.getInputStream();
-			while ((is.read()) != -1) {
-				int all = is.available();
-				byte[] b = new byte[all];
-				is.read(b);
-				strBuffer.append(new String(b, "UTF-8"));
-			}
-			if (is != null)
-				is.close();
-			content = strBuffer.toString();
-			System.out.println("content" + content);
-			return content;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		} finally {
+    public String readContent(String url) throws IOException,
+            FileNotFoundException {
+        try {
+            String content = "";
+            StringBuffer strBuffer = new StringBuffer();
+            System.out.println("è¯·æ±‚åœ°å€ä¸ºï¼š" + url);
+            if (url.contains("flash")) {
+                return "";
+            }
+            URL requestUrl = new URL(url);
+            // æ‰“å¼€é“¾æ¥
+            HttpURLConnection connection = (HttpURLConnection) requestUrl
+                    .openConnection();
+            connection.setRequestProperty("User-Agent",
+                    "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+            connection.connect();
 
-		}
-	}
-
-	// »ñÈ¡Ö¸¶¨¸ñÊ½µÄÎÄ¼ş¸ñÊ½
-	public List getUrlList(String content, String type) {
-		List urlList = new ArrayList();
-		Pattern pattern = Pattern.compile("http://.*." + type + "");
-		Matcher matcher = pattern.matcher(content);
-		while (matcher.find()) {
-			int start = matcher.start();
-			int end = matcher.end();
-			String href = content.substring(start, end);
-			System.out.println("url:" + href);
-			urlList.add(href);
-		}
-		return urlList;
-	}
-
-	// »ñÈ¡Í¼Æ¬µÄÁ´½Ó
-	public List getPhoto(String content, String type) {
-		List list = new ArrayList();
-		Pattern pattern = Pattern.compile("src=.http://.*." + type + "");
-		Matcher matcher = pattern.matcher(content);
-		while (matcher.find()) {
-			int start = matcher.start();
-			int end = matcher.end();
-			String href = content.substring(start, end);
-			if (href.contains("src=")) {
-				href = href.substring(5);
-			}
-
-			System.out.println("url:" + href);
-			list.add(href);
-		}
-		System.out.println("size++:" + list.size());
-		return list;
-	}
-
-	public void writePhoto(List urlList) throws IOException,
-			FileNotFoundException {
-		for (int i = 0; i < urlList.size(); i++) {
-			String url = (String) urlList.get(i);
-			writePhotoToFile(url);
-		}
-	}
-
-	public void writePhotoToFile(String url) throws IOException,FileNotFoundException{
-		try{
-		i++;
-		String saveFileName = "D://test//images//";
-		String today=new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
-		saveFileName+=today+i;
-		saveFileName+=".jpg";
-		if(url.length()>=55)
-			return;
-		URL requestUrl = new URL(url);
-        DataInputStream dis = new DataInputStream(requestUrl.openStream());
-        OutputStream fos = new FileOutputStream(new File(saveFileName));
-        byte[] buff = new byte[1024];
-        int len = -1;
-        while((len = dis.read(buff))!=-1){
-            fos.write(buff, 0, len);
+            InputStream is = connection.getInputStream();
+            while ((is.read()) != -1) {
+                int all = is.available();
+                byte[] b = new byte[all];
+                is.read(b);
+                strBuffer.append(new String(b, "UTF-8"));
+            }
+            if (is != null) {
+                is.close();
+            }
+            content = strBuffer.toString();
+            System.out.println("content" + content);
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        } finally {
         }
-        buff = null;
-        System.out.println("ÏÂÔØÎÄ¼ş"+saveFileName+"Íê³É");
-        fos.close();
-        dis.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			return;
-		}
-	}
+    }
 
+    // è·å–æŒ‡å®šæ ¼å¼çš„æ–‡ä»¶æ ¼å¼
+    public List getUrlList(String content, String type) {
+        List urlList = new ArrayList();
+        Pattern pattern = Pattern.compile("http://.*." + type + "");
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            String href = content.substring(start, end);
+            System.out.println("url:" + href);
+            urlList.add(href);
+        }
+        return urlList;
+    }
+
+    // è·å–å›¾ç‰‡çš„é“¾æ¥
+    public List getPhoto(String content, String type) {
+        List list = new ArrayList();
+        Pattern pattern = Pattern.compile("src=.http://.*." + type + "");
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            String href = content.substring(start, end);
+            if (href.contains("src=")) {
+                href = href.substring(5);
+            }
+
+            System.out.println("url:" + href);
+            list.add(href);
+        }
+        System.out.println("size++:" + list.size());
+        return list;
+    }
+
+    public void writePhoto(List urlList) throws IOException,
+            FileNotFoundException {
+        for (int i = 0; i < urlList.size(); i++) {
+            String url = (String) urlList.get(i);
+            writePhotoToFile(url);
+        }
+    }
+
+    public void writePhotoToFile(String url) throws IOException, FileNotFoundException {
+        try {
+            i++;
+            String saveFileName = "D://test//images//";
+            String today = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+            saveFileName += today + i;
+            saveFileName += ".jpg";
+            if (url.length() >= 55) {
+                return;
+            }
+            URL requestUrl = new URL(url);
+            DataInputStream dis = new DataInputStream(requestUrl.openStream());
+            OutputStream fos = new FileOutputStream(new File(saveFileName));
+            byte[] buff = new byte[1024];
+            int len = -1;
+            while ((len = dis.read(buff)) != -1) {
+                fos.write(buff, 0, len);
+            }
+            buff = null;
+            System.out.println("ä¸‹è½½æ–‡ä»¶" + saveFileName + "å®Œæˆ");
+            fos.close();
+            dis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return;
+        }
+    }
 }

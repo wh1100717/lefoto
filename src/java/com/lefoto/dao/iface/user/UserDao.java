@@ -4,6 +4,7 @@
  */
 package com.lefoto.dao.iface.user;
 
+import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 
@@ -28,4 +29,6 @@ public interface UserDao {
     public LeUserInfo findUserInfoByUserId(String userId);
 
     public void addOrUpdateUserInfo(LeUserInfo userInfo);
+
+    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace);
 }

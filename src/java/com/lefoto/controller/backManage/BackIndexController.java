@@ -51,7 +51,12 @@ public class BackIndexController extends BaseController {
         ModelAndView mv = new ModelAndView("/back/categoryManage");
         List<LeCategory> categories = categoryService.findCategories();
         mv.addObject("categories", categories);
-
         return mv;
     }
+    @RequestMapping(value = "/user/defaultUserFace")
+    public ModelAndView defaultUserFaceManage(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("/back/user/defaultUserFace");
+        return mv;
+    }
+
 }

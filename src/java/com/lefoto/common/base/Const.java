@@ -25,4 +25,5 @@ public class Const {
     //lefoto
     //1 * 24 * 3600
     public static final int COOKIE_EXPIRE_TIME = 86400;
+    public static String UPLOAD_FOLDER_PATH = "/WEB-INF/upload";
 }

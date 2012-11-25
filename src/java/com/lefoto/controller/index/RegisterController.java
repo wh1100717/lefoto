@@ -69,8 +69,6 @@ public class RegisterController extends BaseController {
             mv.addObject(Const.MESSAGE, "邮箱已被注册");
             return mv;
         }
-        //密码加密
-        password = CipherUtil.generatePassword(passconf);
         LeUser user = new LeUser();
         user.setEmail(email);
         user.setPassword(password);

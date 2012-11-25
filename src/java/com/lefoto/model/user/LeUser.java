@@ -4,6 +4,7 @@
  */
 package com.lefoto.model.user;
 
+import com.lefoto.common.utils.CipherUtil;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -68,6 +69,8 @@ public class LeUser implements Serializable {
     }
 
     public void setPassword(String password) {
+        //密码加密
+        password = CipherUtil.generatePassword(password);
         this.password = password;
     }
 

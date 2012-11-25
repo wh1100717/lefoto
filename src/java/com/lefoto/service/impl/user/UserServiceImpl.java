@@ -5,6 +5,7 @@
 package com.lefoto.service.impl.user;
 
 import com.lefoto.dao.iface.user.UserDao;
+import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import com.lefoto.service.iface.user.UserService;
@@ -54,5 +55,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addOrUpdateUserInfo(LeUserInfo userInfo) {
         this.userDao.addOrUpdateUserInfo(userInfo);
+    }
+
+    @Override
+    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace) {
+        this.userDao.addDefaultUserFace(defaultUserFace);
     }
 }
