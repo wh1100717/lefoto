@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -35,6 +36,7 @@ public class PhotoManageController extends BaseController {
     private PhotoService photoService;
     private String uploadFolderPath = "/WEB-INF/upload";
 
+    @ResponseBody
     @RequestMapping(value = "/back/photo/upload", method = RequestMethod.POST)
     public String upload(@RequestParam("Filedata") MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         //如果只是上传一个文件，则只需要MultipartFile类型接收文件即可，而且无需显式指定@RequestParam注解  
