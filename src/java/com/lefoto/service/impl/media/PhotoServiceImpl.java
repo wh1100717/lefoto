@@ -8,6 +8,7 @@ import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.media.LePhoto;
+import com.lefoto.model.media.LePhotoUpdown;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 图片Service的实现类
+ *
  * @author Eric
  */
 @Service
@@ -22,7 +24,6 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Autowired
     private PhotoDao photoDao;
-    
     @Autowired
     private AlbumDao albumDao;
 
@@ -30,9 +31,9 @@ public class PhotoServiceImpl implements PhotoService {
     public void addPhoto(LePhoto photo) {
         int albumId = photo.getAlbumId();
         LeAlbum album;
-        if(albumId == 0){
+        if (albumId == 0) {
             album = albumDao.findUserAlbumByName("默认相册", photo.getUserId());
-            if(album == null){
+            if (album == null) {
                 album = new LeAlbum();
                 album.setName("默认相册");
                 album.setUserId(photo.getUserId());
@@ -45,8 +46,31 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
+    public void forwardPhoto(int userId, int forward_user_id, int photoId, int cateId, int albumId) {
+        LePhoto forwardPhoto = new LePhoto();
+        LePhoto photo = this.findPhotoById(photoId);
+        forwardPhoto.setAlbumId(albumId);
+        forwardPhoto.setCategoryId(cateId);
+        forwardPhoto.setFileSize(photo.getFileSize());
+        forwardPhoto.setHeight(photo.getHeight());
+        forwardPhoto.setWidth(photo.getWidth());
+        forwardPhoto.setType(photo.getType());
+        forwardPhoto.setUrl(photo.getUrl());
+        forwardPhoto.setForwardPhotoId(photoId);
+        forwardPhoto.setForwardUserId(forward_user_id);
+        photoDao.addPhoto(forwardPhoto);
+        photo.setForwardCount(photo.getForwardCount()+1);
+        photoDao.updatePhoto(photo);
+    }
+
+    @Override
     public void deletePhoto(LePhoto photo) {
         photoDao.deletePhoto(photo);
+    }
+    
+    @Override
+    public void updatePhoto(LePhoto photo){
+        photoDao.updatePhoto(photo);
     }
 
     @Override
@@ -64,4 +88,24 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.findPhotosByUserId(userId);
     }
 
+    @Override
+    public void upPhoto(int photoId, int userId) {
+        LePhotoUpdown photoUpdown = this.findPhotoUpdown(photoId, userId);
+        if (photoUpdown == null) {
+            photoDao.upPhoto(photoId, userId);
+        }
+    }
+
+    @Override
+    public void downPhoto(int photoId, int userId) {
+        LePhotoUpdown photoUpdown = this.findPhotoUpdown(photoId, userId);
+        if (photoUpdown == null) {
+            photoDao.downPhoto(photoId, userId);
+        }
+    }
+
+    @Override
+    public LePhotoUpdown findPhotoUpdown(int photoId, int userId) {
+        return photoDao.findPhotoUpdown(photoId, userId);
+    }
 }

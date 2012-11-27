@@ -31,6 +31,8 @@ public class LePhoto implements Serializable {
     String url = "";
     @Column(name = "forward_photo_id")
     int forwardPhotoId = 0;
+    @Column(name = "forward_user_id")
+    int forwardUserId = 0;
     @Column(name = "category_id")
     int categoryId = 0;
     @Column(name = "album_id")
@@ -53,8 +55,10 @@ public class LePhoto implements Serializable {
     int commentCount = 0;
     @Column(name = "forward_count")
     int forwardCount = 0;
-    @Column(name = "favorite_count")
-    int favoriteCount = 0;
+    @Column(name = "up_count")
+    int upCount = 0;
+    @Column(name = "down_count")
+    int downCount = 0;
     @Column(name = "channel")
     int channel = 1;
     @Column(name = "create_time")
@@ -183,14 +187,6 @@ public class LePhoto implements Serializable {
         this.forwardCount = forwardCount;
     }
 
-    public int getFavoriteCount() {
-        return favoriteCount;
-    }
-
-    public void setFavoriteCount(int favoriteCount) {
-        this.favoriteCount = favoriteCount;
-    }
-
     public int getChannel() {
         return channel;
     }
@@ -213,6 +209,30 @@ public class LePhoto implements Serializable {
 
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public int getUpCount() {
+        return upCount;
+    }
+
+    public void setUpCount(int upCount) {
+        this.upCount = upCount;
+    }
+
+    public int getDownCount() {
+        return downCount;
+    }
+
+    public int getForwardUserId() {
+        return forwardUserId;
+    }
+
+    public void setForwardUserId(int forwardUserId) {
+        this.forwardUserId = forwardUserId;
+    }
+
+    public void setDownCount(int downCount) {
+        this.downCount = downCount;
     }
 
 }
