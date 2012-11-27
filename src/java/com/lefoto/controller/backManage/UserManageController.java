@@ -8,9 +8,7 @@ import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.PhotoUtil;
 import com.lefoto.common.utils.StringUtil;
 import com.lefoto.common.utils.UpYunUtil;
-import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeDefaultUserFace;
-import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.user.UserService;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- *
+ * 用户管理模块
  * @author Eric
  */
 @Controller
@@ -36,6 +34,15 @@ public class UserManageController {
     @Autowired
     UserService userService;
 
+    /**
+     * 添加默认用户头像
+     * @param myfiles 获取的图片对象，其为数组，可实现多图上传
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
     @RequestMapping(value = "/uploadDefaultUserFace", method = RequestMethod.POST)
     public @ResponseBody
     String uploadDefaultUserFace(@RequestParam("Filedata") MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {

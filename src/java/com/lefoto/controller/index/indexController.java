@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * 网站首页
  * @author Eric
  */
 @Controller
 @RequestMapping(value = "/index")
 public class indexController extends BaseController {
 
+    /**
+     * 渲染网站首页，根据是否登录显示不同的内容
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");

@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUserFace(String userFace, int userId) {
+        this.userDao.updateUserFace(userFace, userId);
+    }
+
+    @Override
     public LeUser findUserByEmail(String email) {
         return this.userDao.findUserByEmail(email);
     }

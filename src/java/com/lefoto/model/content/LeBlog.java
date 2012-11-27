@@ -5,7 +5,7 @@
 package com.lefoto.model.content;
 
 /**
- *
+ * 日志类
  * @author Eric
  */
 public class LeBlog {

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- *
+ * 图片管理模块
  * @author Eric
  */
 @Controller
@@ -35,6 +35,15 @@ public class PhotoManageController extends BaseController {
     @Autowired
     private PhotoService photoService;
 
+    /**
+     * 上传图片
+     * @param myfiles 获取的图片对象，其为数组，可实现多图上传
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     * @throws Exception
+     */
     @RequestMapping(value = "/back/photo/upload", method = RequestMethod.POST)
     public @ResponseBody String upload(@RequestParam("Filedata") MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         //如果只是上传一个文件，则只需要MultipartFile类型接收文件即可，而且无需显式指定@RequestParam注解  

@@ -26,14 +26,22 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    //渲染登录页面
+    /**
+     * 渲染登录页面
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/login/show");
         return mv;
     }
 
-    //提交登录信息，对登录信息进行审核
+    /**
+     * 提交登录信息，对登录信息进行审核
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/submit")
     public ModelAndView submit(HttpServletRequest request) {
         //如果登录成功，转到index页面

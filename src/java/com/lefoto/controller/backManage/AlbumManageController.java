@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * 相册管理Controller
  * @author Eric
  */
 @Controller
@@ -29,6 +29,12 @@ public class AlbumManageController extends BaseController {
     @Autowired
     AlbumService albumService;
 
+    /**
+     * 添加相册
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/add")
     public ModelAndView add(HttpServletRequest request) throws Exception {
         this.execute(request);
@@ -59,6 +65,12 @@ public class AlbumManageController extends BaseController {
         return mv;
     }
 
+    /**
+     * 删除相册
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         this.execute(request);

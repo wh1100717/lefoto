@@ -21,6 +21,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+/**
+ * 又拍云处理类
+ * @author Eric
+ */
 public class UpYun {
 
     protected String bucketname = null;

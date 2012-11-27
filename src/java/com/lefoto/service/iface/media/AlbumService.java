@@ -8,8 +8,7 @@ import com.lefoto.model.media.LeAlbum;
 import java.util.List;
 
 /**
- * 相册基本操作的Service
- *
+ * 相册基本操作的Service类
  * @author Eric
  */
 public interface AlbumService {

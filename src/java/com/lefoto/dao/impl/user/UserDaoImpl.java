@@ -61,11 +61,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public LeUser findUserById(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeUser.class);
+        criteria.add(Restrictions.eq("id", id));
+        List users = criteria.list();
+        session.getTransaction().commit();
+        if (users != null && !users.isEmpty()) {
+            return (LeUser) users.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void updateUser(LeUser user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.merge(user);
         session.getTransaction().commit();
+    }
+
+    @Override
+    public void updateUserFace(String userFace, int userId) {
+        LeUser user = this.findUserById(userId);
+        if (user != null) {
+            user.setFace(userFace);
+            this.updateUser(user);
+        }
     }
 
     @Override

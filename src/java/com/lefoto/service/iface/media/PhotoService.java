@@ -8,7 +8,7 @@ import com.lefoto.model.media.LePhoto;
 import java.util.List;
 
 /**
- * 图片基本操作的Service
+ * 图片基本操作的Service类
  * @author Eric
  */
 public interface PhotoService {

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
+ * 默认用户头像类
  * @author Eric
  */
 @Entity

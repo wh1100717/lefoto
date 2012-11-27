@@ -15,8 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- * 用户
- *
+ * 用户类
  * @author Eric
  */
 @Entity
@@ -33,6 +32,8 @@ public class LeUser implements Serializable {
     String password = "";
     @Column(name = "nick_name")
     String nickName = "新用户";
+    @Column(name = "face")
+    String face = "";
     @Column(name = "sex")
     int sex = 0;
     @Column(name = "type")
@@ -72,6 +73,14 @@ public class LeUser implements Serializable {
         //密码加密
         password = CipherUtil.generatePassword(password);
         this.password = password;
+    }
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
     }
 
     public String getNickName() {

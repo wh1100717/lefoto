@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
+ * 评论类
  * @author Eric
  */
 @Entity

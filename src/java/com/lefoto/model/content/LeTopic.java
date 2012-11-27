@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
+ * 微博类
  * Unused
- *
  * @author Eric
  */
 @Entity

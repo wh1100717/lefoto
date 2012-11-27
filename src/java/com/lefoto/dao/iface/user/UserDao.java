@@ -20,8 +20,12 @@ public interface UserDao {
     public void delUser(LeUser user);
 
     public LeUser findUserByEmail(String email);
+    
+    public LeUser findUserById(int id);
 
     public void updateUser(LeUser user);
+
+    public void updateUserFace(String userFace, int userId);
 
     public boolean checkUser(String email, String password);
 

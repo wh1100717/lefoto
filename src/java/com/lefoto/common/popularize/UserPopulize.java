@@ -28,7 +28,6 @@ public class UserPopulize {
 
     @Autowired
     UserService userService;
-    static String userNamePath = "D:/NBWS/lefoto/web/WEB-INF/englishUserName.txt";
 
     @RequestMapping(value = "/addUser")
     public @ResponseBody
@@ -67,11 +66,11 @@ public class UserPopulize {
     }
 
     private static String getUserName() throws FileNotFoundException, IOException {
-        File file = new File(userNamePath);
+        File file = new File(Const.DEFAULT_USER_NAME_PATH);
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String userName = null;
         Random random = new Random();
-        int randomNum = random.nextInt(4900);
+        int randomNum = random.nextInt(Const.DEFAULT_USER_NAME_LINES);
         int line = 1;
         // 一次读入一行，直到读入null为文件结束
         while ((userName = reader.readLine()) != null) {

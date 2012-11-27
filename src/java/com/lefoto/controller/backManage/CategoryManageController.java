@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * 分类管理Controller
  * @author Eric
  */
 @Controller
@@ -31,8 +31,14 @@ public class CategoryManageController extends BaseController {
     @Autowired
     CategoryService categoryService;
 
+    /**
+     * 添加分类
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/add")
-    public ModelAndView index(HttpServletRequest request) throws Exception {
+    public ModelAndView add(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("/back/categoryManage");
         String cateName = this.getParaStringFromRequest("cateName");
         String message = "";
@@ -50,6 +56,12 @@ public class CategoryManageController extends BaseController {
         return mv;
     }
 
+    /**
+     * 删除分类
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String cateName = this.getParaStringFromRequest("cateName");

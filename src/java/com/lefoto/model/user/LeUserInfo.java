@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- * 用户扩展信息
+ * 用户扩展信息类
  * @author Eric
  */
 @Entity

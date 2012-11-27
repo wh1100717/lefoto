@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 注册模块
- *
  * @author Eric
  */
 @Controller
@@ -28,14 +27,23 @@ public class RegisterController extends BaseController {
     @Autowired
     private UserService userService;
 
-    //渲染注册页面
+    /**
+     * 渲染注册页面
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/register/show");
         return mv;
     }
 
-    //处理注册请求
+    /**
+     * 处理注册请求
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView register(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("/index/register/add");

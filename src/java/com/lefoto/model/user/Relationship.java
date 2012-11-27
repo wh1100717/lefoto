@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
+ * 用户好友关系类
  * @author Eric
  */
 @Entity
