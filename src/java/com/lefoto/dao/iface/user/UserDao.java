@@ -7,6 +7,7 @@ package com.lefoto.dao.iface.user;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import java.util.List;
 
 /**
  *
@@ -25,10 +26,14 @@ public interface UserDao {
     public boolean checkUser(String email, String password);
 
     public boolean checkEmailExist(String email);
-    
+
     public LeUserInfo findUserInfoByUserId(String userId);
 
     public void addOrUpdateUserInfo(LeUserInfo userInfo);
 
     public void addDefaultUserFace(LeDefaultUserFace defaultUserFace);
+
+    public LeDefaultUserFace findDefaultUserFaceById(int id);
+
+    public List<LeDefaultUserFace> findAllDefaultUserFace();
 }

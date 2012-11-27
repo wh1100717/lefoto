@@ -123,4 +123,33 @@ public class UserDaoImpl implements UserDao {
         session.persist(defaultUserFace);
         session.getTransaction().commit();
     }
+
+    @Override
+    public LeDefaultUserFace findDefaultUserFaceById(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeDefaultUserFace.class);
+        criteria.add(Restrictions.eq("id", id));
+        List defaultUserFaces = criteria.list();
+        session.getTransaction().commit();
+        if (defaultUserFaces != null && !defaultUserFaces.isEmpty()) {
+            return (LeDefaultUserFace) defaultUserFaces.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<LeDefaultUserFace> findAllDefaultUserFace() {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeDefaultUserFace.class);
+        List defaultUserFaces = criteria.list();
+        session.getTransaction().commit();
+        if (defaultUserFaces != null && !defaultUserFaces.isEmpty()) {
+            return defaultUserFaces;
+        } else {
+            return null;
+        }
+    }
 }

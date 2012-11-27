@@ -7,6 +7,7 @@ package com.lefoto.service.iface.user;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import java.util.List;
 
 /**
  *
@@ -29,4 +30,11 @@ public interface UserService {
     public void addOrUpdateUserInfo(LeUserInfo userInfo);
     
     public void addDefaultUserFace(LeDefaultUserFace defaultUserFace);
+    
+    public LeDefaultUserFace findDefaultUserFaceById(int id);
+
+    public List<LeDefaultUserFace> findAllDefaultUserFace();
+    
+    public LeDefaultUserFace findRandomDefaultUserFace();
+    
 }

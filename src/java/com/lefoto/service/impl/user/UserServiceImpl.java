@@ -9,6 +9,8 @@ import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import com.lefoto.service.iface.user.UserService;
+import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +62,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addDefaultUserFace(LeDefaultUserFace defaultUserFace) {
         this.userDao.addDefaultUserFace(defaultUserFace);
+    }
+
+    @Override
+    public LeDefaultUserFace findDefaultUserFaceById(int id) {
+        return this.userDao.findDefaultUserFaceById(id);
+    }
+
+    @Override
+    public List<LeDefaultUserFace> findAllDefaultUserFace() {
+        return this.userDao.findAllDefaultUserFace();
+    }
+
+    @Override
+    public LeDefaultUserFace findRandomDefaultUserFace() {
+        List<LeDefaultUserFace> defaultUserFaces = this.findAllDefaultUserFace();
+        Random random = new Random();
+        int randomNumber = random.nextInt(defaultUserFaces.size());
+        return defaultUserFaces.get(randomNumber);
     }
 }
