@@ -42,9 +42,9 @@ public class RelationDaoImpl implements RelationDao {
         if (relationship == null) {
             relationship = new Relationship();
             relationship.setUserId(user.getId());
-            relationship.setUserName(user.getNickName());
+            relationship.setUserName(user.getName());
             relationship.setFollowUserId(followUser.getId());
-            relationship.setFollowUserName(followUser.getNickName());
+            relationship.setFollowUserName(followUser.getName());
             relationship.setCreateUserId(user.getId());
             relationship.setGroupId(group.getId());
             relationship.setGroupName(group.getName());

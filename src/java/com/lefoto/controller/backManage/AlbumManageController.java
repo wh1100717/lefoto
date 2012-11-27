@@ -56,7 +56,7 @@ public class AlbumManageController extends BaseController {
             album = new LeAlbum();
             album.setName(albumName);
             album.setUserId(this.getUser().getId());
-            album.setUserName(this.getUser().getNickName());
+            album.setUserName(this.getUser().getName());
             album.setCreate_time(new Date());
             albumService.addAlbum(album);
         }

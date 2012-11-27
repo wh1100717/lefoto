@@ -48,7 +48,7 @@ public class RegisterController extends BaseController {
     public ModelAndView register(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("/index/register/add");
         String email = request.getParameter("email");
-        String nickName = request.getParameter("nickName");
+        String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         String passconf = request.getParameter("passconf");
         //检查邮箱格式是否错误
@@ -80,7 +80,7 @@ public class RegisterController extends BaseController {
         LeUser user = new LeUser();
         user.setEmail(email);
         user.setPassword(password);
-        user.setNickName(nickName);
+        user.setName(userName);
         this.userService.addUser(user);
 
         request.getSession().setAttribute("user", user);

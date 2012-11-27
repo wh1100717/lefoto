@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 
 /**
  * 用户类
+ *
  * @author Eric
  */
 @Entity
@@ -30,8 +31,8 @@ public class LeUser implements Serializable {
     String email = "";
     @Column(name = "password", nullable = false)
     String password = "";
-    @Column(name = "nick_name")
-    String nickName = "新用户";
+    @Column(name = "name")
+    String name = "新用户";
     @Column(name = "face")
     String face = "";
     @Column(name = "sex")
@@ -83,12 +84,12 @@ public class LeUser implements Serializable {
         this.face = face;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getName() {
+        return name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSex() {

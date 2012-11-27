@@ -39,7 +39,7 @@
                         </fieldset>
                         <fieldset>
                             <label for="username">Nick Name</label>
-                            <input tabindex="1" type="text" class="txt required " id="nickName" name="nickName" size="22" maxlength="15">
+                            <input tabindex="1" type="text" class="txt required " id="nickName" name="userName" size="22" maxlength="15">
                             <ul class="help">
                                 <li id="isValid">use only letters, numbers or underscore</li>
                                 <li id="availability"></li>

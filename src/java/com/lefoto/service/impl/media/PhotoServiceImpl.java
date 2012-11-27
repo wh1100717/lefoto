@@ -4,7 +4,9 @@
  */
 package com.lefoto.service.impl.media;
 
+import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
+import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.List;
@@ -20,9 +22,25 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Autowired
     private PhotoDao photoDao;
+    
+    @Autowired
+    private AlbumDao albumDao;
 
     @Override
     public void addPhoto(LePhoto photo) {
+        int albumId = photo.getAlbumId();
+        LeAlbum album;
+        if(albumId == 0){
+            album = albumDao.findUserAlbumByName("默认相册", photo.getUserId());
+            if(album == null){
+                album = new LeAlbum();
+                album.setName("默认相册");
+                album.setUserId(photo.getUserId());
+                album.setUserName(photo.getUserName());
+                albumDao.addAlbum(album);
+            }
+            photo.setAlbumId(album.getId());
+        }
         photoDao.addPhoto(photo);
     }
 

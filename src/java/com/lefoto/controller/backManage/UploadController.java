@@ -84,7 +84,7 @@ public class UploadController extends BaseController {
                 photo.setHeight(bi.getHeight());
                 photo.setName(myfile.getOriginalFilename());
                 photo.setUserId(user.getId());
-                photo.setUserName(user.getNickName());
+                photo.setUserName(user.getName());
                 photoService.addPhoto(photo);
                 //插入Photo表Done
 

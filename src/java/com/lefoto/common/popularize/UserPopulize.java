@@ -34,7 +34,7 @@ public class UserPopulize {
     String userCreation() throws FileNotFoundException, IOException {
         LeUser user = new LeUser();
         String userName = getUserName();
-        user.setNickName(userName);
+        user.setName(userName);
         String email = "";
         int index = 0;
         while (true) {
@@ -63,6 +63,41 @@ public class UserPopulize {
         System.out.println(user.getSex());
         userService.addUser(user);
         return Const.SUCCESS;
+    }
+
+    public String userCreate() throws FileNotFoundException, IOException {
+        LeUser user = new LeUser();
+        String userName = getUserName();
+        user.setName(userName);
+        String email = "";
+        int index = 0;
+        while (true) {
+            if (index == 0) {
+                email = userName + "@lefoto.me";
+            } else {
+                email = userName + String.valueOf(index) + "@lefoto.me";
+            }
+            if (userService.checkEmailExist(email)) {
+                index++;
+            } else {
+                user.setEmail(userName);
+                break;
+            }
+        }
+        user.setFace(userService.findRandomDefaultUserFace().getUrl());
+        user.setPassword(userName);
+        Random random = new Random();
+        boolean result = random.nextBoolean();
+        if (result) {
+            user.setSex(1);
+        } else {
+            user.setSex(0);
+        }
+        System.out.println(result);
+        user.setSex(random.nextBoolean() == true ? 1 : 0);
+        System.out.println(user.getSex());
+        userService.addUser(user);
+        return email;
     }
 
     private static String getUserName() throws FileNotFoundException, IOException {
