@@ -33,7 +33,13 @@ public interface UserService {
      * @return
      */
     public LeUser findUserByEmail(String email);
-
+    
+    /**
+     * 获取所有用户
+     * @return
+     */
+    public List<LeUser> findAllUsers();
+    
     /**
      * 更新用户
      * @param user
@@ -92,5 +98,5 @@ public interface UserService {
      * @return
      */
     public LeDefaultUserFace findRandomDefaultUserFace();
-    
+
 }

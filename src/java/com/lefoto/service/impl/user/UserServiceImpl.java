@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<LeUser> findAllUsers() {
+        return this.userDao.findAllUsers();
+    }
+        
+    @Override
     public LeUser findUserByEmail(String email) {
         return this.userDao.findUserByEmail(email);
     }
@@ -86,4 +91,5 @@ public class UserServiceImpl implements UserService {
         int randomNumber = random.nextInt(defaultUserFaces.size());
         return defaultUserFaces.get(randomNumber);
     }
+
 }

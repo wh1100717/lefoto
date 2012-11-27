@@ -19,6 +19,8 @@ public interface UserDao {
 
     public void delUser(LeUser user);
 
+    public List<LeUser> findAllUsers();
+
     public LeUser findUserByEmail(String email);
     
     public LeUser findUserById(int id);
@@ -40,4 +42,5 @@ public interface UserDao {
     public LeDefaultUserFace findDefaultUserFaceById(int id);
 
     public List<LeDefaultUserFace> findAllDefaultUserFace();
+
 }

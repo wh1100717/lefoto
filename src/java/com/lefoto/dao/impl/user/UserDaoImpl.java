@@ -46,6 +46,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<LeUser> findAllUsers() {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeUser.class);
+        List users = criteria.list();
+        session.getTransaction().commit();
+        if (users != null && !users.isEmpty()) {
+            return users;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public LeUser findUserByEmail(String email) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
