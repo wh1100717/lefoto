@@ -104,26 +104,26 @@ public class UserPopulize {
         return email;
     }
 
-    @RequestMapping(value = "/addDefaultUserFace")
-    public String uploadDefaultUserFace() throws Exception {
-        String userFaceFolderPath = "D:/imgGrab/qqface";
-        File folder = new File(userFaceFolderPath);
-        File[] faces = folder.listFiles();
-        System.out.println("开始上传默认用户头像");
-        for (int index = 0; index < faces.length; index++) {
-            File face = faces[index];
-            System.out.println("头像名为：" + face.getName());
-
-            String facePath = UpYunUtil.userFaceUpload(face);
-            System.out.println("上传路径为：" + facePath);
-
-            LeDefaultUserFace userFace = new LeDefaultUserFace();
-            userFace.setUrl(facePath);
-            userService.addDefaultUserFace(userFace);
-        }
-        System.out.println("上传头像结束");
-        return Const.SUCCESS;
-    }
+//    @RequestMapping(value = "/addDefaultUserFace")
+//    public String uploadDefaultUserFace() throws Exception {
+//        String userFaceFolderPath = "D:/imgGrab/qqface";
+//        File folder = new File(userFaceFolderPath);
+//        File[] faces = folder.listFiles();
+//        System.out.println("开始上传默认用户头像");
+//        for (int index = 0; index < faces.length; index++) {
+//            File face = faces[index];
+//            System.out.println("头像名为：" + face.getName());
+//
+//            String facePath = UpYunUtil.userFaceUpload(face);
+//            System.out.println("上传路径为：" + facePath);
+//
+//            LeDefaultUserFace userFace = new LeDefaultUserFace();
+//            userFace.setUrl(facePath);
+//            userService.addDefaultUserFace(userFace);
+//        }
+//        System.out.println("上传头像结束");
+//        return Const.SUCCESS;
+//    }
 
     private static String getUserName() throws FileNotFoundException, IOException {
         File file = new File(Const.DEFAULT_USER_NAME_PATH);

@@ -36,16 +36,18 @@ public class indexController extends BaseController {
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");
+        int cateId = this.getParaIntFromRequest("cateId");
+        cateId = cateId == 0 ? 1 : cateId;
         LeUser user = this.getUser();
         if (user != null) {
             mv.addObject("user", user);
         }
+        mv.addObject("cateId",cateId);
         return mv;
     }
-
     @Autowired
     PhotoService photoService;
-    
+
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
     String getPic(HttpServletRequest request) {
@@ -54,11 +56,11 @@ public class indexController extends BaseController {
         int size = this.getParaIntFromRequest("size");
         List photos = photoService.getPhotos(cateId, lastPhotoId, size);
         JSONArray jsonArray = new JSONArray();
-        for(int index=0; index<photos.size(); index++){
+        for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
             JSONObject tmpObject = new JSONObject()
                     .element("id", photo.getId())
-                    .element("url", photo.getUrl()+"!300")
+                    .element("url", photo.getUrl() + "!300")
                     .element("description", photo.getDescription())
                     .element("downCount", photo.getDownCount())
                     .element("upCount", photo.getUpCount())
@@ -66,12 +68,12 @@ public class indexController extends BaseController {
                     .element("commentCount", photo.getCommentCount())
                     .element("userId", photo.getUserId())
                     .element("userName", photo.getUserName())
-                    .element("height", photo.getHeight()*300/photo.getWidth());
+                    .element("height", photo.getHeight() * 300 / photo.getWidth());
             jsonArray.add(tmpObject);
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("中文", ((LePhoto)photos.get(0)).getUserName());
+        jsonObject.put("中文", ((LePhoto) photos.get(0)).getUserName());
         return jsonObject.toString();
     }
 }
