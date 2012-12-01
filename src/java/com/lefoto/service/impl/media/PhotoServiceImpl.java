@@ -108,4 +108,9 @@ public class PhotoServiceImpl implements PhotoService {
     public LePhotoUpdown findPhotoUpdown(int photoId, int userId) {
         return photoDao.findPhotoUpdown(photoId, userId);
     }
+
+    @Override
+    public List getPhotos(int cateId, int lastPhotoId, int size) {
+        return photoDao.getPhotos(cateId, lastPhotoId, size);
+    }
 }

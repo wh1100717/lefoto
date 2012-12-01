@@ -28,7 +28,7 @@ public class Const {
     public static String UPLOAD_FOLDER_PATH = "/WEB-INF/upload";
     
     //Populize
-    public static String DEFAULT_USER_NAME_PATH = "D:/NBWS/lefoto/web/WEB-INF/defaultUserName.txt";
-    public static int DEFAULT_USER_NAME_LINES = 7930;
-    public static String PHOTO_POPULIZE_PATH = "D:/imgGrab/300less/woxihuanmeinv1/";
+    public static String DEFAULT_USER_NAME_PATH = "D:/NBWS/lefoto/web/WEB-INF/userName.xml";
+    public static int DEFAULT_USER_NAME_LINES = 3000;
+    public static String PHOTO_POPULIZE_PATH = "D:/imgGrab/chuntu/";
 }

@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 
 /**
  * 图片类
+ *
  * @author Eric
  */
 @Entity
@@ -63,7 +64,7 @@ public class LePhoto implements Serializable {
     int channel = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    Date createTime = new Date();
     @Column(name = "is_delete")
     int isDelete = 0;
 
@@ -195,12 +196,12 @@ public class LePhoto implements Serializable {
         this.channel = channel;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public int getIsDelete() {
@@ -234,5 +235,4 @@ public class LePhoto implements Serializable {
     public void setDownCount(int downCount) {
         this.downCount = downCount;
     }
-
 }

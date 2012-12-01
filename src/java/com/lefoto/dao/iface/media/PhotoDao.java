@@ -31,4 +31,6 @@ public interface PhotoDao {
     public void downPhoto(int photoId, int userId);
 
     public LePhotoUpdown findPhotoUpdown(int photoId, int userId);
+
+    public List getPhotos(int cateId, int lastPhotoId, int size);
 }

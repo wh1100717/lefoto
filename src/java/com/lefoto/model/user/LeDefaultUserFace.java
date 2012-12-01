@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author Eric
  */
 @Entity
-@Table(name = "le_user")
+@Table(name = "le_default_user_face")
 public class LeDefaultUserFace implements Serializable {
 
     @Id

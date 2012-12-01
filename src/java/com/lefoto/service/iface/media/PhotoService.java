@@ -92,4 +92,6 @@ public interface PhotoService {
      * @return
      */
     public LePhotoUpdown findPhotoUpdown(int photoId, int userId);
+
+    public List getPhotos(int cateId, int lastPhotoId, int size);
 }

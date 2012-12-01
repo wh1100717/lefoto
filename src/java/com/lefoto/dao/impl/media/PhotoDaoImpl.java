@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -132,6 +133,28 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
         if (photoUpdowns != null && !photoUpdowns.isEmpty()) {
             return (LePhotoUpdown) photoUpdowns.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List getPhotos(int cateId, int lastPhotoId, int size) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LePhoto.class);
+        criteria.add(Restrictions.eq("categoryId", cateId));
+        criteria.addOrder(Order.desc("createTime"));
+        if (size != 0) {
+            criteria.setMaxResults(size);
+        }
+        if (lastPhotoId != 0) {
+            criteria.add(Restrictions.le("id", lastPhotoId));
+        }
+        List photos = criteria.list();
+        session.getTransaction().commit();
+        if (photos != null && !photos.isEmpty()) {
+            return photos;
         } else {
             return null;
         }

@@ -2,16 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.lefoto.common.popularize;
+package com.lefoto.controller.popularize;
 
 import com.lefoto.common.base.Const;
+import com.lefoto.common.utils.UpYunUtil;
+import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.user.UserService;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,7 +69,7 @@ public class UserPopulize {
         return Const.SUCCESS;
     }
 
-    public String userCreate() throws FileNotFoundException, IOException {
+    public String userCreate(UserService userService) throws FileNotFoundException, IOException {
         LeUser user = new LeUser();
         String userName = getUserName();
         user.setName(userName);
@@ -80,7 +84,7 @@ public class UserPopulize {
             if (userService.checkEmailExist(email)) {
                 index++;
             } else {
-                user.setEmail(userName);
+                user.setEmail(email);
                 break;
             }
         }
@@ -100,9 +104,31 @@ public class UserPopulize {
         return email;
     }
 
+    @RequestMapping(value = "/addDefaultUserFace")
+    public String uploadDefaultUserFace() throws Exception {
+        String userFaceFolderPath = "D:/imgGrab/qqface";
+        File folder = new File(userFaceFolderPath);
+        File[] faces = folder.listFiles();
+        System.out.println("开始上传默认用户头像");
+        for (int index = 0; index < faces.length; index++) {
+            File face = faces[index];
+            System.out.println("头像名为：" + face.getName());
+
+            String facePath = UpYunUtil.userFaceUpload(face);
+            System.out.println("上传路径为：" + facePath);
+
+            LeDefaultUserFace userFace = new LeDefaultUserFace();
+            userFace.setUrl(facePath);
+            userService.addDefaultUserFace(userFace);
+        }
+        System.out.println("上传头像结束");
+        return Const.SUCCESS;
+    }
+
     private static String getUserName() throws FileNotFoundException, IOException {
         File file = new File(Const.DEFAULT_USER_NAME_PATH);
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        InputStreamReader read = new InputStreamReader (new FileInputStream(file),"UTF-8");
+        BufferedReader reader = new BufferedReader(read);
         String userName = null;
         Random random = new Random();
         int randomNum = random.nextInt(Const.DEFAULT_USER_NAME_LINES);
