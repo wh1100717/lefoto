@@ -5,6 +5,7 @@
 package com.lefoto.controller.index;
 
 import com.lefoto.common.base.BaseController;
+import com.lefoto.model.user.LeUser;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,12 @@ public class indexController extends BaseController {
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");
+        LeUser user = this.getUser();
+
+        if(user != null){
+            mv.addObject("user", user);
+            
+        }
         return mv;
     }
 }
