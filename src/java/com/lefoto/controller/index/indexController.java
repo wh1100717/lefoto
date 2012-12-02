@@ -10,6 +10,7 @@ import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,12 @@ public class indexController extends BaseController {
 
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
-    String getPic(HttpServletRequest request) {
+    String getPic(HttpServletRequest requese, HttpServletResponse response) {
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
         List photos = photoService.getPhotos(cateId, lastPhotoId, size);
+        response.setContentType("text/html;charset=UTF-8");
         JSONArray jsonArray = new JSONArray();
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);

@@ -22,7 +22,7 @@ public abstract class BaseController {
     private LeUser user;
     private HttpServletRequest request;
     private HttpServletResponse response;
-
+    
     public void execute(HttpServletRequest request) {
         user = this.getRequestUser(request);
     }
