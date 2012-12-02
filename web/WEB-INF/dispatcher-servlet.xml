@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -7,8 +9,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation=
-       "http://www.springframework.org/schema/beans 
-        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       "http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
         http://www.springframework.org/schema/tx 
@@ -16,28 +20,8 @@
         http://www.springframework.org/schema/context   
         http://www.springframework.org/schema/context/spring-context-2.5.xsd
         http://www.springframework.org/schema/mvc  
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                    <property name="supportedMediaTypes">
-                        <list>
-                            <bean class="org.springframework.http.MediaType">
-                                <constructor-arg index="0" value="text" />
-                                <constructor-arg index="1" value="plain" />
-                                <constructor-arg index="2" value="UTF-8" />
-                            </bean>
-                        </list>
-                    </property>
-                </bean>
-                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-                <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
-            </list>
-        </property>
-    </bean>
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
     
     <!--对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->  
     <context:component-scan base-package="com.lefoto"/>
@@ -68,7 +52,7 @@
     
     <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
+        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之�� -->  
         <property name="maxUploadSize" value="2000000"/>  
     </bean>
     

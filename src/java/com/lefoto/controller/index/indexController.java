@@ -8,6 +8,8 @@ import com.lefoto.common.base.BaseController;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +53,7 @@ public class indexController extends BaseController {
 
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
-    String getPic(HttpServletRequest requese, HttpServletResponse response) {
+    List<String> getPic(HttpServletRequest requese, HttpServletResponse response) throws IOException {
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
@@ -75,7 +77,10 @@ public class indexController extends BaseController {
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("中文", ((LePhoto) photos.get(0)).getUserName());
-        return jsonObject.toString();
+        jsonObject.put("你好", "个毛");
+        List result = new ArrayList();
+        result.add(jsonObject.toString());
+//        Object result = "你好";
+        return result;
     }
 }
