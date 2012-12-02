@@ -4,6 +4,7 @@
  */
 package com.lefoto.controller.popularize;
 
+import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.user.LeDefaultUserFace;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/populize")
-public class UserPopulize {
+public class UserPopulize extends BaseController {
 
     @Autowired
     UserService userService;
@@ -36,36 +37,49 @@ public class UserPopulize {
     @RequestMapping(value = "/addUser")
     public @ResponseBody
     String userCreation() throws FileNotFoundException, IOException {
-        LeUser user = new LeUser();
-        String userName = getUserName();
-        user.setName(userName);
-        String email = "";
-        int index = 0;
-        while (true) {
-            if (index == 0) {
-                email = userName + "@lefoto.me";
-            } else {
-                email = userName + String.valueOf(index) + "@lefoto.me";
-            }
-            if (userService.checkEmailExist(email)) {
-                index++;
-            } else {
-                user.setEmail(userName);
-                break;
-            }
+        int amount = this.getParaIntFromRequest("amount");
+        if (amount == 0) {
+            amount = 1;
         }
-        user.setPassword(userName);
-        Random random = new Random();
-        boolean result = random.nextBoolean();
-        if (result) {
-            user.setSex(1);
-        } else {
-            user.setSex(0);
+        for (int i = 0; i < amount; i++) {
+            LeUser user = new LeUser();
+            String userName = getUserName();
+            user.setName(userName);
+            String email = "";
+            int index = 0;
+            while (true) {
+                if (index == 0) {
+                    email = userName + "@lefoto.me";
+                } else {
+                    email = userName + String.valueOf(index) + "@lefoto.me";
+                }
+                if (userService.checkEmailExist(email)) {
+                    index++;
+                } else {
+                    user.setEmail(email);
+                    break;
+                }
+            }
+            user.setFace(userService.findRandomDefaultUserFace().getUrl());
+            user.setPassword(userName);
+            Random random = new Random();
+            boolean result = random.nextBoolean();
+            if (result) {
+                user.setSex(1);
+            } else {
+                user.setSex(0);
+            }
+            System.out.println(result);
+            user.setSex(random.nextBoolean() == true ? 1 : 0);
+            System.out.println(user.getSex());
+            try {
+                userService.addUser(user);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.out.println(i + " | " + user.getId() + " | "+user.getName());
         }
-        System.out.println(result);
-        user.setSex(random.nextBoolean() == true ? 1 : 0);
-        System.out.println(user.getSex());
-        userService.addUser(user);
         return Const.SUCCESS;
     }
 
@@ -124,10 +138,9 @@ public class UserPopulize {
 //        System.out.println("上传头像结束");
 //        return Const.SUCCESS;
 //    }
-
     private static String getUserName() throws FileNotFoundException, IOException {
         File file = new File(Const.DEFAULT_USER_NAME_PATH);
-        InputStreamReader read = new InputStreamReader (new FileInputStream(file),"UTF-8");
+        InputStreamReader read = new InputStreamReader(new FileInputStream(file), "UTF-8");
         BufferedReader reader = new BufferedReader(read);
         String userName = null;
         Random random = new Random();

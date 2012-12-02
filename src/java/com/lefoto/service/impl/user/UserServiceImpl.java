@@ -4,6 +4,7 @@
  */
 package com.lefoto.service.impl.user;
 
+import com.lefoto.common.cache.UserCache;
 import com.lefoto.dao.iface.user.UserDao;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
@@ -35,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public LeUser getRandomUser() {
+        return UserCache.getRandomUser();
+    }
+
+    @Override
     public void updateUser(LeUser user) {
         this.userDao.updateUser(user);
     }
@@ -48,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public List<LeUser> findAllUsers() {
         return this.userDao.findAllUsers();
     }
-        
+
     @Override
     public LeUser findUserByEmail(String email) {
         return this.userDao.findUserByEmail(email);
@@ -91,5 +97,4 @@ public class UserServiceImpl implements UserService {
         int randomNumber = random.nextInt(defaultUserFaces.size());
         return defaultUserFaces.get(randomNumber);
     }
-
 }

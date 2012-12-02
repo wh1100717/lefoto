@@ -22,7 +22,7 @@ public interface UserDao {
     public List<LeUser> findAllUsers();
 
     public LeUser findUserByEmail(String email);
-    
+
     public LeUser findUserById(int id);
 
     public void updateUser(LeUser user);
@@ -42,5 +42,4 @@ public interface UserDao {
     public LeDefaultUserFace findDefaultUserFaceById(int id);
 
     public List<LeDefaultUserFace> findAllDefaultUserFace();
-
 }
