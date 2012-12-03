@@ -7,16 +7,17 @@
         <style type="text/css">
             html{ overflow: auto;}
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,input{margin:0;padding:0;border:0 none; outline:0; vertical-align: baseline;}
-            body { font-family: "微软雅黑"; font-size: 12px/1.2; color: #333; background-color: #E7EAD4;}
+            body { font-family: "微软雅黑"; font-size: 12px; color: #333; background-color: #E7EAD4;}
             ul,li { list-style: none;}
             a { text-decoration: none;}
             .clearfix:after { content: "."; display: block; height: 0; visibility: hidden; clear: both;}
             .fl { float: left;}
             .fr { float:right;}
+            .mask { display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #000; opacity: 0.5; filter: alpha(opacity=50);}
             
             .le-content { width: 100%; position: relative;}
-            .navbar,.body-wrap { width: 1000px;}
-            .body-wrap { margin: 0 auto; background-color: #FFF; min-height: 500px; }
+            .navbar,.body-wrap { width: 960px;}
+            .body-wrap { margin: 0 auto; min-height: 500px; }
             
             .le-header { height: 180px; overflow: hidden; background-color: #000; border-bottom: 3px #FFF solid;}
             .le-iupload { position: relative; width: 960px; height: 180px; margin: 0 auto; background: url(/lefoto/src/images/top_logo.png) #000 no-repeat scroll center bottom;}
@@ -32,22 +33,51 @@
             .rside ul li { width:40px;}
             .lside input { vertical-align: top; margin-right: -1px; float: left; border: 0 none; background-color: transparent; outline: none;}
             input.sbox { height: 22px; line-height: 22px; width: 180px; font-weight: 800;}
-            input.sbtn { cursor: pointer; height: 28px; width: 36px; margin: -3px 0;}
+            input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin: -3px 0;}
             
             .navbarwrap { width: 100%; background-color: green;}
             .navbar { position: relative; margin: 0 auto; padding: 5px 0; background-color: green;}
             
             /*瀑布流*/
             .waterfall { width: 960px; margin: 0 auto; margin-top: 10px; position: relative; }
-            .col { float: left; width: 222px; vertical-align: top; overflow-x: hidden; padding: 3px; }
-            .item { background-color: #CCC; width: 100%; height: auto; margin-bottom: 20px; box-shadow: 0 1 4px #808080; border: 1px #E1E1E1 solid; border-radius: 3px; overflow: hidden; }
-            .item span { display: block; padding-top: 10px; padding-bottom: 10px;  width: 100%; text-align: center; background-color: white; }
-            .item-img { display: block; width: 222px; min-height: 200px; opacity: 0; filter: alpha(opacity=0); }
+            .col { float: left; padding: 7px; width: 300px; vertical-align: top; overflow-x: hidden; }
+            .item { position: relative; background-color: #CCC; width: 100%; height: auto; margin-bottom: 20px; box-shadow: 0 1 4px #808080; border: 1px #E1E1E1 solid; border-radius: 3px; overflow: hidden; }
+            .img-desc { width: 220px; padding-top: 7px; padding-right: 7px; font-size: 12px; display: block; line-height: 1.5;  text-align: right; background-color: white; }
+            .item-img { display: block; width: 300px; min-height: 200px; opacity: 0; filter: alpha(opacity=0); }
             .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
             .loading { display: inline-block; padding-left: 32px; background: url(/lefoto/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
+        
+            .itop { background-color: #FFF;}
+            
+            .ibar { position: absolute; left: 90px; bottom: 10px; width: 200px; }
+            .ibar > span { position: relative; margin: 0 6px; display: block; float: left; width: 60px; height: 22px; line-height: 22px; text-align: center;}
+            .ibar-a { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; font-size: 12px; color: #808080;}
+            .ibar > span:hover .mask { opacity: 0.8; filter: alpha(opscity=80); }
+            .ibar > span:hover .ibar-a { color: #999;}
         </style>
     </head>  
     <body>
+        <script id="itempl" type="text/html">
+            <div class="item">
+                <div class="itop clearfix">
+                    <a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="" /></a>
+                    <span class="img-desc fr">楼主，亮了～～</span>
+                </div>
+                <div class="imid">
+                    <a href="javascript:alert('还木有呢');"><img width="300" height="300" src="" alt="" /></a>
+                </div>
+                <div class="ibar" style="display: block;">
+                    <span>
+                        <span class="mask"></span>
+                        <a class="ibar-a" href="javascript:;">采集</a>
+                    </span>
+                    <span>
+                        <span class="mask"></span>
+                        <a class="ibar-a" href="javascript:;">评论</a>
+                    </span>
+                </div>
+            </div>
+        </script>
         <div class="le-header">
             <div class="le-iupload">
                 <a href="javascript:;">
@@ -83,49 +113,32 @@
             </div>
             <div class="body-wrap">
                 <div id="waterFall" class="wafterfall">
-                    <div class="col">
-                    </div>
+                    <div class="col"></div>
                     <div class="col"></div>
                     <div class="col"></div>
                     <div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加载...</span></div>
                 </div>
             </div>
-            <div id="h">
-                
-            </div>
         </div>
         <input name="cateId" type="hidden" value="${cateId}" />
         <script type="text/javascript">
-            /**
-            *浏览器兼容处理
-            **/
-            if(!Array.prototype.indexOf){
-                Array.prototype.indexOf = function(el, index){
-                    var n = this.length>>>0, i = ~~index;
-                    if(i < 0) i += n;
-                    for(; i < n; i++) if(i in this && this[i] === el) return i;
-                    return -1;
-                }
-            }
             function getElementByClassName(tag, className) {
                 var eles = [], tag = tag || '*';
                 var tags = document.getElementsByTagName(tag);
-                var reg = new RegExp("^" + className + "$") 
+                var reg = new RegExp('\\b' + className + '\\b');
+                console.log(reg);
                 for(var i=0; i<tags.length; i++) {
-		            if(reg.test(tags[i].className)) {
-		                eles.push(tags[i]);
-		            }
-	            }
+                        if(reg.test(tags[i].className)) {
+                            eles.push(tags[i]);
+                        }
+                }
                 return eles;
-            }
-            function addZero(str,length) {
-                return new Array(length - str.length + 1).join("0") + str;             
             }
             function imgShow(imgEle) {
                 $(imgEle).animate({ 'opacity': '1' }, 500);
             }
             var waterFall = {
-                url:'/lefoto/index/getPhoto.html',
+                url:'/lefoto/index/getPhoto.html',//请求数据的接口
                 data: [],//保存请求返回的数据，json数组
                 startIndex: 0,
                 perPage: 10, //每次请求返回的数据量
@@ -175,7 +188,29 @@
                 //添加请求返回的数据
                 append: function(data) {
                     for(var i=0; i < data.length; i++) {
-                        var itemHtml = '<div class="item"><img height="' + data[i].height + '" class="item-img" src="http://lefoto.b0.upaiyun.com' + data[i].url + '" onload="imgShow(this)" /><span>' + data[i].description + '</span></div>';
+                        //var itemHtml = '<div class="item"><img height="' + data[i].height + '" class="item-img" src="http://lefoto.b0.upaiyun.com' + data[i].url + '" onload="imgShow(this)" /><span>' + data[i].description + '</span></div>';
+                        var itemHtml = '<div class="item">'+
+                                        '<div class="itop clearfix">'+
+                                            '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data.face+'" /></a>'+
+                                            '<span class="img-desc fr">'+data[i].description+'</span>'+
+                                        '</div>'+
+                                        '<div class="imid">'+
+                                            '<a href="javascript:alert(\'还木有呢\');"><img width="300" height="'+data[i].height+'" src="http://lefoto.b0.upaiyun.com'+data[i].url+'" onload="imgShow(this)" alt="" /></a>'+
+                                        '</div>'+
+                                        '<div class="ibar" style="display: block;">'+
+                                            '<span>'+
+                                                '<span class="mask"></span>'+
+                                                '<a class="ibar-a" href="javascript:;">采集</a>'+
+                                            '</span>'+
+                                            '<span>'+
+                                                '<span class="mask"></span>'+
+                                                '<a class="ibar-a" href="javascript:;">评论</a>'+
+                                            '</span>'+
+                                        '</div>'+
+                                    '</div>';
+                        
+                        
+                        
                         //添加到高度最小的那一列
                         waterFall.minHeightColumn2().append(itemHtml);
                     }
@@ -195,7 +230,7 @@
                         var data = response.data;
                         waterFall.startIndex = data[data.length - 1].id;
                         waterFall.data = data;
-                        waterFall.append(waterFall.data);
+                        waterFall.append(data);
                         //设置非载入状态
                         waterFall.isLoading = false;
                     });
