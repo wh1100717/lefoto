@@ -14,16 +14,16 @@
             .fl { float: left;}
             .fr { float:right;}
             .mask { display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #000; opacity: 0.5; filter: alpha(opacity=50);}
-            
+
             .le-content { width: 100%; position: relative;}
             .navbar,.body-wrap { width: 960px;}
             .body-wrap { margin: 0 auto; min-height: 500px; }
-            
+
             .le-header { height: 180px; overflow: hidden; background-color: #000; border-bottom: 3px #FFF solid;}
             .le-iupload { position: relative; width: 960px; height: 180px; margin: 0 auto; background: url(/lefoto/src/images/top_logo.png) #000 no-repeat scroll center bottom;}
             .le-iupload a { position: absolute; bottom: 7px; right:260px; display: block; width: 120px; height: 29px;}
             .le-img-iupload-btn { position: absolute; top: 130px; left: 55%;}
-            
+
             .mside { width: 420px; margin: 0 auto;}
             .lside { padding: 3px; border: 1px #EEE solid; border-radius: 3px; background-color: #FFF;}
             .mside ul li,.rside ul li { float: left; text-align: center; height: 28px; line-height: 28px;}
@@ -34,10 +34,10 @@
             .lside input { vertical-align: top; margin-right: -1px; float: left; border: 0 none; background-color: transparent; outline: none;}
             input.sbox { height: 22px; line-height: 22px; width: 180px; font-weight: 800;}
             input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin: -3px 0;}
-            
+
             .navbarwrap { width: 100%; background-color: green;}
             .navbar { position: relative; margin: 0 auto; padding: 5px 0; background-color: green;}
-            
+
             /*瀑布流*/
             .waterfall { width: 960px; margin: 0 auto; margin-top: 10px; position: relative; }
             .col { float: left; padding: 7px; width: 300px; vertical-align: top; overflow-x: hidden; }
@@ -46,9 +46,9 @@
             .item-img { display: block; width: 300px; min-height: 200px; opacity: 0; filter: alpha(opacity=0); }
             .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
             .loading { display: inline-block; padding-left: 32px; background: url(/lefoto/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
-        
+
             .itop { background-color: #FFF;}
-            
+
             .ibar { position: absolute; left: 90px; bottom: 10px; width: 200px; }
             .ibar > span { position: relative; margin: 0 6px; display: block; float: left; width: 60px; height: 22px; line-height: 22px; text-align: center;}
             .ibar-a { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; font-size: 12px; color: #808080;}
@@ -121,6 +121,7 @@
             </div>
         </div>
         <input name="cateId" type="hidden" value="${cateId}" />
+        <input name="type" type="hidden" value="${type}" />
         <script type="text/javascript">
             function getElementByClassName(tag, className) {
                 var eles = [], tag = tag || '*';
@@ -128,9 +129,9 @@
                 var reg = new RegExp('\\b' + className + '\\b');
                 console.log(reg);
                 for(var i=0; i<tags.length; i++) {
-                        if(reg.test(tags[i].className)) {
-                            eles.push(tags[i]);
-                        }
+                    if(reg.test(tags[i].className)) {
+                        eles.push(tags[i]);
+                    }
                 }
                 return eles;
             }
@@ -149,14 +150,14 @@
                 //加载数据前检测是否能继续加载数据
                 loadDetect: function() {
                     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
-                        offsetTop = document.getElementById('detectDiv').offsetTop,
-                        H = window.innerHeight || document.documentElement.clientHeight;
+                    offsetTop = document.getElementById('detectDiv').offsetTop,
+                    H = window.innerHeight || document.documentElement.clientHeight;
                         
-                        if(!waterFall.loadFinish && !waterFall.isLoading && offsetTop - scrollTop <= H) {
-                            waterFall.getData();
-                        } else {
-                            //console.log(waterFall.loadFinish);
-                        }
+                    if(!waterFall.loadFinish && !waterFall.isLoading && offsetTop - scrollTop <= H) {
+                        waterFall.getData();
+                    } else {
+                        //console.log(waterFall.loadFinish);
+                    }
                 },
                 //滚动监听
                 scroll: function() {
@@ -190,24 +191,24 @@
                     for(var i=0; i < data.length; i++) {
                         //var itemHtml = '<div class="item"><img height="' + data[i].height + '" class="item-img" src="http://lefoto.b0.upaiyun.com' + data[i].url + '" onload="imgShow(this)" /><span>' + data[i].description + '</span></div>';
                         var itemHtml = '<div class="item">'+
-                                        '<div class="itop clearfix">'+
-                                            '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data[i].face+'" /></a>'+
-                                            '<span class="img-desc fr">'+data[i].description+'</span>'+
-                                        '</div>'+
-                                        '<div class="imid">'+
-                                            '<a href="javascript:alert(\'还木有呢\');"><img width="300" height="'+data[i].height+'" src="http://lefoto.b0.upaiyun.com'+data[i].url+'" onload="imgShow(this)" alt="" /></a>'+
-                                        '</div>'+
-                                        '<div class="ibar" style="display: block;">'+
-                                            '<span>'+
-                                                '<span class="mask"></span>'+
-                                                '<a class="ibar-a" href="javascript:;">采集</a>'+
-                                            '</span>'+
-                                            '<span>'+
-                                                '<span class="mask"></span>'+
-                                                '<a class="ibar-a" href="javascript:;">评论</a>'+
-                                            '</span>'+
-                                        '</div>'+
-                                    '</div>';
+                            '<div class="itop clearfix">'+
+                            '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data[i].face+'" /></a>'+
+                            '<span class="img-desc fr">'+data[i].description+'</span>'+
+                            '</div>'+
+                            '<div class="imid">'+
+                            '<a href="javascript:alert(\'还木有呢\');"><img width="300" height="'+data[i].height+'" src="http://lefoto.b0.upaiyun.com'+data[i].url+'" onload="imgShow(this)" alt="" /></a>'+
+                            '</div>'+
+                            '<div class="ibar" style="display: block;">'+
+                            '<span>'+
+                            '<span class="mask"></span>'+
+                            '<a class="ibar-a" href="javascript:;">采集</a>'+
+                            '</span>'+
+                            '<span>'+
+                            '<span class="mask"></span>'+
+                            '<a class="ibar-a" href="javascript:;">评论</a>'+
+                            '</span>'+
+                            '</div>'+
+                            '</div>';
                         
                         
                         
@@ -222,7 +223,8 @@
                     var paras = {
                         lastPhotoId: waterFall.startIndex,
                         size: waterFall.perPage,
-                        cateId:$('input[name=cateId]').val()
+                        cateId:$('input[name=cateId]').val(),
+                        type:$('input[name=type]').val()
                     };
                     waterFall.isLoading = true;//设置正在载入状态
                     $.get(reqUrl,paras, function(response) {

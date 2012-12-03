@@ -171,7 +171,7 @@ public class PhotoDaoImpl implements PhotoDao {
             criteria.add(Restrictions.eq("categoryId", cateId));
         }
         criteria.setMaxResults(10000);
-        criteria.addOrder(Order.desc("id"));
+        criteria.addOrder(Order.asc("id"));
         List photos = criteria.list();
         session.getTransaction().commit();
         if (photos != null && !photos.isEmpty()) {

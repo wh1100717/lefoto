@@ -43,12 +43,15 @@ public class indexController extends BaseController {
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");
         int cateId = this.getParaIntFromRequest("cateId");
+        int type = this.getParaIntFromRequest("type");
         cateId = cateId == 0 ? 1 : cateId;
+        type = type == 0 ? 0 : type;
         LeUser user = this.getUser();
         if (user != null) {
             mv.addObject("user", user);
         }
         mv.addObject("cateId", cateId);
+        mv.addObject("type", type);
         return mv;
     }
     @Autowired
