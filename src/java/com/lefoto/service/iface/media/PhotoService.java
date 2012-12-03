@@ -93,5 +93,5 @@ public interface PhotoService {
      */
     public LePhotoUpdown findPhotoUpdown(int photoId, int userId);
 
-    public List getPhotos(int cateId, int lastPhotoId, int size);
+    public List getPhotos(int cateId, int lastPhotoId, int size, int type);
 }

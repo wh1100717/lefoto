@@ -57,8 +57,8 @@ public class indexController extends BaseController {
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
-        List photos = photoService.getPhotos(cateId, lastPhotoId, size);
-        response.setContentType("text/html;charset=UTF-8");
+        int type = this.getParaIntFromRequest("type");
+        List photos = photoService.getPhotos(cateId, lastPhotoId, size, type);
         JSONArray jsonArray = new JSONArray();
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
@@ -77,10 +77,8 @@ public class indexController extends BaseController {
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("你好", "个毛");
         List result = new ArrayList();
         result.add(jsonObject.toString());
-//        Object result = "你好";
         return result;
     }
 }

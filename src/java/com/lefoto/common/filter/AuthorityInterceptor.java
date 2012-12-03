@@ -23,7 +23,14 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
     private UserService userService;
 
     //Controller处理前执行
+    @Override
     public boolean preHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o) throws Exception {
+        
+        if(LoadInfoServlet.isNotInit){
+            LoadInfoServlet loadInfoServlet = new LoadInfoServlet();
+            loadInfoServlet.init();
+        }
+        
         hsr.setAttribute("startTime", System.currentTimeMillis());
         //权限验证
         String email = (String) hsr.getSession().getAttribute("email");
@@ -38,6 +45,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
     }
 
     //Controller处理后执行，可以获取Controller处理后的视图对象
+    @Override
     public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
         long startTime = (Long) hsr.getAttribute("startTime");
         long endTime = System.currentTimeMillis();

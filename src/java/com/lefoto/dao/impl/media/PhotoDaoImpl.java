@@ -7,6 +7,7 @@ package com.lefoto.dao.impl.media;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUpdown;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -144,13 +145,13 @@ public class PhotoDaoImpl implements PhotoDao {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
         criteria.add(Restrictions.eq("categoryId", cateId));
-        criteria.addOrder(Order.desc("createTime"));
-        if (size != 0) {
-            criteria.setMaxResults(size);
-        }
         if (lastPhotoId != 0) {
             criteria.add(Restrictions.le("id", lastPhotoId));
         }
+        if (size != 0) {
+            criteria.setMaxResults(size);
+        }
+        criteria.addOrder(Order.desc("id"));
         List photos = criteria.list();
         session.getTransaction().commit();
         if (photos != null && !photos.isEmpty()) {

@@ -110,7 +110,7 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public List getPhotos(int cateId, int lastPhotoId, int size) {
+    public List getPhotos(int cateId, int lastPhotoId, int size, int type) {
         return photoDao.getPhotos(cateId, lastPhotoId, size);
     }
 }
