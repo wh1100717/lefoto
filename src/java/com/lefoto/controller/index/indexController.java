@@ -5,9 +5,12 @@
 package com.lefoto.controller.index;
 
 import com.lefoto.common.base.BaseController;
+import com.lefoto.common.cache.PhotoCache;
+import com.lefoto.common.cache.UserCache;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
+import com.lefoto.service.iface.user.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +48,13 @@ public class indexController extends BaseController {
         if (user != null) {
             mv.addObject("user", user);
         }
-        mv.addObject("cateId",cateId);
+        mv.addObject("cateId", cateId);
         return mv;
     }
     @Autowired
     PhotoService photoService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
@@ -57,11 +62,14 @@ public class indexController extends BaseController {
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
+        //type : 0表示按时间顺序排序 | 1表示按热度排序 | 2便是随便看看  也就是随机排序
         int type = this.getParaIntFromRequest("type");
-        List photos = photoService.getPhotos(cateId, lastPhotoId, size, type);
+//        List photos = photoService.getPhotos(cateId, lastPhotoId, size, type);
+        List photos = PhotoCache.getPhotos(cateId, lastPhotoId, size, type);
         JSONArray jsonArray = new JSONArray();
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
+            LeUser user = UserCache.getUserById(photo.getUserId());
             JSONObject tmpObject = new JSONObject()
                     .element("id", photo.getId())
                     .element("url", photo.getUrl() + "!300")
@@ -72,6 +80,7 @@ public class indexController extends BaseController {
                     .element("commentCount", photo.getCommentCount())
                     .element("userId", photo.getUserId())
                     .element("userName", photo.getUserName())
+                    .element("face", user.getFace() + "!small")
                     .element("height", photo.getHeight() * 300 / photo.getWidth());
             jsonArray.add(tmpObject);
         }

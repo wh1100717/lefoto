@@ -44,6 +44,8 @@ public class UserCache {
         int index=0;
         for (Iterator it = userIds.iterator(); it.hasNext();) {
             if(index != selectedNumber){
+                index++;
+                it.next();
                 continue;
             }else{
                 String idString = (String) it.next();

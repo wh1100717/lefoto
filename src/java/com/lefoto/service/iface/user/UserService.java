@@ -39,6 +39,14 @@ public interface UserService {
     public LeUser findUserByEmail(String email);
 
     /**
+     * 根据Id获取用户
+     *
+     * @param userId
+     * @return
+     */
+    public LeUser finUserById(int userId);
+
+    /**
      * 获取所有用户
      *
      * @return

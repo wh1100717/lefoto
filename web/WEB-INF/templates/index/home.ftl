@@ -191,7 +191,7 @@
                         //var itemHtml = '<div class="item"><img height="' + data[i].height + '" class="item-img" src="http://lefoto.b0.upaiyun.com' + data[i].url + '" onload="imgShow(this)" /><span>' + data[i].description + '</span></div>';
                         var itemHtml = '<div class="item">'+
                                         '<div class="itop clearfix">'+
-                                            '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data.face+'" /></a>'+
+                                            '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data[i].face+'" /></a>'+
                                             '<span class="img-desc fr">'+data[i].description+'</span>'+
                                         '</div>'+
                                         '<div class="imid">'+

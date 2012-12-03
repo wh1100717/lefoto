@@ -59,6 +59,11 @@ public class UserServiceImpl implements UserService {
     public LeUser findUserByEmail(String email) {
         return this.userDao.findUserByEmail(email);
     }
+    
+    @Override
+    public LeUser finUserById(int userId) {
+        return this.userDao.findUserById(userId);
+    }
 
     @Override
     public boolean checkUser(String email, String password) {
@@ -97,4 +102,5 @@ public class UserServiceImpl implements UserService {
         int randomNumber = random.nextInt(defaultUserFaces.size());
         return defaultUserFaces.get(randomNumber);
     }
+
 }

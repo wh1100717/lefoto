@@ -21,13 +21,15 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LoadInfoServlet loadInfoServlet;
 
     //Controller处理前执行
     @Override
     public boolean preHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o) throws Exception {
         
         if(LoadInfoServlet.isNotInit){
-            LoadInfoServlet loadInfoServlet = new LoadInfoServlet();
             loadInfoServlet.init();
         }
         

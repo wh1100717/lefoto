@@ -113,4 +113,9 @@ public class PhotoServiceImpl implements PhotoService {
     public List getPhotos(int cateId, int lastPhotoId, int size, int type) {
         return photoDao.getPhotos(cateId, lastPhotoId, size);
     }
+
+    @Override
+    public List getPhotosByAdmin(int cateId) {
+        return photoDao.getPhotosByAdmin(cateId);
+    }
 }
