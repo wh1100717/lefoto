@@ -40,41 +40,86 @@
 
             /*瀑布流*/
             .waterfall { width: 960px; margin: 0 auto; margin-top: 10px; position: relative; }
-            .col { float: left; padding: 7px; width: 300px; vertical-align: top; overflow-x: hidden; }
-            .item { position: relative; background-color: #CCC; width: 100%; height: auto; margin-bottom: 20px; box-shadow: 0 1 4px #808080; border: 1px #E1E1E1 solid; border-radius: 3px; overflow: hidden; }
+            .item-img,.comments,.col { width: 300px;}
+            .col { float: left; padding: 7px; vertical-align: top; overflow-x: hidden; }
+            .item-wrap { position: relative; width: 302px; margin-bottom: 20px; box-shadow: 0 1 4px #808080;}
+            .item { background-color: #CCC; width: 100%; border: 1px #E1E1E1 solid; border-radius: 3px; overflow: hidden; }
             .img-desc { width: 220px; padding-top: 7px; padding-right: 7px; font-size: 12px; display: block; line-height: 1.5;  text-align: right; background-color: white; }
-            .item-img { display: block; width: 300px; min-height: 200px; opacity: 0; filter: alpha(opacity=0); }
+            .item-img { display: block; min-height: 200px; opacity: 0; filter: alpha(opacity=0); }
             .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
             .loading { display: inline-block; padding-left: 32px; background: url(/lefoto/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
 
             .itop { background-color: #FFF;}
+            .imid { position: relative;}
+            .ibar { position: absolute; left: 0; bottom: 10px; width: 100%; }
+            .ibar-a { display: block; font-size: 12px; color: #808080; background-color: #F2F0F0; padding: 3px 10px; border-radius: 3px; margin: 0 7px;}
 
-            .ibar { position: absolute; left: 90px; bottom: 10px; width: 200px; }
-            .ibar > span { position: relative; margin: 0 6px; display: block; float: left; width: 60px; height: 22px; line-height: 22px; text-align: center;}
-            .ibar-a { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; font-size: 12px; color: #808080;}
-            .ibar > span:hover .mask { opacity: 0.8; filter: alpha(opscity=80); }
-            .ibar > span:hover .ibar-a { color: #999;}
+            .comments { background-color: #FFF; }
+            .comm-list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
+            .a.ava-img { float: left; }
+            .comm-p { margin-left: 36px;}
+            .fwrap { padding: 7px 10px; position: relative;}
+            .commbox { resize: none; outline: none; width: 272px;height: 23px; padding: 3px; font-size: 12px;line-height: 1.1em; border: 1px solid #DDD; overflow: hidden;background: whiteSmoke;-webkit-transition: width .25s ease-in-out;-moz-transition: width .25s ease-in-out;
+transition: width .25s ease-in-out;}
+            .subbtn { display: block; position: absolute; right: 15px; top: 10px; height: 25px; line-height: 25px;}
         </style>
     </head>  
     <body>
         <script id="itempl" type="text/html">
-            <div class="item">
-                <div class="itop clearfix">
-                    <a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="" /></a>
-                    <span class="img-desc fr">楼主，亮了～～</span>
-                </div>
-                <div class="imid">
-                    <a href="javascript:alert('还木有呢');"><img width="300" height="300" src="" alt="" /></a>
-                </div>
-                <div class="ibar" style="display: block;">
-                    <span>
-                        <span class="mask"></span>
-                        <a class="ibar-a" href="javascript:;">采集</a>
-                    </span>
-                    <span>
-                        <span class="mask"></span>
-                        <a class="ibar-a" href="javascript:;">评论</a>
-                    </span>
+            <div class="item-wrap">
+                <div id="_{id}" class="item">
+                    <div class="itop clearfix">
+                        <a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/{face}" /></a>
+                        <span class="img-desc fr"></span>
+                    </div>
+                    <div class="imid">
+                        <a href="javascript:alert('还木有呢');">
+                            <img width="300" height="{height}" src="http://lefoto.b0.upaiyun.com{url}" alt="" />
+                        </a>
+                        <!--悬浮按钮start-->
+                        <div class="ibar" style="display: block;">
+                            <a class="ibar-a fl" href="javascript:;">
+                                <span>喜欢</span>
+                            </a>
+                            <a class="ibar-a fl" href="javascript:;">
+                                <span>采集</span>
+                            </a>
+                            <a class="ibar-a fr" href="#" onclick="return openList('{id}')">
+                                <span>评论</span>
+                            </a>
+                        </div>
+                        <!--悬浮按钮end-->
+
+                    </div>
+                    <div id="list_{id}" class="comments" style="display:none;">
+                        <ul class="comm-list">
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="comm-p">。。。。。。。XXXXXX</p>
+                            </li>
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="comm-p">。。。。。。。XXXXXX</p>
+                            </li>
+                        </ul>
+                        <div class="fwrap">
+                            <form>
+                                <textarea class="commbox" name="" ></textarea>
+                                <a href="#" class="subbtn">评论</a>
+                            </form>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        function openList(id){
+                            var comm_list = $('#list_'+id);
+                            comm_list.show();
+                            return false;
+                        }
+                    </script>
                 </div>
             </div>
         </script>
@@ -113,7 +158,64 @@
             </div>
             <div class="body-wrap">
                 <div id="waterFall" class="wafterfall">
-                    <div class="col"></div>
+                    <div class="col">
+                        <div class="item-wrap">
+                            <div id="_001" class="item">
+                                <div class="itop clearfix">
+                                    <a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="" /></a>
+                                    <span class="img-desc fr">楼主，亮了～～</span>
+                                </div>
+                                <div class="imid">
+                                    <a href="javascript:alert('还木有呢');">
+                                        <img width="300" height="300" src="" alt="" />
+                                    </a>
+                                    <!--悬浮按钮start-->
+                                    <div class="ibar" style="display: block;">
+                                        <a class="ibar-a fl" href="javascript:;">
+                                            <span>喜欢</span>
+                                        </a>
+                                        <a class="ibar-a fl" href="javascript:;">
+                                            <span>采集</span>
+                                        </a>
+                                        <a class="ibar-a fr" href="#" onclick="return openList('001')">
+                                            <span>评论</span>
+                                        </a>
+                                    </div>
+                                    <!--悬浮按钮end-->
+                                    
+                                </div>
+                                <div id="list_001" class="comments" style="display:none;">
+                                    <ul class="comm-list">
+                                        <li>
+                                            <a class="fl" href="">
+                                                <img style="height:32px; width: 32px;" src="" />
+                                            </a>
+                                            <p class="comm-p">。。。。。。。XXXXXX</p>
+                                        </li>
+                                        <li>
+                                            <a class="fl" href="">
+                                                <img style="height:32px; width: 32px;" src="" />
+                                            </a>
+                                            <p class="comm-p">。。。。。。。XXXXXX</p>
+                                        </li>
+                                    </ul>
+                                    <div class="fwrap">
+                                        <form>
+                                            <textarea class="commbox" name="" ></textarea>
+                                            <a href="#" class="subbtn">评论</a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    function openList(id){
+                                        var comm_list = $('#list_'+id);
+                                        comm_list.show();
+                                        return false;
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col"></div>
                     <div class="col"></div>
                     <div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加载...</span></div>
@@ -123,6 +225,13 @@
         <input name="cateId" type="hidden" value="${cateId}" />
         <input name="type" type="hidden" value="${type}" />
         <script type="text/javascript">
+            function jtemp(str,data){
+                for(var n in data){
+                    var r = eval('/{'+n+'}/ig');
+                    str = str.replace(r,data[n]);
+                }
+                return str;
+            }
             function getElementByClassName(tag, className) {
                 var eles = [], tag = tag || '*';
                 var tags = document.getElementsByTagName(tag);
@@ -190,7 +299,10 @@
                 append: function(data) {
                     for(var i=0; i < data.length; i++) {
                         //var itemHtml = '<div class="item"><img height="' + data[i].height + '" class="item-img" src="http://lefoto.b0.upaiyun.com' + data[i].url + '" onload="imgShow(this)" /><span>' + data[i].description + '</span></div>';
-                        var itemHtml = '<div class="item">'+
+                        var templ = $('#itempl').html();
+                        var itemHtml = jtemp(templ,data[i]);
+                        /*
+                        var itemHtml = '<div class="item-wrap"><div class="item">'+
                             '<div class="itop clearfix">'+
                             '<a href="javascript:;"><img class="fl" style="height: 48px; width: 48px;" src="http://le-face.b0.upaiyun.com/'+data[i].face+'" /></a>'+
                             '<span class="img-desc fr">'+data[i].description+'</span>'+
@@ -199,6 +311,11 @@
                             '<a href="javascript:alert(\'还木有呢\');"><img width="300" height="'+data[i].height+'" src="http://lefoto.b0.upaiyun.com'+data[i].url+'" onload="imgShow(this)" alt="" /></a>'+
                             '</div>'+
                             '<div class="ibar" style="display: block;">'+
+                            '<div class="mask"></div>'+
+                            '<span>'+
+                                '<span class="mask"></span>'+
+                                '<a class="ibar-a" href="javascript:;">喜欢</a>'+
+                            '</span>'+
                             '<span>'+
                             '<span class="mask"></span>'+
                             '<a class="ibar-a" href="javascript:;">采集</a>'+
@@ -208,10 +325,8 @@
                             '<a class="ibar-a" href="javascript:;">评论</a>'+
                             '</span>'+
                             '</div>'+
-                            '</div>';
-                        
-                        
-                        
+                            '</div></div>';*/
+                   // console.log(itemHtml);
                         //添加到高度最小的那一列
                         waterFall.minHeightColumn2().append(itemHtml);
                     }
