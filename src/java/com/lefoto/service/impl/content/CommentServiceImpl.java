@@ -7,6 +7,7 @@ package com.lefoto.service.impl.content;
 import com.lefoto.dao.iface.content.CommentDao;
 import com.lefoto.model.content.LeComment;
 import com.lefoto.service.iface.content.CommentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public LeComment findCommentById(int id) {
         return commentDao.findCommentById(id);
+    }
+
+    @Override
+    public List<LeComment> getComments(int objectType, int objectId) {
+        return commentDao.getComments(objectType, objectId);
     }
 }

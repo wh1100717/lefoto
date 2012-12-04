@@ -5,6 +5,7 @@
 package com.lefoto.dao.iface.content;
 
 import com.lefoto.model.content.LeComment;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface CommentDao {
     public void delComment(LeComment comment);
 
     public LeComment findCommentById(int id);
+
+    public List<LeComment> getComments(int objectType, int objectId);
 
 }

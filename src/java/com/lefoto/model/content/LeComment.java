@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 
 /**
  * 评论类
+ *
  * @author Eric
  */
 @Entity
@@ -37,19 +38,20 @@ public class LeComment implements Serializable {
     int replyUserId;
     @Column(name = "reply_user_name")
     String replyUserName;
+    //objecType表示评论的对象类型，1表示为图片
     @Column(name = "object_type")
     int objectType;
     @Column(name = "object_id")
-    int topicId;
+    int objectId;
     @Column(name = "object_user_id")
-    int topicUserId;
+    int objectUserId;
     @Column(name = "object_user_name")
-    String rtopicUserName;
+    String objectUserName;
     @Column(name = "channel")
     int channel = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    Date createTime = new Date();
 
     public int getId() {
         return id;
@@ -115,30 +117,6 @@ public class LeComment implements Serializable {
         this.objectType = objectType;
     }
 
-    public int getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(int topicId) {
-        this.topicId = topicId;
-    }
-
-    public int getTopicUserId() {
-        return topicUserId;
-    }
-
-    public void setTopicUserId(int topicUserId) {
-        this.topicUserId = topicUserId;
-    }
-
-    public String getRtopicUserName() {
-        return rtopicUserName;
-    }
-
-    public void setRtopicUserName(String rtopicUserName) {
-        this.rtopicUserName = rtopicUserName;
-    }
-
     public int getChannel() {
         return channel;
     }
@@ -147,11 +125,35 @@ public class LeComment implements Serializable {
         this.channel = channel;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public int getObjectId() {
+        return objectId;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setObjectId(int objectId) {
+        this.objectId = objectId;
+    }
+
+    public int getObjectUserId() {
+        return objectUserId;
+    }
+
+    public void setObjectUserId(int objectUserId) {
+        this.objectUserId = objectUserId;
+    }
+
+    public String getObjectUserName() {
+        return objectUserName;
+    }
+
+    public void setObjectUserName(String objectUserName) {
+        this.objectUserName = objectUserName;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

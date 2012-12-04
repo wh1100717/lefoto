@@ -235,4 +235,20 @@ public class LePhoto implements Serializable {
     public void setDownCount(int downCount) {
         this.downCount = downCount;
     }
+
+    public void addCommentCount() {
+        this.commentCount = this.commentCount + 1;
+    }
+
+    public void addForwardCount() {
+        this.forwardCount = this.forwardCount + 1;
+    }
+
+    public void addUpCount() {
+        this.upCount = this.upCount + 1;
+    }
+
+    public void addDownCount() {
+        this.downCount = this.downCount + 1;
+    }
 }

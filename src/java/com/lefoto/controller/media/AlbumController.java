@@ -9,15 +9,12 @@ import com.lefoto.common.base.Const;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.AlbumService;
-import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -25,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/album")
-public class AlbumAction extends BaseController {
+public class AlbumController extends BaseController {
 
     @Autowired
     private AlbumService albumService;
