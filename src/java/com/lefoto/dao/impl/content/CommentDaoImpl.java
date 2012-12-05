@@ -56,4 +56,20 @@ public class CommentDaoImpl implements CommentDao {
             return null;
         }
     }
+
+    @Override
+    public List<LeComment> getComments(int objectType, int objectId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeComment.class);
+        criteria.add(Restrictions.eq("objectType", objectType));
+        criteria.add(Restrictions.eq("objectId", objectId));
+        List comments = criteria.list();
+        session.getTransaction().commit();
+        if (comments != null && !comments.isEmpty()) {
+            return comments;
+        } else {
+            return null;
+        }
+    }
 }
