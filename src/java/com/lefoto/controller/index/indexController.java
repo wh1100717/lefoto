@@ -7,6 +7,7 @@ package com.lefoto.controller.index;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.common.cache.UserCache;
+import com.lefoto.common.utils.AuthenUtil;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
@@ -62,6 +63,18 @@ public class indexController extends BaseController {
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
     List<String> getPic(HttpServletRequest requese, HttpServletResponse response) throws IOException {
+        List result = new ArrayList();
+        //验证是否是本网站发出的请求
+        if (!AuthenUtil.refererAuthen(requese.getHeader("Referer"))) {
+            result.add("invalid request");
+            return result;
+        }
+        //验证是否是浏览器发出的请求
+        if (!AuthenUtil.userAgentAuthen(requese.getHeader("User-Agent"))) {
+            result.add("invalid request");
+            return result;
+        }
+
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
@@ -89,7 +102,7 @@ public class indexController extends BaseController {
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        List result = new ArrayList();
+
         result.add(jsonObject.toString());
         return result;
     }

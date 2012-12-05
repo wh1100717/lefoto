@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.httpclient.HttpClient;
 
 /**
  *
@@ -27,6 +28,27 @@ public class GrabHtml {
     public static void main(String[] args) {
         grabDuiTangHTML();
     }
+    
+    	public static void grab91MeituHTML() {
+		String urlStart = "http://www.91meitu.net/img-item/get-next?1&lastid=";
+		URL url;
+		String urlPath;
+		try {
+			for (int index = 1; index < 10000; index++) {
+				urlPath = urlStart + String.valueOf(index) + "0";
+				url = new URL(urlPath);
+				HttpClient client = new HttpClient();
+
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
     public static void grabWoXiHuanHTML() {
         String urlStart = "http://www.woxihuan.com/hot/catalog/cid/32376/name/%E5%85%A8%E9%83%A8?p=";
