@@ -15,25 +15,24 @@ import javax.persistence.Temporal;
 
 /**
  * 用户的好友分组类
+ *
  * @author Eric
  */
 @Entity
 @Table(name = "le_relation_group")
 public class RelationGroup implements Serializable {
-        @Id
+
+    @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
-        
+    private int id;
     @Column(name = "name", nullable = false)
-    String name;
-    
+    private String name;
     @Column(name = "user_id", nullable = false)
-    int userId;
-    
+    private int userId;
     @Column(name = "create_time", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date createTime = new Date();
+    private Date createTime = new Date();
 
     public int getId() {
         return id;
@@ -66,5 +65,4 @@ public class RelationGroup implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
 }

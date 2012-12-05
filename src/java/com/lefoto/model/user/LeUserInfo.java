@@ -22,36 +22,27 @@ public class LeUserInfo implements Serializable {
 
     @Id
     @Column(name = "user_id")
-    int userId;
-    
+    private int userId;
     @Column(name = "age")
-    int age;
-    
+    private int age;
     @Column(name = "birthday")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date birthday;
-    
+    private Date birthday;
     @Column(name = "mobile")
-    int mobile;
-    
+    private int mobile;
     @Column(name = "address")
-    String address;
-    
+    private String address;
     @Column(name = "qq")
-    int qq;
-    
+    private int qq;
     @Column(name = "sina_weibo")
-    String sinaWeibo;
-    
+    private String sinaWeibo;
     @Column(name = "renren")
-    String renren;
-    
+    private String renren;
     @Column(name = "last_update_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date lastUpdateTime = new Date();
-    
+    private Date lastUpdateTime = new Date();
     @Column(name = "is_delete")
-    int isDelete = 0;
+    private int isDelete = 0;
 
     public int getUserId() {
         return userId;

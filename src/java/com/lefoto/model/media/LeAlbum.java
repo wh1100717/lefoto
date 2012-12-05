@@ -24,23 +24,23 @@ public class LeAlbum implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "name")
-    String name;
+    private String name;
     @Column(name = "category_id")
-    int categoryId;
+    private int categoryId;
     @Column(name = "user_id")
-    int userId;
+    private int userId;
     @Column(name = "user_name")
-    String userName;
+    private String userName;
     @Column(name = "description")
-    String description;
+    private String description;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    private Date create_time = new Date();
     @Column(name = "update_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date update_time = new Date();
+    private Date update_time = new Date();
 
     public int getId() {
         return id;

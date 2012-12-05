@@ -26,29 +26,29 @@ public class LeUser implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "email", nullable = false)
-    String email = "";
+    private String email = "";
     @Column(name = "password", nullable = false)
-    String password = "";
+    private String password = "";
     @Column(name = "name")
-    String name = "新用户";
+    private String name = "新用户";
     @Column(name = "face")
-    String face = "";
+    private String face = "";
     @Column(name = "sex")
-    int sex = 0;
+    private int sex = 0;
     @Column(name = "type")
-    int type = 1;
+    private int type = 1;
     @Column(name = "status")
-    int status = 1;
+    private int status = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    private Date create_time = new Date();
     @Column(name = "last_update_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date lastUpdateTime = new Date();
+    private Date lastUpdateTime = new Date();
     @Column(name = "is_delete")
-    int isDelete = 0;
+    private int isDelete = 0;
 
     public int getId() {
         return id;

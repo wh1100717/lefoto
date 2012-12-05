@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 
 /**
  * 用户好友关系类
+ *
  * @author Eric
  */
 @Entity
@@ -24,35 +25,26 @@ public class Relationship implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
-    
+    private int id;
     @Column(name = "user_id", nullable = false)
-    int userId;
-    
+    private int userId;
     @Column(name = "user_name", nullable = false)
-    String userName;
-    
+    private String userName;
     @Column(name = "follow_user_id", nullable = false)
-    int followUserId;
-    
+    private int followUserId;
     @Column(name = "follow_user_name", nullable = false)
-    String followUserName;
-    
+    private String followUserName;
     @Column(name = "group_id", nullable = false)
-    int groupId;
-    
+    private int groupId;
     @Column(name = "group_name", nullable = false)
-    String groupName;
-    
+    private String groupName;
     @Column(name = "relation_tyoe", nullable = false)
-    int relationType = 1;
-    
+    private int relationType = 1;
     @Column(name = "create_user_id", nullable = false)
-    int createUserId;
-    
+    private int createUserId;
     @Column(name = "create_time", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date createTime = new Date();
+    private Date createTime = new Date();
 
     public int getId() {
         return id;
@@ -133,5 +125,4 @@ public class Relationship implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
 }

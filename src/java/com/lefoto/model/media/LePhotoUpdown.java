@@ -23,17 +23,17 @@ public class LePhotoUpdown {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "user_id")
-    int userId;
+    private int userId;
     @Column(name = "photo_id")
-    int photoId;
+    private int photoId;
     //type ; 1表示顶，2表示踩
     @Column(name = "type")
-    int type;
+    private int type;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date create_time = new Date();
+    private Date create_time = new Date();
 
     public int getId() {
         return id;

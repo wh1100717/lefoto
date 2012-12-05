@@ -22,9 +22,9 @@ public class LeDefaultUserFace implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "url", nullable = false)
-    String url = "";
+    private String url = "";
 
     public int getId() {
         return id;

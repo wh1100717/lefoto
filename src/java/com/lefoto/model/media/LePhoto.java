@@ -25,48 +25,48 @@ public class LePhoto implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "name")
-    String name;
+    private String name;
     @Column(name = "url")
-    String url = "";
+    private String url = "";
     @Column(name = "forward_photo_id")
-    int forwardPhotoId = 0;
+    private int forwardPhotoId = 0;
     @Column(name = "forward_user_id")
-    int forwardUserId = 0;
+    private int forwardUserId = 0;
     @Column(name = "category_id")
-    int categoryId = 0;
+    private int categoryId = 0;
     @Column(name = "album_id")
-    int albumId = 0;
+    private int albumId = 0;
     @Column(name = "file_size")
-    long fileSize = 0;
+    private long fileSize = 0;
     @Column(name = "type")
-    int type = 1;
+    private int type = 1;
     @Column(name = "width")
-    int width = 0;
+    private int width = 0;
     @Column(name = "height")
-    int height = 0;
+    private int height = 0;
     @Column(name = "user_id")
-    int userId;
+    private int userId;
     @Column(name = "user_name")
-    String userName;
+    private String userName;
     @Column(name = "description")
-    String description = "";
+    private String description = "";
     @Column(name = "comment_count")
-    int commentCount = 0;
+    private int commentCount = 0;
     @Column(name = "forward_count")
-    int forwardCount = 0;
+    private int forwardCount = 0;
     @Column(name = "up_count")
-    int upCount = 0;
+    private int upCount = 0;
     @Column(name = "down_count")
-    int downCount = 0;
+    private int downCount = 0;
     @Column(name = "channel")
-    int channel = 1;
+    private int channel = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date createTime = new Date();
+    private Date createTime = new Date();
     @Column(name = "is_delete")
-    int isDelete = 0;
+    private int isDelete = 0;
 
     public int getId() {
         return id;
