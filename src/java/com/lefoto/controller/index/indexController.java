@@ -42,6 +42,7 @@ public class indexController extends BaseController {
      */
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
+        this.execute(request);
         ModelAndView mv = new ModelAndView("/index/home");
         int cateId = this.getParaIntFromRequest("cateId");
         int type = this.getParaIntFromRequest("type");
@@ -62,15 +63,15 @@ public class indexController extends BaseController {
 
     @RequestMapping(value = "/getPhoto")
     public @ResponseBody
-    List<String> getPic(HttpServletRequest requese, HttpServletResponse response) throws IOException {
+    List<String> getPhoto(HttpServletRequest request) throws IOException {
         List result = new ArrayList();
         //验证是否是本网站发出的请求
-        if (!AuthenUtil.refererAuthen(requese.getHeader("Referer"))) {
+        if (!AuthenUtil.refererAuthen(request.getHeader("Referer"))) {
             result.add("invalid request");
             return result;
         }
         //验证是否是浏览器发出的请求
-        if (!AuthenUtil.userAgentAuthen(requese.getHeader("User-Agent"))) {
+        if (!AuthenUtil.userAgentAuthen(request.getHeader("User-Agent"))) {
             result.add("invalid request");
             return result;
         }

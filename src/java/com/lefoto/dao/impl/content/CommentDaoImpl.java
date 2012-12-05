@@ -72,4 +72,26 @@ public class CommentDaoImpl implements CommentDao {
             return null;
         }
     }
+
+    @Override
+    public List<LeComment> getCommentsAjax(int objectType, int objectId, int lastCommentId, int size) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeComment.class);
+        criteria.add(Restrictions.eq("objectType", objectType));
+        criteria.add(Restrictions.eq("objectId", objectId));
+        if (lastCommentId != 0) {
+            criteria.add(Restrictions.le("id", lastCommentId));
+        }
+        if (size != 0) {
+            criteria.setMaxResults(size);
+        }
+        List comments = criteria.list();
+        session.getTransaction().commit();
+        if (comments != null && !comments.isEmpty()) {
+            return comments;
+        } else {
+            return null;
+        }
+    }
 }

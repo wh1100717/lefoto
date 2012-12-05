@@ -41,4 +41,9 @@ public class CommentServiceImpl implements CommentService {
     public List<LeComment> getComments(int objectType, int objectId) {
         return commentDao.getComments(objectType, objectId);
     }
+
+    @Override
+    public List<LeComment> getCommentsAjax(int objectType, int objectId, int lastCommentId, int size) {
+        return commentDao.getCommentsAjax(objectType, objectId, lastCommentId, size);
+    }
 }

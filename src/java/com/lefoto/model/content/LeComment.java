@@ -4,6 +4,8 @@
  */
 package com.lefoto.model.content;
 
+import com.lefoto.common.cache.UserCache;
+import com.lefoto.model.user.LeUser;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -25,33 +27,35 @@ public class LeComment implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    private int id;
     @Column(name = "content")
-    String content;
+    private String content;
     @Column(name = "user_id")
-    int userId;
+    private int userId;
     @Column(name = "user_name")
-    String userName;
+    private String userName;
     @Column(name = "reply_comment_id")
-    int replyCommentId;
+    private int replyCommentId;
     @Column(name = "reply_user_id")
-    int replyUserId;
+    private int replyUserId;
     @Column(name = "reply_user_name")
-    String replyUserName;
+    private String replyUserName;
     //objecType表示评论的对象类型，1表示为图片
     @Column(name = "object_type")
-    int objectType;
+    private int objectType;
     @Column(name = "object_id")
-    int objectId;
+    private int objectId;
     @Column(name = "object_user_id")
-    int objectUserId;
+    private int objectUserId;
     @Column(name = "object_user_name")
-    String objectUserName;
+    private String objectUserName;
     @Column(name = "channel")
-    int channel = 1;
+    private int channel = 1;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date createTime = new Date();
+    private Date createTime = new Date();
+    
+    private String userFace;
 
     public int getId() {
         return id;
@@ -79,6 +83,20 @@ public class LeComment implements Serializable {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getUserFace() {
+        LeUser user = UserCache.getUserById(this.userId);
+        if (user != null) {
+            userFace = user.getFace();
+            return userFace;
+        } else {
+            return userFace;
+        }
+    }
+
+    public void setUserFace(String userFace) {
+        this.userFace = userFace;
     }
 
     public void setUserName(String userName) {

@@ -21,4 +21,6 @@ public interface CommentDao {
 
     public List<LeComment> getComments(int objectType, int objectId);
 
+    public List<LeComment> getCommentsAjax(int objectType, int objectId, int lastCommentId, int size);
+
 }

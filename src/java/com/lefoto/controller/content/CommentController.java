@@ -168,4 +168,39 @@ public class CommentController extends BaseController {
 
         return result;
     }
+
+    @RequestMapping(value = "/getMoreComments")
+    public @ResponseBody
+    List<String> getMoreComments(HttpServletRequest requese, HttpServletResponse response) throws Exception {
+         List result = new ArrayList();
+
+        int objectId = this.getParaIntFromRequest("objectId");
+        int objectType = this.getParaIntFromRequest("objectType");
+        int lastCommentId = this.getParaIntFromRequest("lastCommentId");
+        int size = this.getParaIntFromRequest("size");
+        
+        List<LeComment> comments = commentService.getCommentsAjax(objectType, objectId, lastCommentId, size);
+
+        JSONArray jsonArray = new JSONArray();
+        LeComment comment;
+        for (int index = 0; index < comments.size(); index++) {
+            comment = comments.get(index);
+            JSONObject tmpObject = new JSONObject()
+                    .element("id", comment.getId())
+                    .element("content", comment.getContent())
+                    .element("createTime", comment.getCreateTime())
+                    .element("userId", comment.getUserId())
+                    .element("userName", comment.getUserName())
+                    .element("userFace", UserCache.getUserById(comment.getUserId()).getFace())
+                    .element("replyUserId", comment.getReplyUserId())
+                    .element("replyUserName", comment.getReplyUserName())
+                    .element("channel", comment.getChannel());
+            jsonArray.add(tmpObject);
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data", jsonArray);
+        jsonObject.put("size", comments.size());
+
+        return result;
+    }
 }

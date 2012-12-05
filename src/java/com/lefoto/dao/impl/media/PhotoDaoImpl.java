@@ -150,6 +150,7 @@ public class PhotoDaoImpl implements PhotoDao {
             criteria.add(Restrictions.le("id", lastPhotoId));
         }
         if (size != 0) {
+            if(size > 50){size = 50;}
             criteria.setMaxResults(size);
         }
         criteria.addOrder(Order.desc("id"));

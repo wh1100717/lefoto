@@ -34,9 +34,19 @@ public interface CommentService {
 
     /**
      * 获取某一类型对象的所有评论
-     * @param objectType
+     * @param objectType 0表示图片
      * @param objectId
      * @return
      */
     public List<LeComment> getComments(int objectType, int objectId);
+    
+    /**
+     * Ajax获取某一类型对象的部分评论 按最近评论的顺序排序
+     * @param objectType 0表示图片
+     * @param objectId
+     * @param lastCommentId 上一次获取的最后一条评论Id
+     * @param size 需要获取的评论总条数
+     * @return
+     */
+    public List<LeComment> getCommentsAjax(int objectType, int objectId, int lastCommentId, int size);
 }
