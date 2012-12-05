@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +41,11 @@ public class indexController extends BaseController {
      */
     @RequestMapping(value = "/show")
     public ModelAndView show(HttpServletRequest request) {
-        this.execute(request);
         ModelAndView mv = new ModelAndView("/index/home");
         int cateId = this.getParaIntFromRequest("cateId");
         int type = this.getParaIntFromRequest("type");
         cateId = cateId == 0 ? 1 : cateId;
         type = type == 0 ? 0 : type;
-        LeUser user = this.getUser();
-        if (user != null) {
-            mv.addObject("user", user);
-        }
         mv.addObject("cateId", cateId);
         mv.addObject("type", type);
         return mv;
