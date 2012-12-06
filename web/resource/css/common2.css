@@ -1,0 +1,47 @@
+﻿html { overflow: auto; }
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, form, input, textarea, button, fieldset, img, legend, ul, ol, li, dl, dt, dd, th, td, div, a {font-size:100%; margin:0; outline:0 none; padding:0; border:0 none;}
+body { font:12px/1.2 "Microsoft Yahei","微软雅黑"; color:rgb(51, 51, 51); text-align:left; background-color:#FFF;}
+a { text-decoration:none; cursor:pointer; color:#333333; outline: none; }
+ul,li { list-style:none;}
+.fl { float: left;}
+.fr { float: right;}
+.clearfix { zoom:1; }
+.clearfix:after { clear: both; content:""; display:block; height:0; visibility:hidden;}
+.noime { ime-mode:disabled;}
+
+/*公共菜单*/
+.go-top, .go-mid { height:108px; background-color:#F1F1F1; }
+.go-top { width:100%; border-bottom:1px #DDD solid; }
+.go-mid,.wrap { position:relative; max-width: 1200px; margin: 0 auto; }
+.logo { position: absolute; left:0; top:24px; color: #333; height: 60px; width: 150px; }
+.small-txt { position: absolute; top: 32px; right: 0; font-size:14px; color: #C3C3C3; font-family: Arial; }
+.big-txt { font-size: 24px; color: #05700d;}
+.navigation { margin-left:180px; }
+.go-nav-li { float: left; height:104px; line-height:104px; text-align:center; width:80px; margin-left:10px; }
+.go-nav-li a { display:block; color:#808080; height:80px; }
+.go-nav-li a:hover { background-color:#096717; color:#EEE; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear;}
+.nav-a-on { background-color:#096717; color:#EEE !important; }
+
+.go-search { position:absolute; right:20px; top: 50px; background-color:#FFF; padding:7px; border:1px solid #E1E1E1; }
+.search-txt { color: #C3C3C3; height:20px; line-height:20px; width:200px; }
+.go-search-btn { height:34px; padding: 0 7px; margin: -7px -7px -7px 0; cursor:pointer;}
+
+/* Turn on a 12x12 scrollbar */
+::-webkit-scrollbar { width: 12px; height: 12px;}
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment { display: block; }
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:end:increment { display:none; }
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:start:decrement { display:none; }
+/* Top area above thumb and below up button */
+::-webkit-scrollbar-track-piece:vertical:start { background-color: white; }
+/* Bottom area below thumb and down button */
+::-webkit-scrollbar-track-piece:vertical:end { background-color: white; }
+/* The thumb itself */
+::-webkit-scrollbar-thumb:vertical { background-color: #8E8E8E; }
+::-webkit-scrollbar-thumb:vertical:hover { background-color:#3B3B3B; }
