@@ -10,7 +10,7 @@
         <style type="text/css">
             html{ overflow: auto;}
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,input{margin:0;padding:0;border:0 none; outline:0; vertical-align: baseline;}
-            body { font-family: "微软雅黑"; font-size: 12px; color: #333; background-color: #E7EAD4;}
+            body { font-family: "微软雅黑"; font-size: 12px; color: #333; background-color: #FFF;}
             ul,li { list-style: none;}
             a { text-decoration: none;}
             .clearfix:after { content: "."; display: block; height: 0; visibility: hidden; clear: both;}
@@ -48,6 +48,8 @@
             .loading { display: inline-block; padding-left: 32px; background: url(/lefoto/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
             /*瀑布流end*/
             .iTop { padding: 7px 0 20px 0;}
+            .iMid { display: block; text-align: center;}
+            .iTop p { margin-bottom: 5px;}
             .item { position: relative; padding: 7px 15px; width: 420px; background-color: #FFF; border: 1px #E1E1E1 solid; box-shadow: 2px 2px 4px #E1E1E1;}
             .Es { position: absolute; top: 15px; right: 15px; display: block; width: 45px; background: url(http://ipic.tuita.cc/img/theme/theme_canon/temp_bg.png?v=1346141329) right -32px no-repeat;}
             .Es:hover { background-color: #f1f1f1;}
@@ -112,15 +114,15 @@ transition: width .25s ease-in-out;}
             <div class="item">
                 <div class="">
                     <div class="iTop clearfix">
-                        <img width="36" height="36" src="{face}" />
-                        <p>我是超人</p>
+                        <img width="36" height="36" src="http://le-face.b0.upaiyun.com/{face}" />
+                        <p>{userName}</p>
                         <p>搞笑00000+10086</p>
                         <a href="javascript:;" class="Es" style="z-index:9999;">
-                            <span class="num">1</span>
+                            <span class="num">{commentCount}</span>
                         </a>
                     </div>
-                    <a href="javascript:;">
-                        <img width="420" src="http://lefoto.b0.upaiyun.com{url}" />
+                    <a style="height:{height}px;" class="iMid" href="javascript:;">
+                        <img height="{height}" style="max-width: 420px;" src="http://lefoto.b0.upaiyun.com{url}" />
                     </a>
                     <div class="ibar clearfix">
                         <a class="ibar-a fr" href="javascript:;">
@@ -162,6 +164,7 @@ transition: width .25s ease-in-out;}
         <script type="text/javascript">
             function toList(id){
                 var comm_list = $('#i_'+id);
+                console.log(comm_list.length);
                 if(comm_list.is(':visible')){comm_list.hide();}
                 else{
                     comm_list.show();
