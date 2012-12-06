@@ -208,6 +208,8 @@ transition: width .25s ease-in-out;}
                 </div>
             </div>
         </div>
+        <input name="cateId" type="hidden" value="${cateId}" />
+        <input name="type" type="hidden" value="${type}" />
         <script type="text/javascript">
             function openList(id){
                 var comm_list = $('#list_'+id);
@@ -218,8 +220,6 @@ transition: width .25s ease-in-out;}
                 return false;
             }
         </script>
-        <input name="cateId" type="hidden" value="${cateId}" />
-        <input name="type" type="hidden" value="${type}" />
         <script type="text/javascript">
             function jtemp(str,data){
                 for(var n in data){
