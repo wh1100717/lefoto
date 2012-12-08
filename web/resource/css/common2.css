@@ -26,6 +26,13 @@ ul,li { list-style:none;}
 .search-txt { color: #C3C3C3; height:20px; line-height:20px; width:200px; }
 .go-search-btn { height:34px; padding: 0 7px; margin: -7px -7px -7px 0; cursor:pointer;}
 
+
+
+.backToTop {position:fixed;cursor: pointer;height:52px; width:52px;background:transparent;right:10px;bottom:10px;z-index:9999;}
+.backToTop a {display:block;height:48px;width:48px;overflow: hidden;background:url(http://schoollife.me/content/images/scrollTop.png) no-repeat 0 0;}
+.backToTop a:hover {background-position: -48px 0;}
+
+/*滚动条美化 start*/
 /* Turn on a 12x12 scrollbar */
 ::-webkit-scrollbar { width: 12px; height: 12px;}
 /* Turn on single button up on top, and down on bottom */
@@ -45,3 +52,4 @@ ul,li { list-style:none;}
 /* The thumb itself */
 ::-webkit-scrollbar-thumb:vertical { background-color: #8E8E8E; }
 ::-webkit-scrollbar-thumb:vertical:hover { background-color:#3B3B3B; }
+/*滚动条美化 end*/

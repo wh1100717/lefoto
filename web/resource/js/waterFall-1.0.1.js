@@ -101,7 +101,7 @@ waterFall.prototype = {
         var self = this;
         var reqUrl = this.url;
         var paras = {
-            startIndex: self.startIndex,
+            lastPhotoId: self.startIndex,
             size: this.size
         };
         var p = this.params;

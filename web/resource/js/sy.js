@@ -21,4 +21,13 @@
     }
     window.tempToHTML = tempToHTML;
 }
-)()
+)();
+(function($){
+        var backBtn = $('<div class="backToTop"><a href="javascript:void(0);" title="返回顶部"></a></div>').css({ 'display': 'none' }).appendTo($("body")).click(function () {
+	        $("html, body").animate({ scrollTop : 0 }, 300);
+	    });
+        window.onscroll = function () {
+            var st = $(document).scrollTop();
+            (st > 800) ? backBtn.show() : backBtn.hide();
+        };
+})(jQuery);
