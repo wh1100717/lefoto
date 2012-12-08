@@ -8,6 +8,7 @@ ul,li { list-style:none;}
 .clearfix { zoom:1; }
 .clearfix:after { clear: both; content:""; display:block; height:0; visibility:hidden;}
 .noime { ime-mode:disabled;}
+.fixedbar { position: fixed; top: 0; left: 0; z-index: 9999;}
 
 /*公共菜单*/
 .go-top, .go-mid { height:108px; background-color:#F1F1F1; }

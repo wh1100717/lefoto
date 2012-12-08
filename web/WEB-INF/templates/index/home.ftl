@@ -5,8 +5,6 @@
         <title>Lefoto</title>
         <link href="/lefoto/src/css/common2.css" rel="stylesheet" />
         <script src="/lefoto/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
-        <script src="/lefoto/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
-        <script src="/lefoto/src/js/sy.js" type="text/javascript"></script>
         <style type="text/css">
             html{ overflow: auto;}
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,input{margin:0;padding:0;border:0 none; outline:0; vertical-align: baseline;}
@@ -28,11 +26,12 @@
             .le-img-iupload-btn { position: absolute; top: 130px; left: 55%;}
 
             .mside { width: 420px; margin: 0 auto;}
-            .lside { padding: 3px; border: 1px #EEE solid; border-radius: 3px; background-color: #FFF;}
-            .mside ul li,.rside ul li { float: left; text-align: center; height: 28px; line-height: 28px;}
-            .mside ul li a,.rside ul li a { color: #EEE;}
-            .mside ul li a:hover,.rside ul li a:hover { color: #FFF;}
-            .mside ul li { width: 80px;}
+            .lside { padding: 3px; border: 1px #EEE solid; background-color: #FFF;}
+            .mside ul li,.rside ul li { float: left;  text-align: center; height: 30px; line-height: 30px; padding: 5px 0; margin: -5px 0;}
+            .mside ul li a,.rside ul li a { color: #EEE; display: block; width: 100%; height: 30px;}
+            .mside ul li:hover,.rside ul li:hover,li.selected { background-color: #558000;}
+            .mside ul li:hover a,.rside ul li:hover a { color: #FFF;}
+            .mside ul li { width: 80px; }
             .rside ul li { width:40px;}
             .lside input { vertical-align: top; margin-right: -1px; float: left; border: 0 none; background-color: transparent; outline: none;}
             input.sbox { height: 22px; line-height: 22px; width: 180px; font-weight: 800;}
@@ -68,11 +67,11 @@
             .editor { resize: none; outline: none; width: 392px; height: 23px; padding: 3px; font-size: 12px; line-height: 1.1em; border: 1px solid #DDD; overflow: hidden; background: whiteSmoke;-webkit-transition: width .25s ease-in-out;-moz-transition: width .25s ease-in-out;
 transition: width .25s ease-in-out;}
             .subbtn { display: block;  position: absolute; right: 15px; top: 10px; height: 25px; line-height: 25px;}
+
         </style>
     </head>  
     <body>
         <input name="cateId" type="hidden" value="${cateId}" />
-        <input name="type" type="hidden" value="${type}" />
         <div class="le-header">
             <div class="le-iupload">
                 <a href="javascript:;">
@@ -81,7 +80,7 @@ transition: width .25s ease-in-out;}
             </div>
         </div>
         <div class="le-content">
-            <div class="navbarwrap">
+            <div id="navbar" class="navbarwrap">
                 <div class="navbar clearfix">
                     <div class="lside fl">
                         <form action="" method="get">
@@ -100,7 +99,7 @@ transition: width .25s ease-in-out;}
                             <li><a href="/lefoto/index/show.html?cateId=1">搞笑</a></li>
                             <li><a href="/lefoto/index/show.html?cateId=2">萌宠</a></li>
                             <li><a href="/lefoto/index/show.html?cateId=3">童真</a></li>
-                            <li><a href="/lefoto/index/show.html?cateId=4">美女</a></li>
+                            <li class="selected"><a href="/lefoto/index/show.html?cateId=4">美女</a></li>
                             <li><a href="/lefoto/index/show.html?cateId=5">随便看看</a></li>
                         </ul>
                     </div>
@@ -117,12 +116,12 @@ transition: width .25s ease-in-out;}
                         <img width="36" height="36" src="http://le-face.b0.upaiyun.com/{face}" />
                         <p>{userName}</p>
                         <p>搞笑00000+10086</p>
-                        <a href="javascript:;" class="Es" style="z-index:9999;">
+                        <a href="javascript:;" class="Es" style="z-index:999;">
                             <span class="num">{commentCount}</span>
                         </a>
                     </div>
                     <a style="height:{height}px;" class="iMid" href="javascript:;">
-                        <img height="{height}" style="max-width: 420px;" src="http://lefoto.b0.upaiyun.com{url}" />
+                        <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
                     </a>
                     <div class="ibar clearfix">
                         <a class="ibar-a fr" href="javascript:;">
@@ -160,17 +159,10 @@ transition: width .25s ease-in-out;}
                 </div>
             </div>
         </script>
-        
+        <script src="/lefoto/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
+        <script src="/lefoto/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
         <script type="text/javascript">
-            function toList(id){
-                var comm_list = $('#i_'+id);
-                console.log(comm_list.length);
-                if(comm_list.is(':visible')){comm_list.hide();}
-                else{
-                    comm_list.show();
-                }
-                return false;
-            }
+            $('#navbar').scrollFix();
             new waterFall({
                 id: 'wf',//瀑布流ID
                 url:'/lefoto/index/getPhoto.html',//数据请求接口，返回json格式
@@ -180,7 +172,7 @@ transition: width .25s ease-in-out;}
                 view:'view',
                 params: { //请求数据时可向服务器发送附带参数
                     cateId: $('input[name=cateId]').val(),
-                    type: $('input[name=type]').val()
+                    type: 2
                 }
             }).show();
         </script>

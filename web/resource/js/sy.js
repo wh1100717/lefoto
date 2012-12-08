@@ -20,14 +20,39 @@
         //dom.innerHTML = data.join('');
     }
     window.tempToHTML = tempToHTML;
-}
-)();
+})();
 (function($){
-        var backBtn = $('<div class="backToTop"><a href="javascript:void(0);" title="返回顶部"></a></div>').css({ 'display': 'none' }).appendTo($("body")).click(function () {
-	        $("html, body").animate({ scrollTop : 0 }, 300);
-	    });
-        window.onscroll = function () {
+    //返回顶部start
+    var backToTopEle = $('<div class="backToTop"><a href="javascript:void(0);" title="返回顶部"></a></div>')
+        .css({ 'display': 'none' })
+        .appendTo($("body")).click(function () {
+            $("html, body").animate({ scrollTop : 0 }, 300);
+        }), backToTopFun = function () {
             var st = $(document).scrollTop();
-            (st > 800) ? backBtn.show() : backBtn.hide();
+            (st > 2000) ? backToTopEle.show() : backToTopEle.hide();
         };
+    $(window).bind("scroll", backToTopFun);
+    //返回顶部end
 })(jQuery);
+function toList(id){
+    var comm_list = $('#i_'+id);
+    console.log(comm_list.length);
+    if(comm_list.is(':visible')){comm_list.hide();}
+    else{
+        comm_list.show();
+    }
+    return false;
+}
+//自定义jQuery扩展函数
+$.fn.scrollFix = function(){
+    var self = $(this);
+    var top = self.offset().top;
+    $(window).scroll(function(){
+        var scrollTop = $(document).scrollTop();
+        if(top < scrollTop && !self.hasClass('fixedbar')){
+            self.addClass('fixedbar'); 
+        }else if(top > scrollTop && self.hasClass('fixedbar')){
+            self.removeClass('fixedbar'); 
+        }
+    })
+}
