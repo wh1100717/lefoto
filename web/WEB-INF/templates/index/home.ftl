@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
         <title>Lefoto</title>
-        <link href="/lefoto/src/css/common2.css" rel="stylesheet" />
-        <script src="/lefoto/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <link href="/src/css/common2.css" rel="stylesheet" />
+        <script src="/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
         <style type="text/css">
             html{ overflow: auto;}
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,input{margin:0;padding:0;border:0 none; outline:0; vertical-align: baseline;}
@@ -21,7 +21,7 @@
             .body-wrap { margin: 0 auto; min-height: 500px; }
 
             .le-header { height: 180px; overflow: hidden; background-color: #000; border-bottom: 3px #FFF solid;}
-            .le-iupload { position: relative; width: 960px; height: 180px; margin: 0 auto; background: url(/lefoto/src/images/top_logo.png) #000 no-repeat scroll center bottom;}
+            .le-iupload { position: relative; width: 960px; height: 180px; margin: 0 auto; background: url(/src/images/top_logo.png) #000 no-repeat scroll center bottom;}
             .le-iupload a { position: absolute; bottom: 7px; right:260px; display: block; width: 120px; height: 29px;}
             .le-img-iupload-btn { position: absolute; top: 130px; left: 55%;}
 
@@ -44,7 +44,7 @@
             .waterFall { display: block; width: 960px; margin: 0 auto; margin-top: 30px; position: relative; }
             .col { float: left; overflow-x: hidden; }
             .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
-            .loading { display: inline-block; padding-left: 32px; background: url(/lefoto/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
+            .loading { display: inline-block; padding-left: 32px; background: url(/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
             /*瀑布流end*/
             .iTop { padding: 7px 0 20px 0;}
             .iMid { display: block; text-align: center;}
@@ -75,7 +75,7 @@ transition: width .25s ease-in-out;}
         <div class="le-header">
             <div class="le-iupload">
                 <a href="javascript:;">
-                    <img src="/lefoto/src/images/upload_btn.png" alt="" />
+                    <img src="/src/images/upload_btn.png" alt="" />
                 </a>
             </div>
         </div>
@@ -90,17 +90,17 @@ transition: width .25s ease-in-out;}
                     </div>
                     <div class="rside fr">
                         <ul>
-                            <li><a href="/lefoto/index/show.html">登录</a></li>
-                            <li><a href="/lefoto/index/show.html">注册</a></li>
+                            <li><a href="/index/show.html">登录</a></li>
+                            <li><a href="/index/show.html">注册</a></li>
                         </ul>
                     </div>
                     <div class="mside">
                         <ul>
-                            <li><a href="/lefoto/index/show.html?cateId=1">搞笑</a></li>
-                            <li><a href="/lefoto/index/show.html?cateId=2">萌宠</a></li>
-                            <li><a href="/lefoto/index/show.html?cateId=3">童真</a></li>
-                            <li class="selected"><a href="/lefoto/index/show.html?cateId=4">美女</a></li>
-                            <li><a href="/lefoto/index/show.html?cateId=5">随便看看</a></li>
+                            <li><a href="/index/show.html?cateId=1">搞笑</a></li>
+                            <li><a href="/index/show.html?cateId=2">萌宠</a></li>
+                            <li><a href="/index/show.html?cateId=3">童真</a></li>
+                            <li class="selected"><a href="/index/show.html?cateId=4">美女</a></li>
+                            <li><a href="/index/show.html?cateId=5">随便看看</a></li>
                         </ul>
                     </div>
                 </div>
@@ -159,13 +159,13 @@ transition: width .25s ease-in-out;}
                 </div>
             </div>
         </script>
-        <script src="/lefoto/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
-        <script src="/lefoto/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
+        <script src="/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
+        <script src="/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
         <script type="text/javascript">
             $('#navbar').scrollFix();
             new waterFall({
                 id: 'wf',//瀑布流ID
-                url:'/lefoto/index/getPhoto.html',//数据请求接口，返回json格式
+                url:'/index/getPhoto.html',//数据请求接口，返回json格式
                 size: 10,//每次请求要加载的数据条数
                 colWidth: 460,//列宽
                 colAmount: 2,//列数

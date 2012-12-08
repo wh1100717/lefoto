@@ -7,7 +7,7 @@
     </head>
     <body class="clean" >
         <div class="container">
-            <a class="sideLink" href="/lefoto/login/show.html">Have an account? <b>Sign in</b></a>
+            <a class="sideLink" href="/login/show.html">Have an account? <b>Sign in</b></a>
             <div id="smallContent" class="span-6 centered_column textOnly">
                 <a id="logo" href="http://vi.sualize.us/" title="Go to the Home page">
                     <img src="http://cdnstatic.visualizeus.com/css/images/logowhiteVisualizeUs.png" width="222" height="59" alt="Visualize Us">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="traditional" style="display: none;">
                     <span class="or">or</span>
-                    <form id="loginf" class="wide" action="/lefoto/register/add.html" method="post" autocomplete="off">
+                    <form id="loginf" class="wide" action="/register/add.html" method="post" autocomplete="off">
                         <fieldset>
                             <label for="email">Email address</label>
                             <input tabindex="4" type="text" class="txt required " id="email" name="email" size="40" maxlength="40">
@@ -69,5 +69,5 @@
                 </div> <!-- traditional -->
             </div> <!-- mainContent-->
         </div> <!--container-->
-        <script src="/lefoto/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://cdnstatic.visualizeus.com/js/jquery.cookie.v1.js,register.v2659.js"></script>

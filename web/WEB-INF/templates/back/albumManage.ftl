@@ -6,7 +6,7 @@
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
                 <h2 class="section_title">Album Manage</h2>
-                <div class="btn_view_site"><a href="/lefoto/index/show.html">Lefoto</a></div>
+                <div class="btn_view_site"><a href="/index/show.html">Lefoto</a></div>
             </hgroup>
         </header>
         <!-- end of header bar -->
@@ -29,7 +29,7 @@
         <section id="main" class="column">
             <!-- 创建分类 -->
             <article id="albumCreation"class="module" style="display: none;float: right;width: 200px;height: 50px;">
-                <form class="submit_link" action="/lefoto/back/album/add.html" method="post">
+                <form class="submit_link" action="/back/album/add.html" method="post">
                     <input type="text" name ="albumName" style="width: 100px;margin-top: 7px;">
                     <input type="submit" value="创建" class="alt_btn">
                 </form>
@@ -71,8 +71,8 @@
                                     <td>${album.category_id}</td>
                                     <td>${album.create_time}</td>
                                     <td>
-                                        <input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
-                                        <input class="albumDelete" value="${album.name}" type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
+                                        <input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
+                                        <input class="albumDelete" value="${album.name}" type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
                                     </td> 
                                 </tr> 
                                 </#list>
@@ -105,11 +105,11 @@
                                 'action': function(){
                                     $.ajax({
                                         type:'post',//可选get
-                                        url:'/lefoto/back/album/delete.html',//这里是接收数据的PHP程序
+                                        url:'/back/album/delete.html',//这里是接收数据的PHP程序
                                         data : data,
                                         success:function(msg){
                                             //这里是ajax提交成功后，PHP程序返回的数据处理函数。msg是返回的数据，数据类型在dataType参数里定义！
-                                            location.href ="/lefoto/back/albumManage.html"
+                                            location.href ="/back/albumManage.html"
                                         },
                                         error:function(){
                                         }

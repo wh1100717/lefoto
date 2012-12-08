@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="/lefoto/src/plugins/uploadifive/uploadifive.css">
+        <link rel="stylesheet" type="text/css" href="/src/plugins/uploadifive/uploadifive.css">
         <#include "/back/layout/head.ftl">
-        <script src="/lefoto/src/plugins/uploadifive/jquery.uploadifive.min.js" type="text/javascript"></script>
+        <script src="/src/plugins/uploadifive/jquery.uploadifive.min.js" type="text/javascript"></script>
     </head>
     <body>
         <header id="header">
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
                 <h2 class="section_title">Photo Manage</h2>
-                <div class="btn_view_site"><a href="/lefoto/index/show.html">Lefoto</a></div>
+                <div class="btn_view_site"><a href="/index/show.html">Lefoto</a></div>
             </hgroup>
         </header>
         <!-- end of header bar -->
@@ -36,7 +36,7 @@
         <script	type="text/javascript">
             $(function() {
                 $('#file_upload').uploadifive({
-                    'uploadScript' : '/lefoto/back/user/uploadDefaultUserFace.html'
+                    'uploadScript' : '/back/user/uploadDefaultUserFace.html'
                     // Put your options here
                 });
             });

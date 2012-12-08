@@ -6,7 +6,7 @@
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
                 <h2 class="section_title">Category Manage</h2>
-                <div class="btn_view_site"><a href="/lefoto/index/show.html">Lefoto</a></div>
+                <div class="btn_view_site"><a href="/index/show.html">Lefoto</a></div>
             </hgroup>
         </header>
         <!-- end of header bar -->
@@ -28,7 +28,7 @@
         <section id="main" class="column">
             <!-- 创建分类 -->
             <article id="categoryCreation"class="module" style="display: none;float: right;width: 200px;height: 50px;">
-                <form class="submit_link" action="/lefoto/back/category/add.html" method="post">
+                <form class="submit_link" action="/back/category/add.html" method="post">
                     <input type="text" name ="cateName" style="width: 100px;margin-top: 7px;">
                     <input type="submit" value="创建" class="alt_btn">
                 </form>
@@ -62,8 +62,8 @@
                                     <td>${category.name}</td> 
                                     <td>${category.amount}</td> 
                                     <td>
-                                        <input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
-                                        <input class="categoryDelete" value="${category.name}" type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
+                                        <input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit">
+                                        <input class="categoryDelete" value="${category.name}" type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash">
                                     </td> 
                                 </tr> 
                                 </#list>
@@ -88,35 +88,35 @@
                                     <td>Lorem Ipsum Dolor Sit Amet</td> 
                                     <td>Mark Corrigan</td> 
                                     <td>5th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Ipsum Lorem Dolor Sit Amet</td> 
                                     <td>Jeremy Usbourne</td> 
                                     <td>6th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr>
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Sit Amet Dolor Ipsum</td> 
                                     <td>Super Hans</td> 
                                     <td>10th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Alan Johnson</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Dobby</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                             </tbody> 
                         </table>
@@ -148,11 +148,11 @@
                                 'action': function(){
                                     $.ajax({
                                         type:'post',//可选get
-                                        url:'/lefoto/back/category/delete.html',//这里是接收数据的PHP程序
+                                        url:'/back/category/delete.html',//这里是接收数据的PHP程序
                                         data : data,
                                         success:function(msg){
                                             //这里是ajax提交成功后，PHP程序返回的数据处理函数。msg是返回的数据，数据类型在dataType参数里定义！
-                                            location.href ="/lefoto/back/categoryManage.html"
+                                            location.href ="/back/categoryManage.html"
                                         },
                                         error:function(){
                                         }

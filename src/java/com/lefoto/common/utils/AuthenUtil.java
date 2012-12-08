@@ -12,7 +12,7 @@ public class AuthenUtil {
 
     public static boolean refererAuthen(String referer) {
         if(referer == null){return false;}
-        if (referer.contains("lefoto")) {
+        if (referer.contains("lefoto")|| referer.contains("localhost")) {
             return true;
         } else {
             return false;

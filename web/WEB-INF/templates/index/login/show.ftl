@@ -13,7 +13,7 @@
         <div id="lightbox" class="done" style="visibility: visible; margin-top: -210.5px; margin-left: -411px;">
             <div id="lbContent" class="clearfix">
 
-                <form id="loginForm" name="f" action="/lefoto/login/submit.html" method="post">
+                <form id="loginForm" name="f" action="/login/submit.html" method="post">
                     <div class="info">
                         <h2>Lefoto Welcomes You!</h2>
                         <div>Hey friend, please log in.</div>
@@ -53,7 +53,7 @@
                 </form>
 
                 <div id="noaccount">
-                    <a href="/lefoto/register/show.html">
+                    <a href="/register/show.html">
                         <h2>Don't have an account? <b>No worries.</b><span>Create one now.</span> <b>It's FREE!</b></h2>
                     </a>
                 </div>

@@ -6,7 +6,7 @@
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
                 <h2 class="section_title">Dashboard</h2>
-                <div class="btn_view_site"><a href="/lefoto/index/show.html">Lefoto</a></div>
+                <div class="btn_view_site"><a href="/index/show.html">Lefoto</a></div>
             </hgroup>
         </header>
         <!-- end of header bar -->
@@ -80,35 +80,35 @@
                                     <td>Lorem Ipsum Dolor Sit Amet</td> 
                                     <td>Articles</td> 
                                     <td>5th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Ipsum Lorem Dolor Sit Amet</td> 
                                     <td>Freebies</td> 
                                     <td>6th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr>
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Sit Amet Dolor Ipsum</td> 
                                     <td>Tutorials</td> 
                                     <td>10th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Articles</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr>
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Articles</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr>  
                             </tbody> 
                         </table>
@@ -131,35 +131,35 @@
                                     <td>Lorem Ipsum Dolor Sit Amet</td> 
                                     <td>Mark Corrigan</td> 
                                     <td>5th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Ipsum Lorem Dolor Sit Amet</td> 
                                     <td>Jeremy Usbourne</td> 
                                     <td>6th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr>
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Sit Amet Dolor Ipsum</td> 
                                     <td>Super Hans</td> 
                                     <td>10th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Alan Johnson</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                                 <tr> 
                                     <td><input type="checkbox"></td> 
                                     <td>Dolor Lorem Amet</td> 
                                     <td>Dobby</td> 
                                     <td>16th April 2011</td> 
-                                    <td><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/lefoto/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
+                                    <td><input type="image" src="/src/plugins/backtemplate/images/icn_edit.png" title="Edit"><input type="image" src="/src/plugins/backtemplate/images/icn_trash.png" title="Trash"></td> 
                                 </tr> 
                             </tbody> 
                         </table>

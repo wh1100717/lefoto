@@ -81,6 +81,11 @@ public class indexController extends BaseController {
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
             LeUser user = UserCache.getUserById(photo.getUserId());
+            int height = photo.getHeight();
+            int width = photo.getWidth();
+            if (width > 420) {
+                height = height * 420 / width;
+            }
             JSONObject tmpObject = new JSONObject()
                     .element("id", photo.getId())
                     .element("url", photo.getUrl() + "!550")
@@ -92,7 +97,7 @@ public class indexController extends BaseController {
                     .element("userId", photo.getUserId())
                     .element("userName", photo.getUserName())
                     .element("face", user.getFace() + "!small")
-                    .element("height", photo.getHeight() * 420 / photo.getWidth());
+                    .element("height", height);
             jsonArray.add(tmpObject);
         }
         JSONObject jsonObject = new JSONObject();
