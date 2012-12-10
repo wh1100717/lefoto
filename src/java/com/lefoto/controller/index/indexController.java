@@ -35,10 +35,9 @@ public class indexController extends BaseController {
 
     @RequestMapping(value = "/")
     public ModelAndView index(HttpServletRequest request) {
-         return new ModelAndView(new RedirectView("/index.html"));
+        return new ModelAndView(new RedirectView("/index.html"));
     }
-    
-    
+
     /**
      * 渲染网站首页，根据是否登录显示不同的内容
      *
@@ -75,6 +74,7 @@ public class indexController extends BaseController {
             result.add("invalid request");
             return result;
         }
+        LeUser homeUser = this.getRequestUser(request);
 
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
@@ -112,6 +112,9 @@ public class indexController extends BaseController {
                     .element("userName", photo.getUserName())
                     .element("face", user.getFace() + "!small")
                     .element("height", height);
+            if (homeUser.getEmail().equals("admin@lefoto.me")) {
+                tmpObject.put("delete", 1);
+            }
             jsonArray.add(tmpObject);
         }
 
@@ -120,5 +123,4 @@ public class indexController extends BaseController {
         result.add(jsonObject.toString());
         return result;
     }
-
 }

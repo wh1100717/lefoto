@@ -96,4 +96,14 @@ public class PhotoCache {
         }
         return null;
     }
+
+    public static LePhoto getPhotoById(int photoId, int cateId) {
+        List<LePhoto> photos = photoList.get(cateId);
+        for (LePhoto photo : photos) {
+            if(photo.getId() == photoId){
+                return photo;
+            }
+        }
+        return null;
+    }
 }

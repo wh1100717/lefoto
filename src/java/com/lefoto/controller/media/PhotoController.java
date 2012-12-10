@@ -5,6 +5,9 @@
 package com.lefoto.controller.media;
 
 import com.lefoto.common.base.BaseController;
+import com.lefoto.common.base.Const;
+import com.lefoto.common.cache.PhotoCache;
+import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.content.LeComment;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -24,9 +28,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/photo")
 public class PhotoController extends BaseController {
-    
-    @Autowired PhotoService photoService;
-    @Autowired CommentService commentService;
+
+    @Autowired
+    PhotoService photoService;
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping(value = "/detail")
     public ModelAndView show(HttpServletRequest request) {
@@ -42,5 +48,24 @@ public class PhotoController extends BaseController {
         mv.addObject("photo", photo);
         mv.addObject("comments", comments);
         return mv;
+    }
+
+    @RequestMapping(value = "/deletePhotoByAdmin")
+    public @ResponseBody
+    String deletePhotoByAdmin(HttpServletRequest request) throws Exception {
+        this.execute(request);
+        LeUser user = this.getUser();
+        if(user == null || !user.getEmail().equals("admin@aigou.com")){
+            return Const.FAILURE;
+        }
+        int photoId = this.getParaIntFromRequest("photoId");
+        int cateId = this.getParaIntFromRequest("cateId");
+        LePhoto photo = PhotoCache.getPhotoById(photoId,cateId);
+        //从数据库和缓存中删除图片
+        photoService.deletePhoto(photo);
+        //从又拍云上删除图片
+        UpYunUtil.delete(photo.getUrl());
+
+        return Const.SUCCESS;
     }
 }
