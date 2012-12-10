@@ -76,8 +76,16 @@ public class indexController extends BaseController {
         //type : 0表示按时间顺序排序 | 1表示按热度排序 | 2便是随便看看  也就是随机排序
         int type = this.getParaIntFromRequest("type");
 //        List photos = photoService.getPhotos(cateId, lastPhotoId, size, type);
+
         List photos = PhotoCache.getPhotos(cateId, lastPhotoId, size, type);
+        JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
+        if (photos == null) {
+            jsonObject.put("data", jsonArray);
+            result.add(jsonObject.toString());
+            return result;
+        }
+
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
             LeUser user = UserCache.getUserById(photo.getUserId());
@@ -88,7 +96,7 @@ public class indexController extends BaseController {
             }
             JSONObject tmpObject = new JSONObject()
                     .element("id", photo.getId())
-                    .element("url", photo.getUrl() + "!550")
+                    .element("url", photo.getUrl() + "!420")
                     .element("description", photo.getDescription())
                     .element("downCount", photo.getDownCount())
                     .element("upCount", photo.getUpCount())
@@ -100,7 +108,7 @@ public class indexController extends BaseController {
                     .element("height", height);
             jsonArray.add(tmpObject);
         }
-        JSONObject jsonObject = new JSONObject();
+
         jsonObject.put("data", jsonArray);
 
         result.add(jsonObject.toString());

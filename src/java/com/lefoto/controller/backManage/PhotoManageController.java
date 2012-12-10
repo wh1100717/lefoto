@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 图片管理模块
+ *
  * @author Eric
  */
 @Controller
@@ -37,6 +38,7 @@ public class PhotoManageController extends BaseController {
 
     /**
      * 上传图片
+     *
      * @param myfiles 获取的图片对象，其为数组，可实现多图上传
      * @param request
      * @param response
@@ -45,7 +47,8 @@ public class PhotoManageController extends BaseController {
      * @throws Exception
      */
     @RequestMapping(value = "/back/photo/upload", method = RequestMethod.POST)
-    public @ResponseBody String upload(@RequestParam("Filedata") MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+    public @ResponseBody
+    String upload(@RequestParam("Filedata") MultipartFile[] myfiles, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
         //如果只是上传一个文件，则只需要MultipartFile类型接收文件即可，而且无需显式指定@RequestParam注解  
         //如果想上传多个文件，那么这里就要用MultipartFile[]类型来接收文件，并且还要指定@RequestParam注解  
         //并且上传多个文件时，前台表单中的所有<input type="file"/>的name都应该是myfiles，否则参数里的myfiles无法获取到所有上传的文件  
@@ -95,7 +98,16 @@ public class PhotoManageController extends BaseController {
                 photo.setName(myfile.getOriginalFilename());
                 photo.setUserId(user.getId());
                 photo.setUserName(user.getName());
-                photoService.addPhoto(photo);
+                int count = 0;
+                while (count < 5) {
+                    try {
+                        photoService.addPhoto(photo);
+                        count = 5;
+                    } catch (Exception e) {
+                        count++;
+                    }
+                }
+
                 //插入Photo表Done
 
 

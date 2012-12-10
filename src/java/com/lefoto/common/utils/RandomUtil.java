@@ -11,6 +11,10 @@ import java.util.Random;
  * @author Eric
  */
 public class RandomUtil {
+    static public int getRandomNum(int start, int end){
+        Random random = new Random();
+        return random.nextInt(end - start) + start;
+    }
 
     static public int[] getUnDuplicateNums(int size, int start, int end) {
         int[] t1 = new int[size];
