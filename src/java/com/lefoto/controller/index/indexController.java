@@ -112,7 +112,7 @@ public class indexController extends BaseController {
                     .element("userName", photo.getUserName())
                     .element("face", user.getFace() + "!small")
                     .element("height", height);
-            if (homeUser.getEmail().equals("admin@lefoto.me")) {
+            if (homeUser == null || homeUser.getEmail().equals("admin@lefoto.me")) {
                 tmpObject.put("delete", 1);
             }
             jsonArray.add(tmpObject);
