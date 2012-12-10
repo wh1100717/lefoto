@@ -32,7 +32,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @Controller
 public class indexController extends BaseController {
-
+    
     @RequestMapping(value = "/")
     public ModelAndView index(HttpServletRequest request) {
         return new ModelAndView(new RedirectView("/index.html"));
@@ -47,10 +47,14 @@ public class indexController extends BaseController {
     @RequestMapping(value = "/index")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");
+        LeUser homeUser = this.getRequestUser(request);
         int cateId = this.getParaIntFromRequest("cateId");
         int type = this.getParaIntFromRequest("type");
         cateId = cateId == 0 ? 1 : cateId;
         type = type == 0 ? 0 : type;
+        if (homeUser != null && homeUser.getEmail().equals("admin@lefoto.me")) {
+            mv.addObject("delete",1);
+        }
         mv.addObject("cateId", cateId);
         mv.addObject("type", type);
         return mv;
@@ -59,7 +63,7 @@ public class indexController extends BaseController {
     PhotoService photoService;
     @Autowired
     UserService userService;
-
+    
     @RequestMapping(value = "/index/getPhoto")
     public @ResponseBody
     List<String> getPhoto(HttpServletRequest request) throws IOException {
@@ -74,8 +78,8 @@ public class indexController extends BaseController {
             result.add("invalid request");
             return result;
         }
-        LeUser homeUser = this.getRequestUser(request);
-
+        
+        
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
@@ -91,7 +95,7 @@ public class indexController extends BaseController {
             result.add(jsonObject.toString());
             return result;
         }
-
+        
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
             LeUser user = UserCache.getUserById(photo.getUserId());
@@ -112,14 +116,11 @@ public class indexController extends BaseController {
                     .element("userName", photo.getUserName())
                     .element("face", user.getFace() + "!small")
                     .element("height", height);
-            if (homeUser == null || homeUser.getEmail().equals("admin@lefoto.me")) {
-                tmpObject.put("delete", 1);
-            }
             jsonArray.add(tmpObject);
         }
-
+        
         jsonObject.put("data", jsonArray);
-
+        
         result.add(jsonObject.toString());
         return result;
     }

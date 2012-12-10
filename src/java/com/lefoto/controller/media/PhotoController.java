@@ -55,7 +55,7 @@ public class PhotoController extends BaseController {
     String deletePhotoByAdmin(HttpServletRequest request) {
         this.execute(request);
         LeUser user = this.getUser();
-        if(user == null || !user.getEmail().equals("admin@aigou.com")){
+        if(user == null || !user.getEmail().equals("admin@lefoto.me")){
             return Const.FAILURE;
         }
         int photoId = this.getParaIntFromRequest("photoId");

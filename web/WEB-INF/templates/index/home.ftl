@@ -120,7 +120,7 @@ transition: width .25s ease-in-out;}
                             <span class="num">{commentCount}</span>
                         </a>
                         <#if delete == 1>
-                            <a style="position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},{userId})">删除</a>
+                            <a style="position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                         </#if>
                     </div>
                     <a style="height:{height}px;" class="iMid" href="javascript:;">
