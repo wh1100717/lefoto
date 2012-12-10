@@ -19,21 +19,19 @@ import org.springframework.stereotype.Component;
 public class LoadInfoServlet {
 
     static boolean isNotInit = true;
-    
     @Autowired
     private UserService userService;
-    
     @Autowired
     private PhotoService photoService;
-    
+
     public void init() {
         System.out.println("内存初始化开始");
         System.out.println("用户数据初始化");
         UserCache.initUserMap(userService);
         System.out.println("照片初始化开始");
         PhotoCache.initPhotoList(photoService);
-         System.out.println("内存初始化结束");
-        
+        System.out.println("内存初始化结束");
+
         isNotInit = false;
     }
 }

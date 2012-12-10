@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * 网站首页
@@ -30,16 +31,21 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Eric
  */
 @Controller
-@RequestMapping(value = "/index")
 public class indexController extends BaseController {
 
+    @RequestMapping(value = "/")
+    public ModelAndView index(HttpServletRequest request) {
+         return new ModelAndView(new RedirectView("/index.html"));
+    }
+    
+    
     /**
      * 渲染网站首页，根据是否登录显示不同的内容
      *
      * @param request
      * @return
      */
-    @RequestMapping(value = "/show")
+    @RequestMapping(value = "/index")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/home");
         int cateId = this.getParaIntFromRequest("cateId");
@@ -55,7 +61,7 @@ public class indexController extends BaseController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/getPhoto")
+    @RequestMapping(value = "/index/getPhoto")
     public @ResponseBody
     List<String> getPhoto(HttpServletRequest request) throws IOException {
         List result = new ArrayList();
@@ -114,4 +120,5 @@ public class indexController extends BaseController {
         result.add(jsonObject.toString());
         return result;
     }
+
 }

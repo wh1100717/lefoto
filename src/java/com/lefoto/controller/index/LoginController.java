@@ -64,6 +64,6 @@ public class LoginController {
             return mv;
         }
         request.getSession().setAttribute("email", email);
-        return new ModelAndView(new RedirectView("/lefoto/index/show.html"));
+        return new ModelAndView(new RedirectView("/index.html"));
     }
 }

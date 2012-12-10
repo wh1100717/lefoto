@@ -6,7 +6,6 @@ package com.lefoto.controller.index;
 
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
-import com.lefoto.common.utils.CipherUtil;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.user.UserService;
 import javax.servlet.http.HttpServletRequest;
