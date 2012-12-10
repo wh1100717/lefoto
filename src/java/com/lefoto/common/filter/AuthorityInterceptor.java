@@ -9,7 +9,6 @@ import com.lefoto.service.iface.user.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -33,11 +32,11 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
             loadInfoServlet.init();
         }
         
-        hsr.setAttribute("startTime", System.currentTimeMillis());
+//        hsr.setAttribute("startTime", System.currentTimeMillis());
         //权限验证
         String email = (String) hsr.getSession().getAttribute("email");
         //临时测试的时候 添加管理员用户
-        email = "admin@lefoto.com";
+//        email = "admin@lefoto.com";
         //Done
         if (email != null) {
             LeUser user = this.userService.findUserByEmail(email);
@@ -47,12 +46,12 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
     }
 
     //Controller处理后执行，可以获取Controller处理后的视图对象
-    @Override
-    public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
-        long startTime = (Long) hsr.getAttribute("startTime");
-        long endTime = System.currentTimeMillis();
-        if (mav != null) {
-            mav.addObject("handlingTime", startTime - endTime);
-        }
-    }
+//    @Override
+//    public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
+//        long startTime = (Long) hsr.getAttribute("startTime");
+//        long endTime = System.currentTimeMillis();
+//        if (mav != null) {
+//            mav.addObject("handlingTime", startTime - endTime);
+//        }
+//    }
 }
