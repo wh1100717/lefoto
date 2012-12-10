@@ -52,7 +52,7 @@ public class PhotoController extends BaseController {
 
     @RequestMapping(value = "/deletePhotoByAdmin")
     public @ResponseBody
-    String deletePhotoByAdmin(HttpServletRequest request) throws Exception {
+    String deletePhotoByAdmin(HttpServletRequest request) {
         this.execute(request);
         LeUser user = this.getUser();
         if(user == null || !user.getEmail().equals("admin@aigou.com")){
@@ -60,12 +60,15 @@ public class PhotoController extends BaseController {
         }
         int photoId = this.getParaIntFromRequest("photoId");
         int cateId = this.getParaIntFromRequest("cateId");
-        LePhoto photo = PhotoCache.getPhotoById(photoId,cateId);
-        //从数据库和缓存中删除图片
-        photoService.deletePhoto(photo);
-        //从又拍云上删除图片
-        UpYunUtil.delete(photo.getUrl());
-
+        try {
+            //从数据库和缓存中删除图片
+            LePhoto photo = PhotoCache.getPhotoById(photoId,cateId);
+            photoService.deletePhoto(photo);
+            //从又拍云上删除图片
+            UpYunUtil.delete(photo.getUrl());
+        } catch (Exception e) {
+            return Const.FAILURE;
+        }
         return Const.SUCCESS;
     }
 }
