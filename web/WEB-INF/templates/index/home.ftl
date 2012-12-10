@@ -110,15 +110,18 @@ transition: width .25s ease-in-out;}
             </div>
         </div>
         <script id="view" type="text/html">
-            <div class="item">
+            <div class="item" id="item_{id}">
                 <div class="">
-                    <div class="iTop clearfix">
+                    <div class="iTop clearfix" style="position:relative;">
                         <img width="36" height="36" src="http://le-face.b0.upaiyun.com/{face}" />
                         <p>{userName}</p>
                         <p>搞笑00000+10086</p>
                         <a href="javascript:;" class="Es" style="z-index:999;">
                             <span class="num">{commentCount}</span>
                         </a>
+                        <#if delete == 1>
+                            <a style="position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},{userId})">删除</a>
+                        </#if>
                     </div>
                     <a style="height:{height}px;" class="iMid" href="javascript:;">
                         <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
@@ -162,6 +165,20 @@ transition: width .25s ease-in-out;}
         <script src="/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
         <script src="/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
         <script type="text/javascript">
+            function deleteImg(id,cateId){
+                var data = {
+                    photoId:id,
+                    cateId:cateId
+                };
+                var url = '/photo/deletePhotoByAdmin.html';
+                $.post(url,data,function(response){
+                    if(response == 'success'){
+                        $('#item_'+id).remove();
+                    }else{
+                        alert('删除失败');
+                    }
+                });
+            }
             $('#navbar').scrollFix();
             new waterFall({
                 id: 'wf',//瀑布流ID
