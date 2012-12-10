@@ -4,6 +4,7 @@
  */
 package com.lefoto.common.cache;
 
+import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.RandomUtil;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.service.iface.media.PhotoService;
@@ -19,12 +20,31 @@ public class PhotoCache {
 
     static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(5);
 
-    static public void initPhotoList(PhotoService photoService) {
+    static public String initPhotoList(PhotoService photoService) {
         photoList.add(photoService.getPhotosByAdmin(0));
         photoList.add(photoService.getPhotosByAdmin(1));
         photoList.add(photoService.getPhotosByAdmin(2));
         photoList.add(photoService.getPhotosByAdmin(3));
         photoList.add(photoService.getPhotosByAdmin(4));
+        return Const.SUCCESS;
+    }
+
+    static public String addPhoto(LePhoto photo) {
+        photoList.get(0).add(photo);
+        photoList.get(photo.getCategoryId()).add(photo);
+        return Const.SUCCESS;
+    }
+
+    static public String removePhoto(LePhoto photo) {
+        List<LePhoto> photos = photoList.get(photo.getCategoryId());
+        List<LePhoto> allPhotos = photoList.get(0);
+        if (photos != null) {
+            photos.remove(photo);
+            allPhotos.remove(photo);
+            return Const.SUCCESS;
+        } else {
+            return Const.FAILURE;
+        }
     }
 
     static public List<LePhoto> getPhotos(int cateId, int lastPhotoId, int size, int type) {

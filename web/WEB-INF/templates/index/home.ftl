@@ -90,17 +90,17 @@ transition: width .25s ease-in-out;}
                     </div>
                     <div class="rside fr">
                         <ul>
-                            <li><a href="/index/show.html">登录</a></li>
-                            <li><a href="/index/show.html">注册</a></li>
+                            <li><a href="/login.html">登录</a></li>
+                            <li><a href="/register.html">注册</a></li>
                         </ul>
                     </div>
                     <div class="mside">
                         <ul>
-                            <li><a href="/index/show.html?cateId=1">搞笑</a></li>
-                            <li><a href="/index/show.html?cateId=2">萌宠</a></li>
-                            <li><a href="/index/show.html?cateId=3">童真</a></li>
-                            <li class="selected"><a href="/index/show.html?cateId=4">美女</a></li>
-                            <li><a href="/index/show.html?cateId=5">随便看看</a></li>
+                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1">搞笑</a></li>
+                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2">萌宠</a></li>
+                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3">童真</a></li>
+                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4">美女</a></li>
+                            <li><a href="/index.html?cateId=5">随便看看</a></li>
                         </ul>
                     </div>
                 </div>

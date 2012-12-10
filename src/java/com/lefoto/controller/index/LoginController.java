@@ -20,7 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author Eric
  */
 @Controller
-@RequestMapping(value = "/login")
 public class LoginController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class LoginController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/show")
+    @RequestMapping(value = "/login")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/login/show");
         return mv;
@@ -42,7 +41,7 @@ public class LoginController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/submit")
+    @RequestMapping(value = "/login/submit")
     public ModelAndView submit(HttpServletRequest request) {
         //如果登录成功，转到index页面
         ModelAndView mv = new ModelAndView("/index/login/show");

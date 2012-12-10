@@ -7,7 +7,7 @@
     </head>
     <body class="clean" >
         <div class="container">
-            <a class="sideLink" href="/login/show.html">Have an account? <b>Sign in</b></a>
+            <a class="sideLink" href="/login.html">Have an account? <b>Sign in</b></a>
             <div id="smallContent" class="span-6 centered_column textOnly">
                 <a id="logo" href="http://vi.sualize.us/" title="Go to the Home page">
                     <img src="http://cdnstatic.visualizeus.com/css/images/logowhiteVisualizeUs.png" width="222" height="59" alt="Visualize Us">

@@ -2,8 +2,6 @@ package com.lefoto.common.base;
 
 import com.lefoto.common.utils.FormatUtil;
 import com.lefoto.model.user.LeUser;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

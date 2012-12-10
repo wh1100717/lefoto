@@ -14,13 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * 注册模块
  * @author Eric
  */
 @Controller
-@RequestMapping("/register")
 public class RegisterController extends BaseController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class RegisterController extends BaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/show")
+    @RequestMapping(value = "/register")
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/register/show");
         return mv;
@@ -43,9 +43,9 @@ public class RegisterController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/register/add", method = RequestMethod.POST)
     public ModelAndView register(HttpServletRequest request) throws Exception {
-        ModelAndView mv = new ModelAndView("/index/register/add");
+        ModelAndView mv = new ModelAndView("/index/register/show");
         String email = request.getParameter("email");
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
@@ -82,7 +82,6 @@ public class RegisterController extends BaseController {
         user.setName(userName);
         this.userService.addUser(user);
 
-        request.getSession().setAttribute("user", user);
-        return mv;
+        return new ModelAndView(new RedirectView("/index.html"));
     }
 }

@@ -12,7 +12,6 @@ import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.content.CommentService;
 import com.lefoto.service.iface.media.PhotoService;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
