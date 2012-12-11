@@ -37,22 +37,6 @@
 (function(){
     var getLikeUrl = '/data/like.cshtml';//获取喜欢
     var iCur = -1;
-    $('.iMid').bind('mouseenter',function(){
-        var box = $('.tabsWrap', this);
-        if(box.height() > 40){
-
-        } else {
-            box.stop().animate({'height': '40px'},300);
-        }
-    }).bind('mouseleave',function(){
-        var box = $('.tabsWrap', this);
-        if(box.height() > 40){
-
-        } else{
-            box.stop().animate({'height': '0px'},300);
-        }
-
-    });
     function doLoading(){
 
     }
@@ -93,10 +77,28 @@
         }
         target.closest('.tabsWrap').animate({'height': '80px'}, 300);
     }
-    $('ul.tabAs').delegate('a', 'click', function(event) {
+    $(document).delegate('.iMid','mouseenter',function(){
+        var box = $('.tabsWrap', this);
+        console.log(this);
+        if(box.height() > 40){
+
+        } else {
+            box.stop().animate({'height': '40px'},300);
+        }
+    }).delegate('.iMid','mouseleave',function(){
+        var box = $('.tabsWrap', this);
+        if(box.height() > 40){
+
+        } else{
+            box.stop().animate({'height': '0px'},300);
+        }
+    }).delegate('a.icon', 'click', function() {
         var target = $(this);
+        console.log(this);
         doClick(target);
-    });
+    });;
+    
+    //$(document)
 })(jQuery);
 function toList(id){
     var comm_list = $('#i_'+id);

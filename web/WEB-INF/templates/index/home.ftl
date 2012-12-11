@@ -47,7 +47,7 @@
             .loading { display: inline-block; padding-left: 32px; background: url(/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
             /*瀑布流end*/
             .iTop { padding: 7px 0 20px 0;}
-            .iMid { display: block; text-align: center;}
+            .iMid { text-align: center; overflow: hidden; width: 420px;}
             .iTop p { margin-bottom: 5px;}
             .item { position: relative; padding: 7px 15px; width: 420px; background-color: #FFF; border: 1px #E1E1E1 solid; box-shadow: 2px 2px 4px #E1E1E1;}
             .Es { position: absolute; top: 15px; right: 15px; display: block; width: 45px; background: url(http://ipic.tuita.cc/img/theme/theme_canon/temp_bg.png?v=1346141329) right -32px no-repeat;}
@@ -67,7 +67,17 @@
             .editor { resize: none; outline: none; width: 392px; height: 23px; padding: 3px; font-size: 12px; line-height: 1.1em; border: 1px solid #DDD; overflow: hidden; background: whiteSmoke;-webkit-transition: width .25s ease-in-out;-moz-transition: width .25s ease-in-out;
 transition: width .25s ease-in-out;}
             .subbtn { display: block;  position: absolute; right: 15px; top: 10px; height: 25px; line-height: 25px;}
-
+            /*图片上悬浮按钮*/
+            .mask { display: block; position: absolute; z-index: -1; background-color: #000; filter:alpha(opacity=50); opacity: 0.5; width: 100%; height: 100%;}
+            .tabsWrap { position: absolute; z-index: 999; bottom: 0px; left: 0; height: 0px; width: 420px;}
+            .tabs { position: absolute;}
+            .tabs > ul li { float: left; height: 40px; width: 140px; text-align: center;}
+            .tabs > ul li a { display: block; padding-top: 10px; width: 100%; color: #DDD; height: 30px; box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15) inset,-1px 0 0 black inset,0 2px 0 rgba(255, 255, 255, 0.15),0 1px 0 black;}
+        
+            .like ul li { float: left; margin-left: 3px;}
+            .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
+            .share ul li a {color: #DDD;}
+            .doLoading { height: 40px; background: url(/src/images/loading2.gif) no-repeat center center scroll;}
         </style>
     </head>  
     <body>
@@ -123,6 +133,45 @@ transition: width .25s ease-in-out;}
                             <a style="position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                         </#if>
                     </div>
+                    <div class="iMid" style="height:{height}px; position: relative;">
+                        <a class="img" href="#" style="height:{height}px; display:block;">
+                            <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
+                        </a>
+                        <div class="tabsWrap">
+                            <div class="mask"></div>
+                            <div class="tabs">
+                                <ul class="tabAs clearfix">
+                                    <li>
+                                        <a class="icon comment" href ="javascript:;"><span>评论</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="icon like" href="javascript:;"><span>喜欢</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="icon share" href="javascript:;"><span>分享</span></a>
+                                    </li>
+                                </ul>
+                                <div class="hide share">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <a href="javascript:;">weibo</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">renren</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">QQ</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">douban</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="doLoading hide"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
                     <a style="height:{height}px;" class="iMid" href="javascript:;">
                         <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
                     </a>
@@ -136,8 +185,8 @@ transition: width .25s ease-in-out;}
                         <a class="ibar-a fr" href="#" onclick="return toList('{id}')">
                             <span>评论</span>
                         </a>
-                    </div>
-                    <div id="i_{id}" class="comments" style="display:none;">
+                    </div>-->
+<!--                    <div id="i_{id}" class="comments" style="display:none;">
                         <ul class="UL_list">
                             <li>
                                 <a class="fl" href="">
@@ -158,7 +207,7 @@ transition: width .25s ease-in-out;}
                                 <a href="#" class="subbtn">评论</a>
                             </form>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </script>
