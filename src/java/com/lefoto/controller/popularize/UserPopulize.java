@@ -14,9 +14,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,7 +78,56 @@ public class UserPopulize extends BaseController {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println(i + " | " + user.getId() + " | "+user.getName());
+            System.out.println(i + " | " + user.getId() + " | " + user.getName());
+        }
+        return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/addDefaultUserFace")
+    public @ResponseBody
+    String defaultUserFaceCreation() throws FileNotFoundException, IOException, Exception {
+        File file = new File(Const.DEFAULT_USER_FACE_PATH);
+        File[] faces = file.listFiles();
+        int count = 0;
+        for (int index = 0; index < faces.length; index++) {
+            File face = faces[index];
+            count = 0;
+            String facePath = "";
+            while (count < 5) {
+                try {
+                    facePath = UpYunUtil.userFaceUpload(face);
+                    count = 5;
+                } catch (Exception e) {
+                    count++;
+                }
+            }
+            if (facePath == null || facePath.equals("")) {
+                continue;
+            }
+            LeDefaultUserFace defaultUserFace = new LeDefaultUserFace();
+            defaultUserFace.setUrl(facePath);
+            count = 0;
+            while (count < 5) {
+                try {
+                    userService.addDefaultUserFace(defaultUserFace);
+                    count = 5;
+                } catch (Exception e) {
+                    count++;
+                }
+            }
+        }
+        return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/reallocUserFace")
+    public @ResponseBody
+    String reallocUserFace() throws FileNotFoundException, IOException, Exception {
+        List<LeUser> userList = userService.findAllUsers();
+        for (int index = 0; index < userList.size(); index++) {
+            LeUser user = userList.get(index);
+            if(user == null){continue;}
+            user.setFace(userService.findRandomDefaultUserFace().getUrl());
+            userService.updateUser(user);
         }
         return Const.SUCCESS;
     }
