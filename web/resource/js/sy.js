@@ -34,6 +34,70 @@
     $(window).bind("scroll", backToTopFun);
     //返回顶部end
 })(jQuery);
+(function(){
+    var getLikeUrl = '/data/like.cshtml';//获取喜欢
+    var iCur = -1;
+    $('.iMid').bind('mouseenter',function(){
+        var box = $('.tabsWrap', this);
+        if(box.height() > 40){
+
+        } else {
+            box.stop().animate({'height': '40px'},300);
+        }
+    }).bind('mouseleave',function(){
+        var box = $('.tabsWrap', this);
+        if(box.height() > 40){
+
+        } else{
+            box.stop().animate({'height': '0px'},300);
+        }
+
+    });
+    function doLoading(){
+
+    }
+    function loadOK(){
+
+    }
+    function doClick(target) {
+        var parent = target.closest('.tabs'),
+            pparent = parent.closest('.tabsWrap'),
+            loading = parent.find('.doLoading'),
+            likeDiv = parent.find('div.like'),
+            shareDiv = parent.find('div.share');
+
+        if(target.hasClass('like')) { //喜欢按钮被点击
+            if(pparent.height() > 40 && iCur == 1){
+                pparent.stop().animate({'height': '40px'},300);
+                return;
+            }
+            if(likeDiv.length == 0) {
+                loading.show();
+                $.get(getLikeUrl, {}, function(response){
+                    $(response).appendTo(parent);
+                    loading.hide();
+                });
+            } else {
+                likeDiv.show();
+            }
+            shareDiv.hide();
+            iCur = 1;
+        } else if(target.hasClass('share')) { //分享按钮被点击
+            if(pparent.height() > 40 && iCur == 2){
+                pparent.stop().animate({'height': '40px'},300);
+                return;
+            }
+            likeDiv.hide();
+            shareDiv.show();
+            iCur = 2;
+        }
+        target.closest('.tabsWrap').animate({'height': '80px'}, 300);
+    }
+    $('ul.tabAs').delegate('a', 'click', function(event) {
+        var target = $(this);
+        doClick(target);
+    });
+})(jQuery);
 function toList(id){
     var comm_list = $('#i_'+id);
     console.log(comm_list.length);
