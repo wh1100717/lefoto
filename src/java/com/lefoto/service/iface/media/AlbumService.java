@@ -32,7 +32,7 @@ public interface AlbumService {
      *
      * @param album
      */
-    public void editAlbum(LeAlbum album);
+    public void updateAlbum(LeAlbum album);
 
     /**
      * 根据相册ID获取相册
