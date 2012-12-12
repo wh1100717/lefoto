@@ -32,7 +32,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public void editAlbum(LeAlbum album) {
+    public void updateAlbum(LeAlbum album) {
         albumDao.updateAlbum(album);
     }
 

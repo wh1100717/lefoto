@@ -36,10 +36,9 @@ public class PhotoController extends BaseController {
 
     @RequestMapping(value = "/detail")
     public ModelAndView show(HttpServletRequest request) {
-        this.execute(request);
         ModelAndView mv = new ModelAndView("/photo/detail");
         int photoId = this.getParaIntFromRequest("photoId");
-        LeUser user = this.getUser();
+        LeUser user = this.getRequestUser(request);
         if (user != null) {
             mv.addObject("user", user);
         }
@@ -53,22 +52,37 @@ public class PhotoController extends BaseController {
     @RequestMapping(value = "/deletePhotoByAdmin")
     public @ResponseBody
     String deletePhotoByAdmin(HttpServletRequest request) {
-        this.execute(request);
-        LeUser user = this.getUser();
-        if(user == null || !user.getEmail().equals("admin@lefoto.me")){
+        LeUser user = this.getRequestUser(request);
+        if (user == null || !user.getEmail().equals("admin@lefoto.me")) {
             return Const.FAILURE;
         }
         int photoId = this.getParaIntFromRequest("photoId");
         int cateId = this.getParaIntFromRequest("cateId");
         try {
             //从数据库和缓存中删除图片
-            LePhoto photo = PhotoCache.getPhotoById(photoId,cateId);
+            LePhoto photo = PhotoCache.getPhotoById(photoId, cateId);
             photoService.deletePhoto(photo);
             //从又拍云上删除图片
             UpYunUtil.delete(photo.getUrl());
         } catch (Exception e) {
             return Const.FAILURE;
         }
+        return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/deletePhoto")
+    public @ResponseBody
+    String deletePhoto(HttpServletRequest request) {
+        LeUser user = this.getRequestUser(request);
+        int photoId = this.getParaIntFromRequest("photoId");
+        LePhoto photo = photoService.findPhotoById(photoId);
+        if (photo == null) {
+            return Const.FAILURE;
+        }
+        if (photo.getUserId() != user.getId()) {
+            return Const.FAILURE;
+        }
+        photoService.deletePhoto(photo);
         return Const.SUCCESS;
     }
 }
