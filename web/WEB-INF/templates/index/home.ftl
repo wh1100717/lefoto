@@ -123,7 +123,7 @@ transition: width .25s ease-in-out;}
             <div class="item" id="item_{id}">
                 <div class="">
                     <div class="iTop clearfix" style="position:relative;">
-                        <img width="36" height="36" src=http://imgf.lefoto.me{face}" />
+                        <img width="36" height="36" src="http://imgf.lefoto.me{face}" />
                         <p>{userName}</p>
                         <p>搞笑00000+10086</p>
                         <a href="javascript:;" class="Es" style="z-index:999;">
