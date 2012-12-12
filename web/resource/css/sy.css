@@ -42,7 +42,7 @@ input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin:
 .iMid { text-align: center; overflow: hidden; width: 420px;}
 .iTop p { margin-bottom: 5px;}
 .item { position: relative; padding: 7px 15px; width: 420px; background-color: #FFF; border: 1px #E1E1E1 solid; box-shadow: 2px 2px 4px #E1E1E1;}
-.Es { position: absolute; top: 15px; right: 15px; display: block; width: 45px; background: url(http://ipic.tuita.cc/img/theme/theme_canon/temp_bg.png?v=1346141329) right -32px no-repeat;}
+.Es { position: absolute; top: 15px; right: 0px; display: block; width: 45px; background: url(http://ipic.tuita.cc/img/theme/theme_canon/temp_bg.png?v=1346141329) right -32px no-repeat;}
 .Es:hover { background-color: #f1f1f1;}
 .Es span.num { display: inline-block; padding: 0 7px; line-height: 20px; height: 20px; border: 1px #E1E1E1 solid; border-width: 1px 0 1px 1px;}
 a.img { display: block; }
