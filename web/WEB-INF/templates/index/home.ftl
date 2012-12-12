@@ -27,6 +27,13 @@ transition: width .25s ease-in-out;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
             .doLoading { height: 40px; background: url(/src/images/loading2.gif) no-repeat center center scroll;}
+            
+            /*navmenu downlist*/
+            .isList { position: relative;}
+            .isList ul { display: block; position: absolute; top: 40px; left: 0; z-index: 9999; width: 150px;}
+            .isList ul li { height: 30px; line-height: 30px; background-color: #558000; width:100%; padding: 0; margin: 0;}
+            .isList ul li a { display: block; height: 100%; width: 100%;}
+            .isList ul li a:hover { background-color: #408000;}
         </style>
     </head>  
     <body>
@@ -59,7 +66,13 @@ transition: width .25s ease-in-out;}
                             <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2">萌宠</a></li>
                             <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3">童真</a></li>
                             <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4">美女</a></li>
-                            <li><a href="/index.html?cateId=5">随便看看</a></li>
+                            <li class="isList">
+                                <a href="javascript:;">随便看看</a>
+                                <ul style="display:none;">
+                                    <li><a href="/index.html?cateId=5">最新图片</a></li>
+                                    <li><a href="/index.html?cateId=6">最热图片</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -70,7 +83,7 @@ transition: width .25s ease-in-out;}
         </div>
         <script id="view" type="text/html">
             <div class="item" id="item_{id}">
-                <div class="">
+                <div style="padding-bottom:50px;">
                     <div class="iTop clearfix" style="position:relative;">
                         <img width="36" height="36" src="http://imgf.lefoto.me{face}" />
                         <p>{userName}</p>
