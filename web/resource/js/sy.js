@@ -34,7 +34,7 @@
     $(window).bind("scroll", backToTopFun);
     //返回顶部end
 })(jQuery);
-(function(){
+(function($){
     var getLikeUrl = '/data/like.cshtml';//获取喜欢
     var iCur = -1;
     function doLoading(){
@@ -79,7 +79,7 @@
     }
     $(document).delegate('.iMid','mouseenter',function(){
         var box = $('.tabsWrap', this);
-        console.log(this);
+        console.log('ojojo');
         if(box.height() > 40){
 
         } else {
