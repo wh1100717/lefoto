@@ -38,6 +38,7 @@ transition: width .25s ease-in-out;}
     </head>  
     <body>
         <input name="cateId" type="hidden" value="${cateId}" />
+        <input name="type" type="hidden" value="${type}" />
         <div class="le-header">
             <div class="le-iupload">
                 <a href="javascript:;">
@@ -67,10 +68,10 @@ transition: width .25s ease-in-out;}
                             <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3">童真</a></li>
                             <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4">美女</a></li>
                             <li class="isList">
-                                <a href="javascript:;">随便看看</a>
+                                <a href="/index.html?cateId=${cateId}&&type=2">随便看看</a>
                                 <ul style="display:none;">
-                                    <li><a href="/index.html?cateId=5">最新图片</a></li>
-                                    <li><a href="/index.html?cateId=6">最热图片</a></li>
+                                    <li><a href="/index.html?cateId=${cateId}&&type=0">最新图片</a></li>
+                                    <li><a href="/index.html?cateId=${cateId}&&type=1">最热图片</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -200,7 +201,7 @@ transition: width .25s ease-in-out;}
                 view:'view',
                 params: { //请求数据时可向服务器发送附带参数
                     cateId: $('input[name=cateId]').val(),
-                    type: 2
+                    type: $('input[name=type]').val()
                 }
             }).show();
         </script>
