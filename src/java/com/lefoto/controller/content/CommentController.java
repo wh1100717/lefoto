@@ -75,6 +75,21 @@ public class CommentController extends BaseController {
         return Const.SUCCESS;
     }
 
+    @RequestMapping(value = "/deleteComment")
+    public @ResponseBody
+    String deleteComment(HttpServletRequest requese, HttpServletResponse response) throws Exception {
+        LeUser user = this.getRequestUser(requese);
+        int commentId = this.getParaIntFromRequest("commentId");
+        LeComment comment = commentService.findCommentById(commentId);
+        int objectUserId = comment.getObjectUserId();
+        int userId = comment.getUserId();
+        if(commentId != objectUserId && commentId != userId){
+            return Const.FAILURE;
+        }
+        commentService.delComment(comment);
+        return Const.SUCCESS;
+    }
+
     @RequestMapping(value = "/getLimitComments")
     public @ResponseBody
     List<String> getLimitComments(HttpServletRequest requese, HttpServletResponse response) throws Exception {
@@ -171,13 +186,13 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/getMoreComments")
     public @ResponseBody
     List<String> getMoreComments(HttpServletRequest requese, HttpServletResponse response) throws Exception {
-         List result = new ArrayList();
+        List result = new ArrayList();
 
         int objectId = this.getParaIntFromRequest("objectId");
         int objectType = this.getParaIntFromRequest("objectType");
         int lastCommentId = this.getParaIntFromRequest("lastCommentId");
         int size = this.getParaIntFromRequest("size");
-        
+
         List<LeComment> comments = commentService.getCommentsAjax(objectType, objectId, lastCommentId, size);
 
         JSONArray jsonArray = new JSONArray();
