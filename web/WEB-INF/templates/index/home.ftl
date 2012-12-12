@@ -105,7 +105,7 @@ transition: width .25s ease-in-out;}
                             <div class="tabs">
                                 <ul class="tabAs clearfix">
                                     <li>
-                                        <a class="icon comment" href ="javascript:;"><span>评论</span></a>
+                                        <a class="icon comment" href ="javascript:;"><span>采集</span></a>
                                     </li>
                                     <li>
                                         <a class="icon like" href="javascript:;"><span>喜欢</span></a>
