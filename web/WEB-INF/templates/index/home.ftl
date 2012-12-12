@@ -123,7 +123,7 @@ transition: width .25s ease-in-out;}
             <div class="item" id="item_{id}">
                 <div class="">
                     <div class="iTop clearfix" style="position:relative;">
-                        <img width="36" height="36" src="http://le-face.b0.upaiyun.com/{face}" />
+                        <img width="36" height="36" src=http://imgf.lefoto.me{face}" />
                         <p>{userName}</p>
                         <p>搞笑00000+10086</p>
                         <a href="javascript:;" class="Es" style="z-index:999;">
@@ -135,7 +135,7 @@ transition: width .25s ease-in-out;}
                     </div>
                     <div class="iMid" style="height:{height}px; position: relative;">
                         <a class="img" href="#" style="height:{height}px; display:block;">
-                            <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
+                            <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img.lefoto.me{url}" onload="imgShow(this);" />
                         </a>
                         <div class="tabsWrap">
                             <div class="mask"></div>
@@ -214,10 +214,10 @@ transition: width .25s ease-in-out;}
         <script src="/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
         <script src="/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
         <script type="text/javascript">
-            function deleteImg(id,cateId){
+            function deleteImg(id){
                 var data = {
                     photoId:id,
-                    cateId:cateId
+                    cateId: $('input[name=cateId]').val()
                 };
                 var url = '/photo/deletePhotoByAdmin.html';
                 $.post(url,data,function(response){
