@@ -36,10 +36,9 @@ public class PhotoController extends BaseController {
 
     @RequestMapping(value = "/detail")
     public ModelAndView show(HttpServletRequest request) {
-        this.execute(request);
         ModelAndView mv = new ModelAndView("/photo/detail");
         int photoId = this.getParaIntFromRequest("photoId");
-        LeUser user = this.getUser();
+        LeUser user = this.getRequestUser(request);
         if (user != null) {
             mv.addObject("user", user);
         }
@@ -53,8 +52,7 @@ public class PhotoController extends BaseController {
     @RequestMapping(value = "/deletePhotoByAdmin")
     public @ResponseBody
     String deletePhotoByAdmin(HttpServletRequest request) {
-        this.execute(request);
-        LeUser user = this.getUser();
+        LeUser user = this.getRequestUser(request);
         if(user == null || !user.getEmail().equals("admin@lefoto.me")){
             return Const.FAILURE;
         }
@@ -69,6 +67,18 @@ public class PhotoController extends BaseController {
         } catch (Exception e) {
             return Const.FAILURE;
         }
+        return Const.SUCCESS;
+    }
+    @RequestMapping(value = "/deletePhoto")
+    public @ResponseBody
+    String deletePhoto(HttpServletRequest request) {
+        LeUser user = this.getRequestUser(request);
+        int photoId = this.getParaIntFromRequest("photoId");
+        LePhoto photo = photoService.findPhotoById(photoId);
+        if(photo.getUserId() != user.getId()){
+            return Const.FAILURE;
+        }
+        photoService.deletePhoto(photo);
         return Const.SUCCESS;
     }
 }
