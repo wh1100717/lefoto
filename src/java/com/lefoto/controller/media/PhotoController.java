@@ -53,14 +53,14 @@ public class PhotoController extends BaseController {
     public @ResponseBody
     String deletePhotoByAdmin(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
-        if(user == null || !user.getEmail().equals("admin@lefoto.me")){
+        if (user == null || !user.getEmail().equals("admin@lefoto.me")) {
             return Const.FAILURE;
         }
         int photoId = this.getParaIntFromRequest("photoId");
         int cateId = this.getParaIntFromRequest("cateId");
         try {
             //从数据库和缓存中删除图片
-            LePhoto photo = PhotoCache.getPhotoById(photoId,cateId);
+            LePhoto photo = PhotoCache.getPhotoById(photoId, cateId);
             photoService.deletePhoto(photo);
             //从又拍云上删除图片
             UpYunUtil.delete(photo.getUrl());
@@ -69,13 +69,17 @@ public class PhotoController extends BaseController {
         }
         return Const.SUCCESS;
     }
+
     @RequestMapping(value = "/deletePhoto")
     public @ResponseBody
     String deletePhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
         LePhoto photo = photoService.findPhotoById(photoId);
-        if(photo.getUserId() != user.getId()){
+        if (photo == null) {
+            return Const.FAILURE;
+        }
+        if (photo.getUserId() != user.getId()) {
             return Const.FAILURE;
         }
         photoService.deletePhoto(photo);

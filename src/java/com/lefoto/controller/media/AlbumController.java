@@ -72,7 +72,7 @@ public class AlbumController extends BaseController {
         LeUser user = this.getRequestUser(request);
         String albumName = this.getParaStringFromRequest("albumName");
         LeAlbum album = albumService.findUserAlbumByName(albumName, user.getId());
-        if(album == null){
+        if (album == null) {
             return Const.FAILURE;
         }
         albumService.deleteAlbum(album);
