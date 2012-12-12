@@ -35,7 +35,6 @@
     //返回顶部end
 })(jQuery);
 (function($){
-    alert($);
     var getLikeUrl = '/data/like.cshtml';//获取喜欢
     var iCur = -1;
     function doLoading(){
