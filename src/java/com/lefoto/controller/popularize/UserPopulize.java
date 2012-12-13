@@ -6,6 +6,7 @@ package com.lefoto.controller.popularize;
 
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
+import com.lefoto.common.utils.FileUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
@@ -87,6 +88,7 @@ public class UserPopulize extends BaseController {
     public @ResponseBody
     String defaultUserFaceCreation() throws FileNotFoundException, IOException, Exception {
         File file = new File(Const.DEFAULT_USER_FACE_PATH);
+        String desPath = Const.DEFAULT_USER_FACE_PATH + "1";
         File[] faces = file.listFiles();
         int count = 0;
         for (int index = 0; index < faces.length; index++) {
@@ -110,12 +112,15 @@ public class UserPopulize extends BaseController {
             while (count < 5) {
                 try {
                     userService.addDefaultUserFace(defaultUserFace);
+                    FileUtil.Move(face, desPath);
                     count = 5;
+                    System.out.println("Face No." + index + " : Done with name " + face.getName());
                 } catch (Exception e) {
                     count++;
                 }
             }
         }
+        System.out.println("All Done");
         return Const.SUCCESS;
     }
 
@@ -125,10 +130,22 @@ public class UserPopulize extends BaseController {
         List<LeUser> userList = userService.findAllUsers();
         for (int index = 0; index < userList.size(); index++) {
             LeUser user = userList.get(index);
-            if(user == null){continue;}
-            user.setFace(userService.findRandomDefaultUserFace().getUrl());
-            userService.updateUser(user);
+            if (user == null) {
+                continue;
+            }
+            int count = 0;
+            while (count < 5) {
+                try {
+                    user.setFace(userService.findRandomDefaultUserFace().getUrl());
+                    userService.updateUser(user);
+                    count = 5;
+                    System.out.println("User No." + index + ":Done");
+                } catch (Exception e) {
+                    count++;
+                }
+            }
         }
+        System.out.println("All Done");
         return Const.SUCCESS;
     }
 
@@ -207,4 +224,5 @@ public class UserPopulize extends BaseController {
         reader.close();
         return null;
     }
+
 }

@@ -29,7 +29,7 @@ public class Const {
     
     //Populize
     public static String DEFAULT_USER_NAME_PATH = "D:/NBWS/lefoto/web/WEB-INF/userName.xml";
-    public static String DEFAULT_USER_FACE_PATH = "D:/imgGrab/populize/face/";
+    public static String DEFAULT_USER_FACE_PATH = "D:/imgGrab/populize/face";
     public static int DEFAULT_USER_NAME_LINES = 7930;
     public static String PHOTO_POPULIZE_PATH = "D:/imgGrab/populize/beauty/Todo";
 }
