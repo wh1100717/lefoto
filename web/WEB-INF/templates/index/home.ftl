@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
         <title>Lefoto</title>
-        <script src="/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
-        <link href="/src/css/common2.css" rel="stylesheet" />
-        <link href="/src/css/sy.css" rel="stylesheet" />
+        <script src="${RESOURCE_DIR}/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <link href="${RESOURCE_DIR}/src/css/common2.css" rel="stylesheet" />
+        <link href="${RESOURCE_DIR}/src/css/sy.css" rel="stylesheet" />
         <style type="text/css">
             .ibar { padding: 10px 0;}
             .ibar-a { display: block; font-size: 12px; color: #808080; background-color: #F2F0F0; padding: 3px 10px; border-radius: 3px; margin: 0 7px;}
@@ -26,7 +26,7 @@ transition: width .25s ease-in-out;}
             .like ul li { float: left; margin-left: 3px;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
-            .doLoading { height: 40px; background: url(/src/images/loading2.gif) no-repeat center center scroll;}
+            .doLoading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) no-repeat center center scroll;}
             
             /*navmenu downlist*/
             .isList { position: relative;}
@@ -42,7 +42,7 @@ transition: width .25s ease-in-out;}
         <div class="le-header">
             <div class="le-iupload">
                 <a href="javascript:;">
-                    <img src="/src/images/upload_btn.png" alt="" />
+                    <img src="${RESOURCE_DIR}/src/images/upload_btn.png" alt="" />
                 </a>
             </div>
         </div>
@@ -174,8 +174,8 @@ transition: width .25s ease-in-out;}
                 </div>
             </div>
         </script>
-        <script src="/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
-        <script src="/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
+        <script src="${RESOURCE_DIR}/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
+        <script src="${RESOURCE_DIR}/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
         <script type="text/javascript">
             function deleteImg(id){
                 var data = {

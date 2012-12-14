@@ -32,11 +32,6 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @Controller
 public class indexController extends BaseController {
-    
-    @RequestMapping(value = "/")
-    public ModelAndView index(HttpServletRequest request) {
-        return new ModelAndView(new RedirectView("/index.html"));
-    }
 
     /**
      * 渲染网站首页，根据是否登录显示不同的内容
