@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>  
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta property="wb:webmaster" content="6af8d63927570237" />
         <title>Lefoto</title>
         <script src="${RESOURCE_DIR}/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=434637113" type="text/javascript" charset="utf-8"></script>
         <link href="${RESOURCE_DIR}/src/css/common2.css" rel="stylesheet" />
         <link href="${RESOURCE_DIR}/src/css/sy.css" rel="stylesheet" />
         <style type="text/css">
@@ -14,7 +16,7 @@
             .Li_p { margin-left: 36px;}
             .fwrap { padding: 7px 10px; position: relative;}
             .editor { resize: none; outline: none; width: 392px; height: 23px; padding: 3px; font-size: 12px; line-height: 1.1em; border: 1px solid #DDD; overflow: hidden; background: whiteSmoke;-webkit-transition: width .25s ease-in-out;-moz-transition: width .25s ease-in-out;
-transition: width .25s ease-in-out;}
+                      transition: width .25s ease-in-out;}
             .subbtn { display: block;  position: absolute; right: 15px; top: 10px; height: 25px; line-height: 25px;}
             /*hover action tabs*/
             .mask { display: block; position: absolute; z-index: -1; background-color: #000; filter:alpha(opacity=50); opacity: 0.5; width: 100%; height: 100%;}
@@ -22,12 +24,12 @@ transition: width .25s ease-in-out;}
             .tabs { position: absolute;}
             .tabs > ul li { float: left; height: 40px; width: 140px; text-align: center;}
             .tabs > ul li a { display: block; padding-top: 10px; width: 100%; color: #DDD; height: 30px; box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15) inset,-1px 0 0 black inset,0 2px 0 rgba(255, 255, 255, 0.15),0 1px 0 black;}
-        
+
             .like ul li { float: left; margin-left: 3px;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
             .doLoading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) no-repeat center center scroll;}
-            
+
             /*navmenu downlist*/
             .isList { position: relative;}
             .isList ul { display: block; position: absolute; top: 40px; left: 0; z-index: 9999; width: 150px;}
@@ -57,6 +59,8 @@ transition: width .25s ease-in-out;}
                     </div>
                     <div class="rside fr">
                         <ul>
+                            <li><a onclick="weiboLogin()"><img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"/></a></li>
+
                             <li><a href="/login.html">登录</a></li>
                             <li><a href="/register.html">注册</a></li>
                         </ul>
@@ -93,7 +97,7 @@ transition: width .25s ease-in-out;}
                             <span class="num">{commentCount}</span>
                         </a>
                         <#if delete == 1>
-                            <a style="z-index:999;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
+                        <a style="z-index:999;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                         </#if>
                     </div>
                     <div class="iMid" style="height:{height}px; position: relative;">
@@ -149,28 +153,28 @@ transition: width .25s ease-in-out;}
                             <span>评论</span>
                         </a>
                     </div>-->
-<!--                    <div id="i_{id}" class="comments" style="display:none;">
-                        <ul class="UL_list">
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
-                                </a>
-                                <p class="Li_p">。。。。。。。hahh哈哈</p>
-                            </li>
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
-                                </a>
-                                <p class="Li_p">哦哦哦哦哦 a amamamm</p>
-                            </li>
-                        </ul>
-                        <div class="fwrap">
-                            <form>
-                                <textarea class="editor" name="" ></textarea>
-                                <a href="#" class="subbtn">评论</a>
-                            </form>
-                        </div>
-                    </div>-->
+                    <!--                    <div id="i_{id}" class="comments" style="display:none;">
+                                            <ul class="UL_list">
+                                                <li>
+                                                    <a class="fl" href="">
+                                                        <img style="height:32px; width: 32px;" src="" />
+                                                    </a>
+                                                    <p class="Li_p">。。。。。。。hahh哈哈</p>
+                                                </li>
+                                                <li>
+                                                    <a class="fl" href="">
+                                                        <img style="height:32px; width: 32px;" src="" />
+                                                    </a>
+                                                    <p class="Li_p">哦哦哦哦哦 a amamamm</p>
+                                                </li>
+                                            </ul>
+                                            <div class="fwrap">
+                                                <form>
+                                                    <textarea class="editor" name="" ></textarea>
+                                                    <a href="#" class="subbtn">评论</a>
+                                                </form>
+                                            </div>
+                                        </div>-->
                 </div>
             </div>
         </script>
@@ -204,7 +208,12 @@ transition: width .25s ease-in-out;}
                     type: $('input[name=type]').val()
                 }
             }).show();
+            function weiboLogin(){
+                WB2.login(function(){
+                    //callback function
+                });
+            }
         </script>
-        
+
     </body>  
 </html>  
