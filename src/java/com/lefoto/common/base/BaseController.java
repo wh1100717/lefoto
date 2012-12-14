@@ -17,16 +17,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public abstract class BaseController {
 
     private FormatUtil formatUtil;
-    private LeUser user;
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    
+
     public void execute(HttpServletRequest request) {
-        user = this.getRequestUser(request);
     }
 
     public String getParaStringFromRequest(String paraName) throws Exception {
-        request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Map<String, String[]> paramMap = request.getParameterMap();
         if (paramMap == null) {
             return null;
@@ -42,7 +38,7 @@ public abstract class BaseController {
     }
 
     public int getParaIntFromRequest(String paraName) {
-        request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Map<String, String[]> paramMap = request.getParameterMap();
         if (paramMap == null) {
             return 0;
@@ -71,13 +67,5 @@ public abstract class BaseController {
 
     public LeUser getRequestUser(HttpServletRequest request) {
         return (LeUser) request.getAttribute("user");
-    }
-
-    public LeUser getUser() {
-        return user;
-    }
-
-    public void setUser(LeUser user) {
-        this.user = user;
     }
 }
