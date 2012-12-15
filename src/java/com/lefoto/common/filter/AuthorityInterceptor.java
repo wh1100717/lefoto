@@ -4,6 +4,7 @@
  */
 package com.lefoto.common.filter;
 
+import com.lefoto.common.base.Const;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.user.UserService;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
             loadInfoServlet.init();
         }
         
+        hsr.setAttribute("RESOURCE_DIR", Const.RESOURCE_DIR);
 //        hsr.setAttribute("startTime", System.currentTimeMillis());
         //权限验证
         String email = (String) hsr.getSession().getAttribute("email");

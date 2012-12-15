@@ -5,6 +5,7 @@
 package com.lefoto.controller.popularize;
 
 import com.lefoto.common.base.Const;
+import com.lefoto.common.utils.FileUtil;
 import com.lefoto.common.utils.RandomUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.media.LePhoto;
@@ -91,7 +92,7 @@ public class photoPopulize {
             count = 0;
             while (count < 5) {
                 try {
-                    Move(file, desPath);
+                    FileUtil.Move(file, desPath);
                     count = 5;
                 } catch (Exception e) {
                     count++;
@@ -100,15 +101,5 @@ public class photoPopulize {
             index++;
         }
         System.out.println("Upload Done");
-    }
-
-    public static boolean Move(File srcFile, String destPath) {
-        // Destination directory
-        File dir = new File(destPath);
-
-        // Move file to new directory
-        boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
-
-        return success;
     }
 }

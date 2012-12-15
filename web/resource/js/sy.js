@@ -94,9 +94,13 @@
         }
     }).delegate('a.icon', 'click', function() {
         var target = $(this);
-        console.log(this);
+        //console.log(this);
         doClick(target);
-    });;
+    }).delegate('li.isList', 'mouseenter', function() {
+        $('ul',this).show();
+    }).delegate('li.isList', 'mouseleave', function() {
+        $('ul',this).hide();
+    });
     
     //$(document)
 })(jQuery);

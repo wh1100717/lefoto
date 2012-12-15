@@ -3,6 +3,7 @@ package com.lefoto.controller.backManage;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.media.LeCategory;
+import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.AlbumService;
 import com.lefoto.service.iface.media.CategoryService;
 import java.util.List;
@@ -41,9 +42,9 @@ public class BackIndexController extends BaseController {
      */
     @RequestMapping(value = "/albumManage")
     public ModelAndView albumManage(HttpServletRequest request) {
-        this.execute(request);
+        LeUser user = this.getRequestUser(request);
         ModelAndView mv = new ModelAndView("/back/albumManage");
-        List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
+        List<LeAlbum> albums = albumService.findAlbumsByUserId(user.getId());
         mv.addObject("albums", albums);
 
         return mv;

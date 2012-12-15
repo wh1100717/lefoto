@@ -7,6 +7,7 @@ package com.lefoto.controller.backManage;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.model.media.LeAlbum;
+import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.AlbumService;
 import java.util.Date;
 import java.util.List;
@@ -37,30 +38,30 @@ public class AlbumManageController extends BaseController {
      */
     @RequestMapping(value = "/add")
     public ModelAndView add(HttpServletRequest request) throws Exception {
-        this.execute(request);
+        LeUser user = this.getRequestUser(request);
         ModelAndView mv = new ModelAndView("/back/albumManage");
         String albumName = this.getParaStringFromRequest("albumName");
         String message = "";
         if (albumName == null || albumName.equals("")) {
             message = "相册名不能为空";
             mv.addObject("message", message);
-            List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
+            List<LeAlbum> albums = albumService.findAlbumsByUserId(user.getId());
             mv.addObject("albums", albums);
             return mv;
         }
-        LeAlbum album = albumService.findUserAlbumByName(albumName, this.getUser().getId());
+        LeAlbum album = albumService.findUserAlbumByName(albumName, user.getId());
         if (album != null) {
             message = "已存在该相册";
             mv.addObject("message", message);
         } else {
             album = new LeAlbum();
             album.setName(albumName);
-            album.setUserId(this.getUser().getId());
-            album.setUserName(this.getUser().getName());
+            album.setUserId(user.getId());
+            album.setUserName(user.getName());
             album.setCreate_time(new Date());
             albumService.addAlbum(album);
         }
-        List<LeAlbum> albums = albumService.findAlbumsByUserId(this.getUser().getId());
+        List<LeAlbum> albums = albumService.findAlbumsByUserId(user.getId());
         mv.addObject("albums", albums);
         return mv;
     }
@@ -73,9 +74,9 @@ public class AlbumManageController extends BaseController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        this.execute(request);
+        LeUser user = this.getRequestUser(request);
         String albumName = this.getParaStringFromRequest("albumName");
-        LeAlbum album = albumService.findUserAlbumByName(albumName, this.getUser().getId());
+        LeAlbum album = albumService.findUserAlbumByName(albumName, user.getId());
         if (album == null) {
             response.getWriter().write("该相册不存在或已被删除");
         } else {
