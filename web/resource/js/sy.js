@@ -35,17 +35,26 @@
     //返回顶部end
 })(jQuery);
 (function($){
-    var getLikeUrl = '/data/like.cshtml';//获取喜欢
+    var getLikeUrl = '/index/likes.html';//获取喜欢
+    var loadCommentUrl = 'xx.html';//获取评论
+
     var iCur = -1;
-    function doLoading(){
-
-    }
-    function loadOK(){
-
+    function loadComment(id){
+        var data = {
+            id: id
+        };
+        $.get(loadCommentUrl,data,function(response){
+            if(response == 'success'){
+                //insertNewComment();
+            }else{
+                alert(response);
+            }
+        });
     }
     function doClick(target) {
         var parent = target.closest('.tabs'),
             pparent = parent.closest('.tabsWrap'),
+            item  = target.closest('.item'),
             loading = parent.find('.doLoading'),
             likeDiv = parent.find('div.like'),
             shareDiv = parent.find('div.share');
@@ -53,7 +62,7 @@
         if(target.hasClass('like')) { //喜欢按钮被点击
             if(pparent.height() > 40 && iCur == 1){
                 pparent.stop().animate({'height': '40px'},300);
-                return;
+                return false;
             }
             if(likeDiv.length == 0) {
                 loading.show();
@@ -69,17 +78,34 @@
         } else if(target.hasClass('share')) { //分享按钮被点击
             if(pparent.height() > 40 && iCur == 2){
                 pparent.stop().animate({'height': '40px'},300);
-                return;
+                return false;
             }
             likeDiv.hide();
             shareDiv.show();
             iCur = 2;
+        }else if(target.hasClass('comment')) { //评论按钮被点击
+            if(pparent.height() > 40){
+                pparent.stop().animate({'height': '40px'},300);
+            }
+            var commentRange = item.find('div.comments');
+            //var loc = commentRange.offset();
+            //console.log(loc.top);
+            //console.log($(document).scrollTop());
+            if(commentRange.is(':visible')){
+                commentRange.remove();
+            }else{
+                loadComment();
+                commentRange.show();
+                //$('html,body').animate({'scrollTop': '0px'}, 500);
+            }
+            iCur = 0;
+            return false;
         }
         target.closest('.tabsWrap').animate({'height': '80px'}, 300);
+        return false;
     }
     $(document).delegate('.iMid','mouseenter',function(){
         var box = $('.tabsWrap', this);
-        console.log('ojojo');
         if(box.height() > 40){
 
         } else {
@@ -94,7 +120,6 @@
         }
     }).delegate('a.icon', 'click', function() {
         var target = $(this);
-        //console.log(this);
         doClick(target);
     }).delegate('li.isList', 'mouseenter', function() {
         $('ul',this).show();

@@ -5,7 +5,8 @@
         <meta property="wb:webmaster" content="6af8d63927570237" />
         <title>Lefoto</title>
         <script src="${RESOURCE_DIR}/src/js/jquery-1.8.0.min.js" type="text/javascript"></script>
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=434637113" type="text/javascript" charset="utf-8"></script>
+        <script src="${RESOURCE_DIR}/src/js/common.js" type="text/javascript"></script>
+<!--        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=434637113" type="text/javascript" charset="utf-8"></script>-->
         <link href="${RESOURCE_DIR}/src/css/common2.css" rel="stylesheet" />
         <link href="${RESOURCE_DIR}/src/css/sy.css" rel="stylesheet" />
         <style type="text/css">
@@ -67,10 +68,10 @@
                     </div>
                     <div class="mside">
                         <ul>
-                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1">搞笑</a></li>
-                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2">萌宠</a></li>
-                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3">童真</a></li>
-                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4">美女</a></li>
+                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&&type=2">搞笑</a></li>
+                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2&&type=2">萌宠</a></li>
+                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&&type=2">童真</a></li>
+                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&&type=2">美女</a></li>
                             <li class="isList">
                                 <a href="/index.html?cateId=${cateId}&&type=2">随便看看</a>
                                 <ul style="display:none;">
@@ -109,7 +110,7 @@
                             <div class="tabs">
                                 <ul class="tabAs clearfix">
                                     <li>
-                                        <a class="icon comment" href ="javascript:;"><span>采集</span></a>
+                                        <a class="icon comment" href ="javascript:;"><span>评论</span></a>
                                     </li>
                                     <li>
                                         <a class="icon like" href="javascript:;"><span>喜欢</span></a>
@@ -138,11 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--
-                    <a style="height:{height}px;" class="iMid" href="javascript:;">
-                        <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://lefoto.b0.upaiyun.com{url}" onload="imgShow(this);" />
-                    </a>
-                    <div class="ibar clearfix">
+<!--                    <div class="ibar clearfix">
                         <a class="ibar-a fr" href="javascript:;">
                             <span>喜欢</span>
                         </a>
@@ -153,28 +150,28 @@
                             <span>评论</span>
                         </a>
                     </div>-->
-                    <!--                    <div id="i_{id}" class="comments" style="display:none;">
-                                            <ul class="UL_list">
-                                                <li>
-                                                    <a class="fl" href="">
-                                                        <img style="height:32px; width: 32px;" src="" />
-                                                    </a>
-                                                    <p class="Li_p">。。。。。。。hahh哈哈</p>
-                                                </li>
-                                                <li>
-                                                    <a class="fl" href="">
-                                                        <img style="height:32px; width: 32px;" src="" />
-                                                    </a>
-                                                    <p class="Li_p">哦哦哦哦哦 a amamamm</p>
-                                                </li>
-                                            </ul>
-                                            <div class="fwrap">
-                                                <form>
-                                                    <textarea class="editor" name="" ></textarea>
-                                                    <a href="#" class="subbtn">评论</a>
-                                                </form>
-                                            </div>
-                                        </div>-->
+                    <div id="i_{id}" class="comments" style="display:none;">
+                        <ul class="UL_list">
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="Li_p">。。。。。。。hahh哈哈</p>
+                            </li>
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="Li_p">哦哦哦哦哦 a amamamm</p>
+                            </li>
+                        </ul>
+                        <div class="fwrap">
+                            <form>
+                                <textarea class="editor" name="content" ></textarea>
+                                <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </script>
