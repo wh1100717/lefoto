@@ -34,12 +34,6 @@ public class LeComment implements Serializable {
     private int userId;
     @Column(name = "user_name")
     private String userName;
-    @Column(name = "reply_comment_id")
-    private int replyCommentId;
-    @Column(name = "reply_user_id")
-    private int replyUserId;
-    @Column(name = "reply_user_name")
-    private String replyUserName;
     //objecType表示评论的对象类型，1表示为图片
     @Column(name = "object_type")
     private int objectType;
@@ -47,8 +41,6 @@ public class LeComment implements Serializable {
     private int objectId;
     @Column(name = "object_user_id")
     private int objectUserId;
-    @Column(name = "object_user_name")
-    private String objectUserName;
     @Column(name = "channel")
     private int channel = 1;
     @Column(name = "create_time")
@@ -103,30 +95,6 @@ public class LeComment implements Serializable {
         this.userName = userName;
     }
 
-    public int getReplyCommentId() {
-        return replyCommentId;
-    }
-
-    public void setReplyCommentId(int replyCommentId) {
-        this.replyCommentId = replyCommentId;
-    }
-
-    public int getReplyUserId() {
-        return replyUserId;
-    }
-
-    public void setReplyUserId(int replyUserId) {
-        this.replyUserId = replyUserId;
-    }
-
-    public String getReplyUserName() {
-        return replyUserName;
-    }
-
-    public void setReplyUserName(String replyUserName) {
-        this.replyUserName = replyUserName;
-    }
-
     public int getObjectType() {
         return objectType;
     }
@@ -157,14 +125,6 @@ public class LeComment implements Serializable {
 
     public void setObjectUserId(int objectUserId) {
         this.objectUserId = objectUserId;
-    }
-
-    public String getObjectUserName() {
-        return objectUserName;
-    }
-
-    public void setObjectUserName(String objectUserName) {
-        this.objectUserName = objectUserName;
     }
 
     public Date getCreateTime() {

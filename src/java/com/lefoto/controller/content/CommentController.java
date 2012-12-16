@@ -46,33 +46,26 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/addComment")
     public @ResponseBody
     String addComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //获取请求参数
-        //所要回复的评论的Id
-        int replyCommentId = this.getParaIntFromRequest("replyCommentId");
-        //所要回复的评论的用户Id
-        int replyUserId = this.getParaIntFromRequest("replyUserId");
-        //所要回复的评论的用户名，直接从缓存获取
-        String replyUserName = UserCache.getUserById(replyUserId).getName();
+        //请求参数
+        
+        //评论内容
+        String content = this.getParaStringFromRequest("content");
         //所评论的对象Id
         int objectId = this.getParaIntFromRequest("objectId");
         //所评论的对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
         //发表该对象的用户Id
         int objectUserId = this.getParaIntFromRequest("objectUserId");
-        //发表该对象的用户名，直接从缓存获取
-        String objectUserName = UserCache.getUserById(objectUserId).getName();
-
+        
         LeUser user = this.getRequestUser(request);
+        
         LeComment comment = new LeComment();
         comment.setUserId(user.getId());
         comment.setUserName(user.getName());
-        comment.setReplyCommentId(replyCommentId);
-        comment.setReplyUserId(replyUserId);
-        comment.setReplyUserName(replyUserName);
         comment.setObjectType(objectType);//0表示评论的是图片
         comment.setObjectId(objectId);
         comment.setObjectUserId(objectUserId);
-        comment.setObjectUserName(objectUserName);
+        comment.setContent(content);
 
         //添加评论
         commentService.addComment(comment);
@@ -148,8 +141,6 @@ public class CommentController extends BaseController {
                         .element("userId", comment.getUserId())
                         .element("userName", comment.getUserName())
                         .element("userFace", UserCache.getUserById(comment.getUserId()).getFace())
-                        .element("replyUserId", comment.getReplyUserId())
-                        .element("replyUserName", comment.getReplyUserName())
                         .element("channel", comment.getChannel());
                 jsonArray.add(tmpObject);
             }
@@ -164,8 +155,6 @@ public class CommentController extends BaseController {
                         .element("userId", comment.getUserId())
                         .element("userName", comment.getUserName())
                         .element("userFace", UserCache.getUserById(comment.getUserId()).getFace())
-                        .element("replyUserId", comment.getReplyUserId())
-                        .element("replyUserName", comment.getReplyUserName())
                         .element("channel", comment.getChannel());
                 jsonArray.add(tmpObject);
             }
@@ -209,8 +198,6 @@ public class CommentController extends BaseController {
                     .element("userId", comment.getUserId())
                     .element("userName", comment.getUserName())
                     .element("userFace", UserCache.getUserById(comment.getUserId()).getFace())
-                    .element("replyUserId", comment.getReplyUserId())
-                    .element("replyUserName", comment.getReplyUserName())
                     .element("channel", comment.getChannel());
             jsonArray.add(tmpObject);
         }
@@ -255,8 +242,6 @@ public class CommentController extends BaseController {
                     .element("userId", comment.getUserId())
                     .element("userName", comment.getUserName())
                     .element("userFace", UserCache.getUserById(comment.getUserId()).getFace())
-                    .element("replyUserId", comment.getReplyUserId())
-                    .element("replyUserName", comment.getReplyUserName())
                     .element("channel", comment.getChannel());
             jsonArray.add(tmpObject);
         }
@@ -266,4 +251,10 @@ public class CommentController extends BaseController {
 
         return result;
     }
+    
+       public static String parseCommentContent(int objectType, int objectId, int userId, String content, CommentService commentService){
+       
+       return null;
+   }
+
 }
