@@ -5,8 +5,8 @@
 package com.lefoto.dao.iface.user;
 
 import com.lefoto.model.user.LeUser;
-import com.lefoto.model.user.RelationGroup;
-import com.lefoto.model.user.Relationship;
+import com.lefoto.model.user.LeRelationGroup;
+import com.lefoto.model.user.LeRelationship;
 import java.util.List;
 
 /**
@@ -17,13 +17,15 @@ public interface RelationDao {
     
     public String addGroup(LeUser user, String groupName);
 
-    public void addFollow(LeUser user, LeUser followUser, RelationGroup group);
+    public boolean addFollowing(LeUser user, LeUser followingUser, LeRelationGroup group);
 
-    public void removeFollow(LeUser user, LeUser followUser);
+    public void removeFollowing(LeUser user, LeUser followeringUser);
     
-    public void removeFans(LeUser user, LeUser followUser);
+    public void removeFollower(LeUser user, LeUser followerUser);
     
-    public Relationship findRelation(LeUser user, LeUser followUser);
+     public List<LeRelationship> findAllRelationships();
+    
+    public LeRelationship findFollowingRelation(LeUser user, LeUser followingUser);
     
     public List findGroups(LeUser user);
 }

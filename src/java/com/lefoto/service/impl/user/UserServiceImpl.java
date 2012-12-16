@@ -5,8 +5,10 @@
 package com.lefoto.service.impl.user;
 
 import com.lefoto.common.cache.UserCache;
+import com.lefoto.dao.iface.user.RelationDao;
 import com.lefoto.dao.iface.user.UserDao;
 import com.lefoto.model.user.LeDefaultUserFace;
+import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import com.lefoto.service.iface.user.UserService;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RelationDao relationDao;
 
     @Override
     public void addUser(LeUser user) {
@@ -101,6 +105,11 @@ public class UserServiceImpl implements UserService {
         Random random = new Random();
         int randomNumber = random.nextInt(defaultUserFaces.size());
         return defaultUserFaces.get(randomNumber);
+    }
+
+    @Override
+    public List<LeRelationship> findAllRelationships() {
+        return this.relationDao.findAllRelationships();
     }
 
 }

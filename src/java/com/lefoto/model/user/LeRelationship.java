@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "le_relationship")
-public class Relationship implements Serializable {
+public class LeRelationship implements Serializable {
 
     @Id
     @GeneratedValue
@@ -28,17 +28,12 @@ public class Relationship implements Serializable {
     private int id;
     @Column(name = "user_id", nullable = false)
     private int userId;
-    @Column(name = "user_name", nullable = false)
-    private String userName;
-    @Column(name = "follow_user_id", nullable = false)
-    private int followUserId;
-    @Column(name = "follow_user_name", nullable = false)
-    private String followUserName;
+    @Column(name = "following_user_id", nullable = false)
+    private int followingUserId;
     @Column(name = "group_id", nullable = false)
     private int groupId;
-    @Column(name = "group_name", nullable = false)
-    private String groupName;
-    @Column(name = "relation_tyoe", nullable = false)
+    //relation_type: 1表示为follow关系,2表示为互为好友关系
+    @Column(name = "relation_type", nullable = false)
     private int relationType = 1;
     @Column(name = "create_user_id", nullable = false)
     private int createUserId;
@@ -62,28 +57,12 @@ public class Relationship implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getFollowingUserId() {
+        return followingUserId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getFollowUserId() {
-        return followUserId;
-    }
-
-    public void setFollowUserId(int followUserId) {
-        this.followUserId = followUserId;
-    }
-
-    public String getFollowUserName() {
-        return followUserName;
-    }
-
-    public void setFollowUserName(String followUserName) {
-        this.followUserName = followUserName;
+    public void setFollowingUserId(int followingUserId) {
+        this.followingUserId = followingUserId;
     }
 
     public int getGroupId() {
@@ -92,14 +71,6 @@ public class Relationship implements Serializable {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 
     public int getRelationType() {

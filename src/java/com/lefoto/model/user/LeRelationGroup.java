@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "le_relation_group")
-public class RelationGroup implements Serializable {
+public class LeRelationGroup implements Serializable {
 
     @Id
     @GeneratedValue

@@ -5,6 +5,7 @@
 package com.lefoto.service.iface.user;
 
 import com.lefoto.model.user.LeDefaultUserFace;
+import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import java.util.List;
@@ -127,4 +128,10 @@ public interface UserService {
      * @return
      */
     public LeDefaultUserFace findRandomDefaultUserFace();
+
+    /**
+     * 获取全部好友关系
+     * @return
+     */
+    public List<LeRelationship> findAllRelationships();
 }

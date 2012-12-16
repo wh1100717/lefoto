@@ -5,6 +5,7 @@
 package com.lefoto.dao.iface.user;
 
 import com.lefoto.model.user.LeDefaultUserFace;
+import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import java.util.List;

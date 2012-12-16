@@ -6,8 +6,8 @@ package com.lefoto.dao.impl.user;
 
 import com.lefoto.dao.iface.user.RelationDao;
 import com.lefoto.model.user.LeUser;
-import com.lefoto.model.user.RelationGroup;
-import com.lefoto.model.user.Relationship;
+import com.lefoto.model.user.LeRelationGroup;
+import com.lefoto.model.user.LeRelationship;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -30,93 +30,116 @@ public class RelationDaoImpl implements RelationDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addFollow(LeUser user, LeUser followUser, RelationGroup group) {
-        //当不存在好友关系或者只存在followUser关注user的时候
-        Relationship relationship = this.findRelation(user, followUser);
-        Relationship followRelation = this.findRelation(followUser, user);
+    public boolean addFollowing(LeUser user, LeUser followingUser, LeRelationGroup group) {
+        //user为本人, followingUser为要关注的人
+
+        //首先查看followingUser是否已经是user的粉丝
+        //如果已经是粉丝了，则直接更改他们已经存在的relationship中的relationType为2
+        //如果还不是粉丝，则创建一个relationship
+        LeRelationship followerRelation = this.findFollowingRelation(followingUser, user);
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-
         //relationType: 1表示单纯的关注关系， 2表示相互关注关系
         //当不存在好友关系时
-        if (relationship == null) {
-            relationship = new Relationship();
-            relationship.setUserId(user.getId());
-            relationship.setUserName(user.getName());
-            relationship.setFollowUserId(followUser.getId());
-            relationship.setFollowUserName(followUser.getName());
-            relationship.setCreateUserId(user.getId());
-            relationship.setGroupId(group.getId());
-            relationship.setGroupName(group.getName());
-            if (followRelation == null) {
-                relationship.setRelationType(1);
-            } else {
-                //当存在user被followUser follow的时候
-                followRelation.setRelationType(2);
-                session.saveOrUpdate(followRelation);
-                relationship.setRelationType(2);
-            }
-            session.saveOrUpdate(relationship);
+
+        if (followerRelation != null) {
+            followerRelation.setRelationType(2);
+            session.saveOrUpdate(followerRelation);
+        } else {
+            LeRelationship followingRelationship = new LeRelationship();
+            followingRelationship.setUserId(user.getId());
+            followingRelationship.setFollowingUserId(followingUser.getId());
+            followingRelationship.setCreateUserId(user.getId());
+            followingRelationship.setGroupId(group.getId());
+            session.saveOrUpdate(followingRelationship);
         }
         session.getTransaction().commit();
+        return true;
     }
 
     /**
      * 取消关注~ 当为单纯关注的时候，直接删除relationship；
      * 当其为互相关注的时候，删除relationship,并更新对方的relationship,即followRelation，的relationType为1
+     *
      * @param user
      * @param followUser
      */
     @Override
-    public void removeFollow(LeUser user, LeUser followUser) {
-        Relationship relationship = this.findRelation(user, followUser);
-        Relationship followRelation = this.findRelation(followUser, user);
+    public void removeFollowing(LeUser user, LeUser followingUser) {
+        LeRelationship followingRelationship = this.findFollowingRelation(user, followingUser);
+        LeRelationship followerRelation = this.findFollowingRelation(followingUser, user);
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        if (relationship != null) {
-            if (followRelation != null) {
-                followRelation.setRelationType(1);
-                session.saveOrUpdate(followRelation);
+        if (followingRelationship != null) {
+            session.delete(followingRelationship);
+        } else {
+            if (followerRelation != null) {
+                followerRelation.setRelationType(1);
+                session.saveOrUpdate(followerRelation);
             }
-            session.delete(relationship);
         }
         session.getTransaction().commit();
     }
 
     /**
-     * 取消粉丝~取消对方对自己的关注
+     * 取消粉丝~取消双方的好友关系
+     *
      * @param user
      * @param followUser
      */
     @Override
-    public void removeFans(LeUser user, LeUser followUser) {
-        Relationship relationship = this.findRelation(user, followUser);
-        Relationship followRelation = this.findRelation(followUser, user);
+    public void removeFollower(LeUser user, LeUser followerUser) {
+        LeRelationship followingRelationship = this.findFollowingRelation(user, followerUser);
+        LeRelationship followerRelation = this.findFollowingRelation(followerUser, user);
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        if (relationship != null) {
-            relationship.setRelationType(1);
-            session.saveOrUpdate(relationship);
-        }
-        if (followRelation != null) {
-            session.delete(followRelation);
+
+        if (followingRelationship != null) {
+            session.delete(followingRelationship);
+        } else if (followerRelation != null) {
+            session.delete(followerRelation);
         }
         session.getTransaction().commit();
     }
 
+    /**
+     * 获取所有的关系记录
+     * @return
+     */
     @Override
-    public Relationship findRelation(LeUser user, LeUser followUser) {
+    public List<LeRelationship> findAllRelationships() {
         Session session = this.sessionFactory.getCurrentSession();
-        Relationship relationship = null;
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeRelationship.class);
+        List relationships = criteria.list();
+        session.getTransaction().commit();
+        if (relationships != null && !relationships.isEmpty()) {
+            return relationships;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取userId为user.getId. followingUserId为followingUser.getId的记录
+     *
+     * @param user
+     * @param followingUser
+     * @return
+     */
+    @Override
+    public LeRelationship findFollowingRelation(LeUser user, LeUser followingUser) {
+        Session session = this.sessionFactory.getCurrentSession();
+        LeRelationship relationship = null;
         session.beginTransaction();
         int userId = user.getId();
-        int followUserId = followUser.getId();
-        Criteria criteria = session.createCriteria(Relationship.class);
+        int followingUserId = followingUser.getId();
+        Criteria criteria = session.createCriteria(LeRelationship.class);
         criteria.add(Restrictions.eq("userId", userId));
-        criteria.add(Restrictions.eq("followUserId", followUserId));
+        criteria.add(Restrictions.eq("followingUserId", followingUserId));
         List relationshipList = criteria.list();
         if (relationshipList != null && !relationshipList.isEmpty()) {
-            relationship = (Relationship) relationshipList.get(0);
+            relationship = (LeRelationship) relationshipList.get(0);
         }
         session.getTransaction().commit();
         return relationship;
@@ -126,14 +149,14 @@ public class RelationDaoImpl implements RelationDao {
     public String addGroup(LeUser user, String groupName) {
         List relationGroups = this.findGroups(user);
         for (Iterator it = relationGroups.iterator(); it.hasNext();) {
-            RelationGroup group = (RelationGroup) it.next();
+            LeRelationGroup group = (LeRelationGroup) it.next();
             if (group.getName().equals(groupName)) {
                 return "error";
             }
         }
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        RelationGroup relationGroup = new RelationGroup();
+        LeRelationGroup relationGroup = new LeRelationGroup();
         relationGroup.setName(groupName);
         relationGroup.setUserId(user.getId());
         session.saveOrUpdate(relationGroup);
@@ -145,7 +168,7 @@ public class RelationDaoImpl implements RelationDao {
     public List findGroups(LeUser user) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(RelationGroup.class);
+        Criteria criteria = session.createCriteria(LeRelationGroup.class);
         criteria.add(Restrictions.eq("userId", user.getId()));
         List relationGroups = criteria.list();
         session.getTransaction().commit();
