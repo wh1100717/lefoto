@@ -135,6 +135,5 @@ public class PhotoController extends BaseController {
         jsonObject.put("msg", Const.SUCCESS);
         result.add(jsonObject.toString());
         return result;
-
     }
 }
