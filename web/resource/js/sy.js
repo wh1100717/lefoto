@@ -159,12 +159,12 @@
             eH = le.height();
         var posL = (iMidW - eW)/2,
             posT = (iMidH - eH)/2;
-        //console.log(posT);
-        //console.log(posL);
         le.css({'top': posT + 'px','left': posL + 'px'});
         if(leA.attr('data-up') == '0'){
+            leAToggle = 0;
             leA.html(YES_UP);
         }else if(leA.attr('data-up') == '1'){
+            leAToggle = 1;
             leA.html(NO_UP);
         }
         le.fadeIn(200);
