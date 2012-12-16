@@ -115,25 +115,31 @@ public class PhotoController extends BaseController {
     }
 
     @RequestMapping(value = "/getUpUsers")
-    public @ResponseBody
-    List<String> getUpUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List result = new ArrayList();
+    public ModelAndView getUpUsers(HttpServletRequest request){
+        ModelAndView mv = new ModelAndView("/index/likeUsers");
+        //List result = new ArrayList();
         int photoId = this.getParaIntFromRequest("photoId");
         List<LePhotoUp> ups = photoService.findPhotoUps(photoId);
-        JSONArray jsonArray = new JSONArray();
+        
+        List<LeUser> users = new ArrayList<LeUser>();
+        //JSONArray jsonArray = new JSONArray();
         for (LePhotoUp up : ups) {
             LeUser user = UserCache.getUserById(up.getUserId());
             if(user == null){continue;}
+            users.add(user);
+            /*
             JSONObject tmpObject = new JSONObject()
                     .element("userId", user.getId())
                     .element("userName", user.getName())
                     .element("face", user.getFace());
-            jsonArray.add(tmpObject);
+            jsonArray.add(tmpObject);*/
         }
+        /*
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("msg", Const.SUCCESS);
-        result.add(jsonObject.toString());
-        return result;
+        jsonObject.put("msg", Const.SUCCESS);*/
+        mv.addObject("upUsers",users);
+        //result.add(jsonObject.toString());
+        return mv;
     }
 }

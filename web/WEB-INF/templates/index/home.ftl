@@ -119,13 +119,13 @@
                             <div class="tabs">
                                 <ul class="tabAs clearfix">
                                     <li>
-                                        <a class="icon comment" href ="javascript:;"><span>评论</span></a>
+                                        <a rel="{id}" class="icon comment" href ="javascript:;"><span>评论</span></a>
                                     </li>
                                     <li>
-                                        <a class="icon like" href="javascript:;"><span>喜欢</span></a>
+                                        <a rel="{id}" class="icon like" href="javascript:;"><span>喜欢</span></a>
                                     </li>
                                     <li>
-                                        <a class="icon share" href="javascript:;"><span>分享</span></a>
+                                        <a rel="{id}" class="icon share" href="javascript:;"><span>分享</span></a>
                                     </li>
                                 </ul>
                                 <div class="hide share">

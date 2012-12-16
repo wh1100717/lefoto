@@ -35,13 +35,16 @@
     //返回顶部end
 })(jQuery);
 (function($){
-    var getLikeUrl = '/index/likes.html';//获取喜欢
+    var getLikeUsersUrl = '/photo/getUpUsers.html';//获取喜欢
+    var addPhotoLikeUrl = '/photo/upPhoto.html';//添加喜欢
+    var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
     var loadCommentUrl = 'xx.html';//获取评论
 
     var iCur = -1;
+    var leAToggle = false;
     function loadComment(id){
         var data = {
-            id: id
+            photoId: id
         };
         $.get(loadCommentUrl,data,function(response){
             if(response == 'success'){
@@ -57,7 +60,8 @@
             item  = target.closest('.item'),
             loading = parent.find('.doLoading'),
             likeDiv = parent.find('div.like'),
-            shareDiv = parent.find('div.share');
+            shareDiv = parent.find('div.share'),
+            itemId = target.attr('rel');
 
         if(target.hasClass('like')) { //喜欢按钮被点击
             if(pparent.height() > 40 && iCur == 1){
@@ -66,7 +70,10 @@
             }
             if(likeDiv.length == 0) {
                 loading.show();
-                $.get(getLikeUrl, {}, function(response){
+                var data = {
+                    photoId: itemId
+                };
+                $.get(getLikeUsersUrl, data, function(response){
                     $(response).appendTo(parent);
                     loading.hide();
                 });
@@ -92,7 +99,7 @@
             //console.log(loc.top);
             //console.log($(document).scrollTop());
             if(commentRange.is(':visible')){
-                commentRange.remove();
+                commentRange.hide();
             }else{
                 loadComment();
                 commentRange.show();
@@ -104,6 +111,30 @@
         target.closest('.tabsWrap').animate({'height': '80px'}, 300);
         return false;
     }
+    var doAddPhotoLike = function(id){
+        var data = {
+            photoId:id
+        };
+        $.post(addPhotoLikeUrl,data,function(response){
+            if(response == 'success'){
+                
+            }else{
+                alert(response);
+            }
+        });
+    }
+    var doCancelPhotoLike = function(id){
+        var data = {
+            photoId:id
+        };
+        $.post(cancelPhotoLikeUrl,data,function(response){
+            if(response == 'success'){
+                
+            }else{
+                alert(response);
+            }
+        });
+    }
     var doDown = function(pEle){ 
         var pos = pEle.position();
         var startX = pos.left + 25;
@@ -113,6 +144,7 @@
                     .animate({'top':'+=500px'},1000,function() {
                          downEle.remove();
                     });
+                    
     }
     var showSmile = function(_iMid){
         var le = $('.leMid', _iMid);
@@ -153,9 +185,17 @@
     }).delegate('li.isList', 'mouseleave', function() {
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
-        //var id = $(this).attr('rel');
+        var id = $(this).attr('rel');
         var pEle = $(this).closest('.leMid');
-        doDown(pEle);
+        console.log(leAToggle);
+        if(leAToggle){
+            leAToggle = false;
+            doCancelPhotoLike(id);
+        }else{
+            leAToggle = true;
+            doDown(pEle);
+            doAddPhotoLike(id);
+        }
     });
     //$(document)
 })(jQuery);
