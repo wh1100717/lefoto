@@ -118,4 +118,10 @@ public interface PhotoService {
      * @return
      */
     public List<LePhotoUp> findPhotoUps(int photoId);
+
+    /**
+     * 获取全部喜欢图片的记录
+     * @return
+     */
+    public List<LePhotoUp> getAllPhotoUps();
 }

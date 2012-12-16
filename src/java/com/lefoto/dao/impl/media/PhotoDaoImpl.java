@@ -203,4 +203,18 @@ public class PhotoDaoImpl implements PhotoDao {
             return null;
         }
     }
+
+    @Override
+    public List<LePhotoUp> getAllPhotoUps() {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LePhotoUp.class);
+        List ups = criteria.list();
+        session.getTransaction().commit();
+        if (ups != null && !ups.isEmpty()) {
+            return ups;
+        } else {
+            return null;
+        }
+    }
 }

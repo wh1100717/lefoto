@@ -9,6 +9,7 @@ import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.common.cache.UserCache;
 import com.lefoto.common.utils.AuthenUtil;
 import com.lefoto.model.media.LePhoto;
+import com.lefoto.model.media.LePhotoUp;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
 import com.lefoto.service.iface.user.UserService;
@@ -47,7 +48,7 @@ public class indexController extends BaseController {
         cateId = cateId == 0 ? 1 : cateId;
         type = type == 0 ? 0 : type;
         if (homeUser != null && homeUser.getEmail().equals("admin@lefoto.me")) {
-            mv.addObject("delete",1);
+            mv.addObject("delete", 1);
         }
         mv.addObject("cateId", cateId);
         mv.addObject("type", type);
@@ -57,11 +58,12 @@ public class indexController extends BaseController {
     PhotoService photoService;
     @Autowired
     UserService userService;
-    
+
     @RequestMapping(value = "/index/getPhoto")
     public @ResponseBody
     List<String> getPhoto(HttpServletRequest request) throws IOException {
         List result = new ArrayList();
+        LeUser ownUser = this.getRequestUser(request);
         //验证是否是本网站发出的请求
         if (!AuthenUtil.refererAuthen(request.getHeader("Referer"))) {
             result.add("invalid request");
@@ -72,8 +74,8 @@ public class indexController extends BaseController {
             result.add("invalid request");
             return result;
         }
-        
-        
+
+
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
         int size = this.getParaIntFromRequest("size");
@@ -89,10 +91,13 @@ public class indexController extends BaseController {
             result.add(jsonObject.toString());
             return result;
         }
-        
+        LePhotoUp up = null;
         for (int index = 0; index < photos.size(); index++) {
             LePhoto photo = (LePhoto) photos.get(index);
             LeUser user = UserCache.getUserById(photo.getUserId());
+            if (ownUser != null) {
+                up = PhotoCache.findPhotoUp(photo.getId(), ownUser.getId());
+            }
             int height = photo.getHeight();
             int width = photo.getWidth();
             if (width > 420) {
@@ -110,11 +115,16 @@ public class indexController extends BaseController {
                     .element("userName", photo.getUserName())
                     .element("face", user.getFace() + "!small")
                     .element("height", height);
+            if (up != null) {
+                tmpObject.put("up", 1);
+            } else {
+                tmpObject.put("up", 0);
+            }
             jsonArray.add(tmpObject);
         }
-        
+
         jsonObject.put("data", jsonArray);
-        
+
         result.add(jsonObject.toString());
         return result;
     }

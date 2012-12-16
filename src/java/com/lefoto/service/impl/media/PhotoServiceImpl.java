@@ -99,6 +99,8 @@ public class PhotoServiceImpl implements PhotoService {
             photoUp.setPhotoId(photoId);
             photoUp.setUserId(userId);
             photoDao.addPhotoUp(photoUp);
+            //更新内存
+            PhotoCache.addPhotoUp(photoUp);
         }
     }
 
@@ -107,6 +109,8 @@ public class PhotoServiceImpl implements PhotoService {
         LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
         if (photoUp != null) {
             photoDao.cancelUpPhoto(photoUp);
+            //更新内存
+            PhotoCache.removePhotoUp(photoUp);
         }
     }
 
@@ -128,5 +132,10 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<LePhotoUp> findPhotoUps(int photoId) {
         return photoDao.findPhotoUps(photoId);
+    }
+
+    @Override
+    public List<LePhotoUp> getAllPhotoUps() {
+        return photoDao.getAllPhotoUps();
     }
 }

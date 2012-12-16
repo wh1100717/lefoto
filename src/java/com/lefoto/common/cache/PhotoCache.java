@@ -7,6 +7,7 @@ package com.lefoto.common.cache;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.RandomUtil;
 import com.lefoto.model.media.LePhoto;
+import com.lefoto.model.media.LePhotoUp;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,59 @@ public class PhotoCache {
     //1代表搞笑 | 2代表萌宠 | 3代表童真 | 4代表美女
 
     static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(5);
+    static List<LePhotoUp> photoUpList = new ArrayList<LePhotoUp>();
 
     static public String initPhotoList(PhotoService photoService) {
-        photoList.add(photoService.getPhotosByAdmin(0,Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(1,Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(2,Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(3,Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(4,Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(0, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(1, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(2, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(3, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(4, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoUpList = photoService.getAllPhotoUps();
         return Const.SUCCESS;
+    }
+
+    static public LePhotoUp findPhotoUp(int photoId, int userId) {
+        for (LePhotoUp up : photoUpList) {
+            if (up.getPhotoId() == photoId && up.getUserId() == userId) {
+                return up;
+            }
+        }
+        return null;
+    }
+
+    static public LePhotoUp findPhotoUp(LePhotoUp up) {
+        int photoId = up.getPhotoId();
+        int userId = up.getUserId();
+        return findPhotoUp(photoId, userId);
+    }
+
+    static public List<LePhotoUp> findPhotoUps(int photoId) {
+        List<LePhotoUp> result = new ArrayList<LePhotoUp>();
+        for (LePhotoUp up : photoUpList) {
+            if(up.getPhotoId() == photoId){
+                result.add(up);
+            }
+        }
+        return result;
+    }
+
+    static public void addPhotoUp(LePhotoUp up) {
+        if (findPhotoUp(up) == null) {
+            photoUpList.add(up);
+        }
+    }
+
+    static public void removePhotoUp(LePhotoUp up) {
+        int photoId = up.getPhotoId();
+        int userId = up.getUserId();
+        for (int index = 0; index < photoUpList.size(); index++) {
+            LePhotoUp photoUp = photoUpList.get(index);
+            if (photoUp.getPhotoId() == photoId && photoUp.getUserId() == userId) {
+                photoUpList.remove(photoUp);
+                break;
+            }
+        }
     }
 
     static public String addPhoto(LePhoto photo) {
@@ -100,7 +146,7 @@ public class PhotoCache {
     public static LePhoto getPhotoById(int photoId, int cateId) {
         List<LePhoto> photos = photoList.get(cateId);
         for (LePhoto photo : photos) {
-            if(photo.getId() == photoId){
+            if (photo.getId() == photoId) {
                 return photo;
             }
         }

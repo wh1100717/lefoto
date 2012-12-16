@@ -18,9 +18,6 @@ import com.lefoto.service.iface.media.PhotoService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,7 +116,7 @@ public class PhotoController extends BaseController {
         ModelAndView mv = new ModelAndView("/index/likeUsers");
         //List result = new ArrayList();
         int photoId = this.getParaIntFromRequest("photoId");
-        List<LePhotoUp> ups = photoService.findPhotoUps(photoId);
+        List<LePhotoUp> ups = PhotoCache.findPhotoUps(photoId);
         
         List<LeUser> users = new ArrayList<LeUser>();
         if(ups == null){
