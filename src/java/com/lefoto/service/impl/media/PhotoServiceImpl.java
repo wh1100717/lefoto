@@ -9,7 +9,7 @@ import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.media.LePhoto;
-import com.lefoto.model.media.LePhotoUpdown;
+import com.lefoto.model.media.LePhotoUp;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,32 +93,35 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     public void upPhoto(int photoId, int userId) {
-        LePhotoUpdown photoUpdown = this.findPhotoUpdown(photoId, userId);
-        if (photoUpdown == null) {
-            photoDao.upPhoto(photoId, userId);
+        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
+        if (photoUp == null) {
+            photoUp = new LePhotoUp();
+            photoUp.setPhotoId(photoId);
+            photoUp.setUserId(userId);
+            photoDao.addPhotoUp(photoUp);
         }
     }
 
     @Override
-    public void downPhoto(int photoId, int userId) {
-        LePhotoUpdown photoUpdown = this.findPhotoUpdown(photoId, userId);
-        if (photoUpdown == null) {
-            photoDao.downPhoto(photoId, userId);
+    public void cancelUpPhoto(int photoId, int userId) {
+        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
+        if (photoUp != null) {
+            photoDao.cancelUpPhoto(photoUp);
         }
     }
 
     @Override
-    public LePhotoUpdown findPhotoUpdown(int photoId, int userId) {
-        return photoDao.findPhotoUpdown(photoId, userId);
+    public LePhotoUp findPhotoUp(int photoId, int userId) {
+        return photoDao.findPhotoUp(photoId, userId);
     }
 
     @Override
-    public List getPhotos(int cateId, int lastPhotoId, int size, int type) {
+    public List getPhotos(int cateId, int lastPhotoId, int size) {
         return photoDao.getPhotos(cateId, lastPhotoId, size);
     }
 
     @Override
-    public List getPhotosByAdmin(int cateId) {
-        return photoDao.getPhotosByAdmin(cateId);
+    public List getPhotosByAdmin(int cateId, int size) {
+        return photoDao.getPhotosByAdmin(cateId, size);
     }
 }

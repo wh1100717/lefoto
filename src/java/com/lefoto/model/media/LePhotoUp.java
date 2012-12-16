@@ -14,11 +14,12 @@ import javax.persistence.Temporal;
 
 /**
  * 用户对图片的顶和踩的记录表
+ *
  * @author Eric
  */
 @Entity
-@Table(name = "le_photo")
-public class LePhotoUpdown {
+@Table(name = "le_photo_up")
+public class LePhotoUp {
 
     @Id
     @GeneratedValue
@@ -28,9 +29,6 @@ public class LePhotoUpdown {
     private int userId;
     @Column(name = "photo_id")
     private int photoId;
-    //type ; 1表示顶，2表示踩
-    @Column(name = "type")
-    private int type;
     @Column(name = "create_time")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date create_time = new Date();
@@ -57,14 +55,6 @@ public class LePhotoUpdown {
 
     public void setPhotoId(int photoId) {
         this.photoId = photoId;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public Date getCreate_time() {

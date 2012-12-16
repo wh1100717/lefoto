@@ -6,7 +6,7 @@ package com.lefoto.dao.impl.media;
 
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.model.media.LePhoto;
-import com.lefoto.model.media.LePhotoUpdown;
+import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -98,41 +98,43 @@ public class PhotoDaoImpl implements PhotoDao {
     }
 
     @Override
-    public void upPhoto(int photoId, int userId) {
-        LePhotoUpdown photoUpdown = new LePhotoUpdown();
-        photoUpdown.setPhotoId(photoId);
-        photoUpdown.setUserId(userId);
-        photoUpdown.setType(1);
-        this.addPhotoUpdown(photoUpdown);
-    }
-
-    @Override
-    public void downPhoto(int photoId, int userId) {
-        LePhotoUpdown photoUpdown = new LePhotoUpdown();
-        photoUpdown.setPhotoId(photoId);
-        photoUpdown.setUserId(userId);
-        photoUpdown.setType(2);
-        this.addPhotoUpdown(photoUpdown);
-    }
-
-    public void addPhotoUpdown(LePhotoUpdown photoUpdown) {
+    public void addPhotoUp(LePhotoUp photoUp) {
+        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
+        if (photo == null) {
+            return;
+        }
+        photo.setUpCount(photo.getUpCount() + 1);
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.persist(photoUpdown);
+        session.persist(photoUp);
+        session.merge(photo);
         session.getTransaction().commit();
     }
 
     @Override
-    public LePhotoUpdown findPhotoUpdown(int photoId, int userId) {
+    public void cancelUpPhoto(LePhotoUp photoUp) {
+        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(LePhotoUpdown.class);
+        session.delete(photoUp);
+        if (photo != null) {
+            photo.setUpCount(photo.getUpCount() - 1);
+            session.merge(photo);
+        }
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public LePhotoUp findPhotoUp(int photoId, int userId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LePhotoUp.class);
         criteria.add(Restrictions.eq("photoId", photoId));
         criteria.add(Restrictions.eq("userId", userId));
         List photoUpdowns = criteria.list();
         session.getTransaction().commit();
         if (photoUpdowns != null && !photoUpdowns.isEmpty()) {
-            return (LePhotoUpdown) photoUpdowns.get(0);
+            return (LePhotoUp) photoUpdowns.get(0);
         } else {
             return null;
         }
@@ -150,7 +152,9 @@ public class PhotoDaoImpl implements PhotoDao {
             criteria.add(Restrictions.le("id", lastPhotoId));
         }
         if (size != 0) {
-            if(size > 50){size = 50;}
+            if (size > 50) {
+                size = 50;
+            }
             criteria.setMaxResults(size);
         }
         criteria.addOrder(Order.desc("id"));
@@ -164,14 +168,17 @@ public class PhotoDaoImpl implements PhotoDao {
     }
 
     @Override
-    public List getPhotosByAdmin(int cateId) {
+    public List getPhotosByAdmin(int cateId, int size) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
         if (cateId != 0) {
             criteria.add(Restrictions.eq("categoryId", cateId));
         }
-        criteria.setMaxResults(10000);
+        if (size == 0) {
+            size = 10000;
+        }
+        criteria.setMaxResults(size);
         criteria.addOrder(Order.asc("id"));
         List photos = criteria.list();
         session.getTransaction().commit();

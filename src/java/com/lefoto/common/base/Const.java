@@ -2,21 +2,26 @@ package com.lefoto.common.base;
 
 public class Const {
 
+    //Response Information
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String MESSAGE = "message";
-    public static final String DATA = "data";
     
+    //Cache
+    public static final int MAX_PHOTO_CACHE_RECORDS = 10000;
+    
+    //Resource
     public static final String RESOURCE_DIR = "";
     
+    //Request
     public static final String SESSION_ID = "sessionId";
     public static final String USER_ID = "userId";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "email";
     public static final String USER = "user";
-    //lefoto
-    //1 * 24 * 3600
-    public static final int COOKIE_EXPIRE_TIME = 86400;
+    public static final int COOKIE_EXPIRE_TIME = 86400;//1 * 24 * 3600
+    
+    //Upload
     public static String UPLOAD_FOLDER_PATH = "/WEB-INF/upload";
     
     //Populize

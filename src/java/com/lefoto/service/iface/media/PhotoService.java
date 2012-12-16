@@ -5,7 +5,7 @@
 package com.lefoto.service.iface.media;
 
 import com.lefoto.model.media.LePhoto;
-import com.lefoto.model.media.LePhotoUpdown;
+import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
 
 /**
@@ -21,10 +21,10 @@ public interface PhotoService {
      * @param photo
      */
     public void addPhoto(LePhoto photo);
-    
+
     /**
      * 用户转发|收藏照片
-     * 
+     *
      * @param photoId
      * @param userId
      */
@@ -36,10 +36,10 @@ public interface PhotoService {
      * @param photo
      */
     public void deletePhoto(LePhoto photo);
-    
+
     /**
      * 更新图片
-     * 
+     *
      * @param photo
      */
     public void updatePhoto(LePhoto photo);
@@ -69,7 +69,7 @@ public interface PhotoService {
     public List<LePhoto> findPhotosByUserId(int userId);
 
     /**
-     * 顶某一张图片
+     * 喜欢某一张图片
      *
      * @param photoId
      * @param userId
@@ -77,23 +77,38 @@ public interface PhotoService {
     public void upPhoto(int photoId, int userId);
 
     /**
-     * 踩某一张图片
+     * 取消喜欢某一张图片
      *
      * @param photoId
      * @param userId
      */
-    public void downPhoto(int photoId, int userId);
+    public void cancelUpPhoto(int photoId, int userId);
 
     /**
-     * 获取某个人对某张照片的顶踩情况
+     * 获取某个人对某张照片的喜欢的情况
      *
      * @param photoId
      * @param userId
      * @return
      */
-    public LePhotoUpdown findPhotoUpdown(int photoId, int userId);
-
-    public List getPhotos(int cateId, int lastPhotoId, int size, int type);
+    public LePhotoUp findPhotoUp(int photoId, int userId);
     
-    public List getPhotosByAdmin(int cateId);
+    /**
+     * 获取图片
+     * @param cateId 分类Id
+     * @param lastPhotoId 异步Ajax请求过来最后一张图片的Id
+     * @param size 要获取的记录数量
+     * @param type 
+     * @return
+     */
+    public List getPhotos(int cateId, int lastPhotoId, int size);
+
+    /**
+     * 获取某一分类下所有的照片 用来进行后台缓存初始化
+     *
+     * @param cateId 分类Id
+     * @param size 最大获取数据的数量
+     * @return
+     */
+    public List getPhotosByAdmin(int cateId, int size);
 }

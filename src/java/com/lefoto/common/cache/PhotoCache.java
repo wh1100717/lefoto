@@ -21,11 +21,11 @@ public class PhotoCache {
     static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(5);
 
     static public String initPhotoList(PhotoService photoService) {
-        photoList.add(photoService.getPhotosByAdmin(0));
-        photoList.add(photoService.getPhotosByAdmin(1));
-        photoList.add(photoService.getPhotosByAdmin(2));
-        photoList.add(photoService.getPhotosByAdmin(3));
-        photoList.add(photoService.getPhotosByAdmin(4));
+        photoList.add(photoService.getPhotosByAdmin(0,Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(1,Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(2,Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(3,Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(4,Const.MAX_PHOTO_CACHE_RECORDS));
         return Const.SUCCESS;
     }
 

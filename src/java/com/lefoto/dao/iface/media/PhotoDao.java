@@ -5,7 +5,7 @@
 package com.lefoto.dao.iface.media;
 
 import com.lefoto.model.media.LePhoto;
-import com.lefoto.model.media.LePhotoUpdown;
+import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
 
 /**
@@ -26,13 +26,13 @@ public interface PhotoDao {
 
     public List<LePhoto> findPhotosByUserId(int userId);
 
-    public void upPhoto(int photoId, int userId);
+    public void addPhotoUp(LePhotoUp photoUp);
 
-    public void downPhoto(int photoId, int userId);
-
-    public LePhotoUpdown findPhotoUpdown(int photoId, int userId);
+    public void cancelUpPhoto(LePhotoUp photoUp);
+    
+    public LePhotoUp findPhotoUp(int photoId, int userId);
 
     public List getPhotos(int cateId, int lastPhotoId, int size);
 
-    public List getPhotosByAdmin(int cateId);
+    public List getPhotosByAdmin(int cateId, int size);
 }

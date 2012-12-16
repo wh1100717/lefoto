@@ -85,4 +85,26 @@ public class PhotoController extends BaseController {
         photoService.deletePhoto(photo);
         return Const.SUCCESS;
     }
+
+    @RequestMapping(value = "/upPhoto")
+    public @ResponseBody
+    String upPhoto(HttpServletRequest request) {
+        LeUser user = this.getRequestUser(request);
+        int photoId = this.getParaIntFromRequest("photoId");
+        try {
+            photoService.upPhoto(photoId, user.getId());
+        } catch (Exception e) {
+            return Const.FAILURE;
+        }
+        return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/cancelUpPhoto")
+    public @ResponseBody
+    String cancelUpPhoto(HttpServletRequest request) {
+        LeUser user = this.getRequestUser(request);
+        int photoId = this.getParaIntFromRequest("photoId");
+        photoService.cancelUpPhoto(photoId, user.getId());
+        return Const.SUCCESS;
+    }
 }
