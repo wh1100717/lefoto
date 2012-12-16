@@ -258,9 +258,4 @@ public class CommentController extends BaseController {
         result.add(jsonObject.toString());
         return result;
     }
-
-    public static String parseCommentContent(int objectType, int objectId, int userId, String content, CommentService commentService) {
-
-        return null;
-    }
 }

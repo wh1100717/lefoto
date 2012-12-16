@@ -7,7 +7,6 @@ package com.lefoto.controller.user;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.cache.UserCache;
-import com.lefoto.model.content.LeComment;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.content.CommentService;
 import java.util.ArrayList;
@@ -49,17 +48,19 @@ public class userController extends BaseController {
             String[] userIds = commentUserIds.split(",");
             for (String userId : userIds) {
                 user = UserCache.getUserById(Integer.parseInt(userId));
-                if (user != null) {
-                    userMap.put(user.getName(), user);
+                if (user == null) {
+                    continue;
                 }
+                userMap.put(user.getName(), user);
             }
         }
         List<Integer> followingIds = UserCache.getFollowingsByUserId(ownUser.getId());
         for (int followingId : followingIds) {
             user = UserCache.getUserById(followingId);
-            if (user != null) {
-                userMap.put(user.getName(), user);
+            if (user == null) {
+                continue;
             }
+            userMap.put(user.getName(), user);
         }
         Set userNames = userMap.keySet();
         JSONArray jsonArray = new JSONArray();
@@ -67,6 +68,9 @@ public class userController extends BaseController {
             String userName = (String) it.next();
             if (userName.contains(content)) {
                 user = userMap.get(userName);
+                if (user == null) {
+                    continue;
+                }
                 JSONObject tmpObject = new JSONObject()
                         .element("userId", user.getId())
                         .element("userName", user.getName())

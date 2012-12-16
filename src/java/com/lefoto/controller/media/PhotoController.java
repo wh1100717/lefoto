@@ -7,14 +7,20 @@ package com.lefoto.controller.media;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.cache.PhotoCache;
+import com.lefoto.common.cache.UserCache;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.content.LeComment;
 import com.lefoto.model.media.LePhoto;
+import com.lefoto.model.media.LePhotoUp;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.content.CommentService;
 import com.lefoto.service.iface.media.PhotoService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,5 +112,29 @@ public class PhotoController extends BaseController {
         int photoId = this.getParaIntFromRequest("photoId");
         photoService.cancelUpPhoto(photoId, user.getId());
         return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/getUpUsers")
+    public @ResponseBody
+    List<String> getUpUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List result = new ArrayList();
+        int photoId = this.getParaIntFromRequest("photoId");
+        List<LePhotoUp> ups = photoService.findPhotoUps(photoId);
+        JSONArray jsonArray = new JSONArray();
+        for (LePhotoUp up : ups) {
+            LeUser user = UserCache.getUserById(up.getUserId());
+            if(user == null){continue;}
+            JSONObject tmpObject = new JSONObject()
+                    .element("userId", user.getId())
+                    .element("userName", user.getName())
+                    .element("face", user.getFace());
+            jsonArray.add(tmpObject);
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data", jsonArray);
+        jsonObject.put("msg", Const.SUCCESS);
+        result.add(jsonObject.toString());
+        return result;
+
     }
 }

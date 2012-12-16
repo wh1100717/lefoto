@@ -111,4 +111,11 @@ public interface PhotoService {
      * @return
      */
     public List getPhotosByAdmin(int cateId, int size);
+
+    /**
+     * 根据PhotoId 找到跟这张照片有关的所有LePhotoUp记录
+     * @param photoId
+     * @return
+     */
+    public List<LePhotoUp> findPhotoUps(int photoId);
 }

@@ -131,10 +131,25 @@ public class PhotoDaoImpl implements PhotoDao {
         Criteria criteria = session.createCriteria(LePhotoUp.class);
         criteria.add(Restrictions.eq("photoId", photoId));
         criteria.add(Restrictions.eq("userId", userId));
-        List photoUpdowns = criteria.list();
+        List photoUps = criteria.list();
         session.getTransaction().commit();
-        if (photoUpdowns != null && !photoUpdowns.isEmpty()) {
-            return (LePhotoUp) photoUpdowns.get(0);
+        if (photoUps != null && !photoUps.isEmpty()) {
+            return (LePhotoUp) photoUps.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<LePhotoUp> findPhotoUps(int photoId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LePhotoUp.class);
+        criteria.add(Restrictions.eq("photoId", photoId));
+        List photoUps = criteria.list();
+        session.getTransaction().commit();
+        if (photoUps != null && !photoUps.isEmpty()) {
+            return photoUps;
         } else {
             return null;
         }

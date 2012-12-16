@@ -35,4 +35,6 @@ public interface PhotoDao {
     public List getPhotos(int cateId, int lastPhotoId, int size);
 
     public List getPhotosByAdmin(int cateId, int size);
+
+    public List<LePhotoUp> findPhotoUps(int photoId);
 }
