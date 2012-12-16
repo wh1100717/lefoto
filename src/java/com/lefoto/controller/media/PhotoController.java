@@ -97,11 +97,11 @@ public class PhotoController extends BaseController {
     String upPhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
-//        try {
+        try {
             photoService.upPhoto(photoId, user.getId());
-//        } catch (Exception e) {
-//            return Const.FAILURE;
-//        }
+        } catch (Exception e) {
+            return Const.FAILURE;
+        }
         return Const.SUCCESS;
     }
 
@@ -122,24 +122,15 @@ public class PhotoController extends BaseController {
         List<LePhotoUp> ups = photoService.findPhotoUps(photoId);
         
         List<LeUser> users = new ArrayList<LeUser>();
-        //JSONArray jsonArray = new JSONArray();
+        if(ups == null){
+            return mv;
+        }
         for (LePhotoUp up : ups) {
             LeUser user = UserCache.getUserById(up.getUserId());
             if(user == null){continue;}
             users.add(user);
-            /*
-            JSONObject tmpObject = new JSONObject()
-                    .element("userId", user.getId())
-                    .element("userName", user.getName())
-                    .element("face", user.getFace());
-            jsonArray.add(tmpObject);*/
         }
-        /*
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data", jsonArray);
-        jsonObject.put("msg", Const.SUCCESS);*/
         mv.addObject("upUsers",users);
-        //result.add(jsonObject.toString());
         return mv;
     }
 }
