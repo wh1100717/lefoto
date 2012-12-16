@@ -37,6 +37,12 @@
             .isList ul li { height: 30px; line-height: 30px; background-color: #558000; width:100%; padding: 0; margin: 0;}
             .isList ul li a { display: block; height: 100%; width: 100%;}
             .isList ul li a:hover { background-color: #408000;}
+            
+            /*le一下*/
+            .leMid {position: absolute; z-index: 1000; }
+            .leA {color: #DDD; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: #56820f no-repeat scroll 0 0;}
+
+            .downEle { position: absolute; z-index: 9999; border-bottom: 10px; -webkit-transition: -webkit-transform 0.3s ease-in-out; height: 50px; width: 50px; background-color: green;  transform: rotate(-60deg) scale(0.5);}
         </style>
     </head>  
     <body>
@@ -105,6 +111,9 @@
                         <a class="img" href="#" style="height:{height}px; display:block;">
                             <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img.lefoto.me{url}" onload="imgShow(this);" />
                         </a>
+                        <div class="leMid" style="display:none;">
+                            <a rel="{id}" class="leA">点我喜欢+1</a>
+                        </div>
                         <div class="tabsWrap">
                             <div class="mask"></div>
                             <div class="tabs">

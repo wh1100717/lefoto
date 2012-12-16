@@ -104,6 +104,30 @@
         target.closest('.tabsWrap').animate({'height': '80px'}, 300);
         return false;
     }
+    var doDown = function(pEle){ 
+        var pos = pEle.position();
+        var startX = pos.left + 25;
+        var startY = pos.top + 25;
+        var downEle = $('<div class="downEle"></div>').appendTo(pEle.closest('.iMid'))
+                    .css({'top':startY+'px','left':startX+'px'})
+                    .animate({'top':'+=500px'},1000,function() {
+                         downEle.remove();
+                    });
+    }
+    var showSmile = function(_iMid){
+        var le = $('.leMid', _iMid);
+        var iMid = $(_iMid),
+            iMidW = iMid.width(),
+            iMidH = iMid.height();
+        var eW = le.width(),
+            eH = le.height();
+        var posL = (iMidW - eW)/2,
+            posT = (iMidH - eH)/2;
+        console.log(posT);
+        console.log(posL);
+        le.css({'top': posT + 'px','left': posL + 'px'});
+        le.fadeIn(200);
+    };
     $(document).delegate('.iMid','mouseenter',function(){
         var box = $('.tabsWrap', this);
         if(box.height() > 40){
@@ -111,13 +135,16 @@
         } else {
             box.stop().animate({'height': '40px'},300);
         }
+        showSmile(this);
     }).delegate('.iMid','mouseleave',function(){
         var box = $('.tabsWrap', this);
+        var le = $('.leMid', this);
         if(box.height() > 40){
 
         } else{
             box.stop().animate({'height': '0px'},300);
         }
+        le.hide();
     }).delegate('a.icon', 'click', function() {
         var target = $(this);
         doClick(target);
@@ -125,8 +152,11 @@
         $('ul',this).show();
     }).delegate('li.isList', 'mouseleave', function() {
         $('ul',this).hide();
+    }).delegate('a.leA','click',function(){
+        //var id = $(this).attr('rel');
+        var pEle = $(this).closest('.leMid');
+        doDown(pEle);
     });
-    
     //$(document)
 })(jQuery);
 function toList(id){
