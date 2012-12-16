@@ -41,7 +41,10 @@
     var loadCommentUrl = 'xx.html';//获取评论
 
     var iCur = -1;
-    var leAToggle = false;
+    var leAToggle = 0;
+    
+    var YES_UP = '点击喜欢+1';
+    var NO_UP = '取消喜欢';
     function loadComment(id){
         var data = {
             photoId: id
@@ -148,6 +151,7 @@
     }
     var showSmile = function(_iMid){
         var le = $('.leMid', _iMid);
+        var leA = le.find('.leA');
         var iMid = $(_iMid),
             iMidW = iMid.width(),
             iMidH = iMid.height();
@@ -155,9 +159,14 @@
             eH = le.height();
         var posL = (iMidW - eW)/2,
             posT = (iMidH - eH)/2;
-        console.log(posT);
-        console.log(posL);
+        //console.log(posT);
+        //console.log(posL);
         le.css({'top': posT + 'px','left': posL + 'px'});
+        if(leA.attr('data-up') == '0'){
+            leA.html(YES_UP);
+        }else if(leA.attr('data-up') == '1'){
+            leA.html(NO_UP);
+        }
         le.fadeIn(200);
     };
     $(document).delegate('.iMid','mouseenter',function(){
@@ -185,16 +194,19 @@
     }).delegate('li.isList', 'mouseleave', function() {
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
-        var id = $(this).attr('rel');
-        var pEle = $(this).closest('.leMid');
+        var target = $(this);
+        var id = target.attr('rel');
+        var pEle = target.closest('.leMid');
         console.log(leAToggle);
         if(leAToggle){
             leAToggle = false;
             doCancelPhotoLike(id);
+            target.html(YES_UP);
         }else{
             leAToggle = true;
             doDown(pEle);
             doAddPhotoLike(id);
+            target.html(NO_UP);
         }
     });
     //$(document)

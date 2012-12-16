@@ -112,7 +112,7 @@
                             <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img.lefoto.me{url}" onload="imgShow(this);" />
                         </a>
                         <div class="leMid" style="display:none;">
-                            <a rel="{id}" class="leA">点我喜欢+1</a>
+                            <a rel="{id}" data-up="{up}" class="leA"></a>
                         </div>
                         <div class="tabsWrap">
                             <div class="mask"></div>
