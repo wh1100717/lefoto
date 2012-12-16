@@ -38,6 +38,7 @@ public class CommentController extends BaseController {
 
     /**
      * 添加评论
+     *
      * @param request
      * @param response
      * @return
@@ -47,7 +48,7 @@ public class CommentController extends BaseController {
     public @ResponseBody
     String addComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //请求参数
-        
+
         //评论内容
         String content = this.getParaStringFromRequest("content");
         //所评论的对象Id
@@ -56,9 +57,9 @@ public class CommentController extends BaseController {
         int objectType = this.getParaIntFromRequest("objectType");
         //发表该对象的用户Id
         int objectUserId = this.getParaIntFromRequest("objectUserId");
-        
+
         LeUser user = this.getRequestUser(request);
-        
+
         LeComment comment = new LeComment();
         comment.setUserId(user.getId());
         comment.setUserName(user.getName());
@@ -81,6 +82,7 @@ public class CommentController extends BaseController {
 
     /**
      * 删除评论
+     *
      * @param request
      * @param response
      * @return
@@ -90,13 +92,15 @@ public class CommentController extends BaseController {
     public @ResponseBody
     String deleteComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LeUser user = this.getRequestUser(request);
-        if(user == null){return Const.FAILURE;}
+        if (user == null) {
+            return Const.FAILURE;
+        }
         int commentId = this.getParaIntFromRequest("commentId");
         LeComment comment = commentService.findCommentById(commentId);
         int objectUserId = comment.getObjectUserId();
         int userId = comment.getUserId();
         //如果该用户既不是评论的创建者，也不是评论所评论对象的拥有者，则返回失败
-        if(user.getId() != objectUserId && user.getId() != userId){
+        if (user.getId() != objectUserId && user.getId() != userId) {
             return Const.FAILURE;
         }
         commentService.delComment(comment);
@@ -105,6 +109,7 @@ public class CommentController extends BaseController {
 
     /**
      * 获取部分评论
+     *
      * @param request
      * @param response
      * @return
@@ -163,12 +168,13 @@ public class CommentController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", size);
-
+        result.add(jsonObject.toString());
         return result;
     }
 
     /**
      * 获取全部评论
+     *
      * @param request
      * @param response
      * @return
@@ -204,12 +210,13 @@ public class CommentController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", size);
-
+        result.add(jsonObject.toString());
         return result;
     }
 
     /**
      * 瀑布流类型获取评论方式，异步Ajax
+     *
      * @param request
      * @param response
      * @return
@@ -248,13 +255,12 @@ public class CommentController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", comments.size());
-
+        result.add(jsonObject.toString());
         return result;
     }
-    
-       public static String parseCommentContent(int objectType, int objectId, int userId, String content, CommentService commentService){
-       
-       return null;
-   }
 
+    public static String parseCommentContent(int objectType, int objectId, int userId, String content, CommentService commentService) {
+
+        return null;
+    }
 }

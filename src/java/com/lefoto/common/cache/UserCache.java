@@ -57,7 +57,7 @@ public class UserCache {
         Map user = usersMap.get(String.valueOf(id));
         if (user != null) {
             return ((LeUser) user.get("bean")).getName();
-        }else{
+        } else {
             return null;
         }
     }
