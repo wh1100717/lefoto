@@ -28,11 +28,13 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.lefoto.model.user.LeUser</value>
                 <value>com.lefoto.model.user.LeDefaultUserFace</value>
-                <value>com.lefoto.model.media.LePhoto</value>
+                <value>com.lefoto.model.user.LeRelationship</value>
+                <value>com.lefoto.model.user.LeUser</value>
                 <value>com.lefoto.model.media.LeAlbum</value>
                 <value>com.lefoto.model.media.LeCategory</value>
+                <value>com.lefoto.model.media.LePhoto</value>
+                <value>com.lefoto.model.media.LePhotoUp</value>
             </list>
         </property>
         <property name="hibernateProperties">

@@ -97,11 +97,11 @@ public class PhotoController extends BaseController {
     String upPhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
-        try {
+//        try {
             photoService.upPhoto(photoId, user.getId());
-        } catch (Exception e) {
-            return Const.FAILURE;
-        }
+//        } catch (Exception e) {
+//            return Const.FAILURE;
+//        }
         return Const.SUCCESS;
     }
 
