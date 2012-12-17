@@ -8,6 +8,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"  
        xsi:schemaLocation=
        "http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -21,13 +22,18 @@
         http://www.springframework.org/schema/context/spring-context-2.5.xsd
         http://www.springframework.org/schema/mvc  
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://www.springframework.org/schema/task  
+        http://www.springframework.org/schema/task/spring-task-3.1.xsd ">
     
     <!--对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->  
     <context:component-scan base-package="com.lefoto"/>
 
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
+    <!-- 默认的任务映射的支持 -->
+    <task:annotation-driven/>
 
     <!-- 对静态资源文件的访问 -->  
     <mvc:resources mapping="/src/images/**" location="/resource/images/" cache-period="31556926"/>
