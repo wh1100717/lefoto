@@ -220,6 +220,6 @@
                 });
             }
         </script>
-
+    <#include "/layout/foot.ftl">
     </body>  
 </html>  
