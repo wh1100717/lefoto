@@ -15,10 +15,10 @@
             .comments { background-color: #FFF; border:1px #EEE solid; }
             .UL_list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
             .Li_p { margin-left: 36px;}
-            .fwrap { padding: 7px 10px; position: relative;}
-            .editor { resize: none; outline: none; width: 392px; height: 23px; padding: 3px; font-size: 12px; line-height: 1.1em; border: 1px solid #DDD; overflow: hidden; background: whiteSmoke;-webkit-transition: width .25s ease-in-out;-moz-transition: width .25s ease-in-out;
-                      transition: width .25s ease-in-out;}
-            .subbtn { display: block;  position: absolute; right: 15px; top: 10px; height: 25px; line-height: 25px;}
+            .fwrap { padding: 7px 10px; overflow: hidden;}
+            .fwrap > form { position: relative; overflow: hidden; }
+            .editor { resize: none; outline: none; width: 390px; border: 1px solid #DDD; height: 22px; padding: 3px; font-size: 12px; line-height: 1.5; background: whiteSmoke;}
+            .subbtn { display: block; background-color: #EEE; padding-left: 7px; width: 40px; position: absolute; right: 1px; top: 1px; height: 28px; line-height: 28px;}
             /*hover action tabs*/
             .mask { display: block; position: absolute; z-index: -1; background-color: #000; filter:alpha(opacity=50); opacity: 0.5; width: 100%; height: 100%;}
             .tabsWrap { position: absolute; z-index: 999; bottom: 0px; left: 0; height: 0px; width: 420px;}
@@ -181,6 +181,29 @@
                             </form>
                         </div>
                     </div>
+<!--
+                    <div id="i_{id}" class="comments" style="display:none;">
+                        <ul class="UL_list">
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="Li_p">。。。。。。。hahh哈哈</p>
+                            </li>
+                            <li>
+                                <a class="fl" href="">
+                                    <img style="height:32px; width: 32px;" src="" />
+                                </a>
+                                <p class="Li_p">哦哦哦哦哦 a amamamm</p>
+                            </li>
+                        </ul>
+                        <div class="fwrap">
+                            <form>
+                                <textarea class="editor" name="content" ></textarea>
+                                <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
+                            </form>
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </script>
@@ -201,6 +224,7 @@
                     }
                 });
             }
+            
             $('#navbar').scrollFix();
             new waterFall({
                 id: 'wf',//瀑布流ID

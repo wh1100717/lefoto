@@ -38,6 +38,7 @@
     var getLikeUsersUrl = '/photo/getUpUsers.html';//获取喜欢
     var addPhotoLikeUrl = '/photo/upPhoto.html';//添加喜欢
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
+    var addCommentUrl = '';//添加评论
     var loadCommentUrl = 'xx.html';//获取评论
 
     var iCur = -1;
@@ -45,7 +46,7 @@
     
     var YES_UP = '点击喜欢+1';
     var NO_UP = '取消喜欢';
-    function loadComment(id){
+    function loadComment(id){ // 加载评论
         var data = {
             photoId: id
         };
@@ -57,7 +58,16 @@
             }
         });
     }
-    function doClick(target) {
+    function doAddComment(comment){
+        $.post(addCommentUrl,comment,function(response){ //添加评论
+            if(response == 'success'){
+
+            } else {
+                alert(response);
+            }
+        })
+    }
+    function doClick(target) { //图片上TAB点击事件处理
         var parent = target.closest('.tabs'),
             pparent = parent.closest('.tabsWrap'),
             item  = target.closest('.item'),
@@ -98,15 +108,11 @@
                 pparent.stop().animate({'height': '40px'},300);
             }
             var commentRange = item.find('div.comments');
-            //var loc = commentRange.offset();
-            //console.log(loc.top);
-            //console.log($(document).scrollTop());
             if(commentRange.is(':visible')){
                 commentRange.hide();
             }else{
                 loadComment();
                 commentRange.show();
-                //$('html,body').animate({'scrollTop': '0px'}, 500);
             }
             iCur = 0;
             return false;
@@ -114,7 +120,8 @@
         target.closest('.tabsWrap').animate({'height': '80px'}, 300);
         return false;
     }
-    var doAddPhotoLike = function(id){
+    
+    var doAddPhotoLike = function(id){ //添加喜欢
         var data = {
             photoId:id
         };
@@ -126,7 +133,7 @@
             }
         });
     }
-    var doCancelPhotoLike = function(id){
+    var doCancelPhotoLike = function(id){ //取消喜欢
         var data = {
             photoId:id
         };
@@ -138,7 +145,7 @@
             }
         });
     }
-    var doDown = function(pEle){ 
+    var doDown = function(pEle){ //下落
         var pos = pEle.position();
         var startX = pos.left + 25;
         var startY = pos.top + 25;
@@ -149,7 +156,7 @@
                     });
                     
     }
-    var showSmile = function(_iMid){
+    var showSmile = function(_iMid) { //显示微笑
         var le = $('.leMid', _iMid);
         var leA = le.find('.leA');
         var iMid = $(_iMid),
@@ -169,7 +176,7 @@
         }
         le.fadeIn(200);
     };
-    $(document).delegate('.iMid','mouseenter',function(){
+    $(document).delegate('.iMid','mouseenter',function(){ //鼠标进入图片
         var box = $('.tabsWrap', this);
         if(box.height() > 40){
 
@@ -177,7 +184,7 @@
             box.stop().animate({'height': '40px'},300);
         }
         showSmile(this);
-    }).delegate('.iMid','mouseleave',function(){
+    }).delegate('.iMid','mouseleave',function(){ //鼠标移出图片
         var box = $('.tabsWrap', this);
         var le = $('.leMid', this);
         if(box.height() > 40){
@@ -189,9 +196,9 @@
     }).delegate('a.icon', 'click', function() {
         var target = $(this);
         doClick(target);
-    }).delegate('li.isList', 'mouseenter', function() {
+    }).delegate('li.isList', 'mouseenter', function() { 
         $('ul',this).show();
-    }).delegate('li.isList', 'mouseleave', function() {
+    }).delegate('li.isList', 'mouseleave', function() { 
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
         var target = $(this);
@@ -199,37 +206,26 @@
         var pEle = target.closest('.leMid');
         console.log(leAToggle);
         if(leAToggle){
-            leAToggle = false;
+            leAToggle = 0;
             doCancelPhotoLike(id);
             target.html(YES_UP);
         }else{
-            leAToggle = true;
+            leAToggle = 1;
             doDown(pEle);
             doAddPhotoLike(id);
             target.html(NO_UP);
         }
+    }).delegate('.btn-addComment','click',function(){ //评论按钮被点击
+        var target = $(this);
+        var wrap = target.closest('.fwrap');
+        var id = target.attr('rel');
+        var content = wrap.find('textarea[name=content]').val();
+        if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;}
+        
+        var comment = {};
+        comment['content'] = encodeURI(content);
+        comment['id'] = id;
+        //doAddComment(comment);
     });
     //$(document)
 })(jQuery);
-function toList(id){
-    var comm_list = $('#i_'+id);
-    console.log(comm_list.length);
-    if(comm_list.is(':visible')){comm_list.hide();}
-    else{
-        comm_list.show();
-    }
-    return false;
-}
-//自定义jQuery扩展函数
-$.fn.scrollFix = function(){
-    var self = $(this);
-    var top = self.offset().top;
-    $(window).scroll(function(){
-        var scrollTop = $(document).scrollTop();
-        if(top < scrollTop && !self.hasClass('fixedbar')){
-            self.addClass('fixedbar'); 
-        }else if(top > scrollTop && self.hasClass('fixedbar')){
-            self.removeClass('fixedbar'); 
-        }
-    })
-}
