@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Eric
  */
 @Controller
-public class indexController extends BaseController {
+public class NdexController extends BaseController {
 
     /**
      * 渲染网站首页，根据是否登录显示不同的内容
