@@ -9,6 +9,7 @@ import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import com.lefoto.model.user.LeUserStatus;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -190,5 +191,13 @@ public class UserDaoImpl implements UserDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void updateUserStatus(LeUserStatus userStatus) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.merge(userStatus);
+        session.getTransaction().commit();
     }
 }

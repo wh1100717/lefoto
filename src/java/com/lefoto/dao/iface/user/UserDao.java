@@ -5,9 +5,9 @@
 package com.lefoto.dao.iface.user;
 
 import com.lefoto.model.user.LeDefaultUserFace;
-import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import com.lefoto.model.user.LeUserStatus;
 import java.util.List;
 
 /**
@@ -43,4 +43,6 @@ public interface UserDao {
     public LeDefaultUserFace findDefaultUserFaceById(int id);
 
     public List<LeDefaultUserFace> findAllDefaultUserFace();
+    
+    public void updateUserStatus(LeUserStatus userStatus);
 }
