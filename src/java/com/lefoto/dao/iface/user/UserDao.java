@@ -45,4 +45,8 @@ public interface UserDao {
     public List<LeDefaultUserFace> findAllDefaultUserFace();
     
     public void updateUserStatus(LeUserStatus userStatus);
+    
+    public List<LeUserStatus> findAllUserStatus();
+    
+    public LeUserStatus findUserStatus(int userId);
 }

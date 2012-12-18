@@ -200,4 +200,27 @@ public class UserDaoImpl implements UserDao {
         session.merge(userStatus);
         session.getTransaction().commit();
     }
+
+    @Override
+    public List<LeUserStatus> findAllUserStatus() {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeUserStatus.class);
+        List userStatus = criteria.list();
+        session.getTransaction().commit();
+        if (userStatus != null && !userStatus.isEmpty()) {
+            return userStatus;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public LeUserStatus findUserStatus(int userId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        LeUserStatus userStatus = (LeUserStatus) session.get(LeUserStatus.class, userId);
+        session.getTransaction().commit();
+        return userStatus;
+    }
 }
