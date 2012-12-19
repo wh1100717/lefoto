@@ -4,9 +4,10 @@
  */
 package com.lefoto.dao.impl.user;
 
+import com.lefoto.common.cache.UserCache;
 import com.lefoto.dao.iface.user.UserDao;
+import com.lefoto.model.user.LeAtUser;
 import com.lefoto.model.user.LeDefaultUserFace;
-import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
 import com.lefoto.model.user.LeUserStatus;
@@ -36,17 +37,80 @@ public class UserDaoImpl implements UserDao {
         session.beginTransaction();
         session.persist(user);
         session.getTransaction().commit();
+        //更新缓存
+        UserCache.addUser(user);
     }
 
     @Override
     public void delUser(LeUser user) {
+        LeUserStatus userStatus = this.findUserStatus(user.getId());
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.delete(user);
+        if (userStatus != null) {
+            session.delete(userStatus);
+        }
 //        this.sessionFactory.getCurrentSession().delete(userInfo);
+        session.getTransaction().commit();
+
+        //更新缓存
+        UserCache.delUser(user);
+    }
+
+    @Override
+    public void updateUserStatus(LeUserStatus userStatus) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.merge(userStatus);
+        session.getTransaction().commit();
+        //更新缓存
+        UserCache.updateUserStatus(userStatus);
+    }
+
+    @Override
+    public void addAtUser(LeAtUser atUser) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.persist(atUser);
         session.getTransaction().commit();
     }
 
+    @Override
+    public void updateUser(LeUser user) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.merge(user);
+        session.getTransaction().commit();
+        //更新缓存
+        UserCache.updateUserBean(user);
+    }
+
+    @Override
+    public void updateUserFace(String userFace, int userId) {
+        LeUser user = this.findUserById(userId);
+        if (user != null) {
+            user.setFace(userFace);
+            this.updateUser(user);
+        }
+    }
+
+    @Override
+    public void addOrUpdateUserInfo(LeUserInfo userInfo) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.saveOrUpdate(userInfo);
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.persist(defaultUserFace);
+        session.getTransaction().commit();
+    }
+
+    ////////////////////////查询////////////////////////////
     @Override
     public List<LeUser> findAllUsers() {
         Session session = this.sessionFactory.getCurrentSession();
@@ -92,23 +156,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(LeUser user) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.merge(user);
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void updateUserFace(String userFace, int userId) {
-        LeUser user = this.findUserById(userId);
-        if (user != null) {
-            user.setFace(userFace);
-            this.updateUser(user);
-        }
-    }
-
-    @Override
     public boolean checkUser(String email, String password) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -140,28 +187,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addOrUpdateUserInfo(LeUserInfo userInfo) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.saveOrUpdate(userInfo);
-        session.getTransaction().commit();
-    }
-
-    @Override
     public LeUserInfo findUserInfoByUserId(String userId) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         LeUserInfo leUserInfo = (LeUserInfo) session.get(LeUserInfo.class, userId);
         session.getTransaction().commit();
         return leUserInfo;
-    }
-
-    @Override
-    public void addDefaultUserFace(LeDefaultUserFace defaultUserFace) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.persist(defaultUserFace);
-        session.getTransaction().commit();
     }
 
     @Override
@@ -194,14 +225,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUserStatus(LeUserStatus userStatus) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.merge(userStatus);
-        session.getTransaction().commit();
-    }
-
-    @Override
     public List<LeUserStatus> findAllUserStatus() {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -223,4 +246,5 @@ public class UserDaoImpl implements UserDao {
         session.getTransaction().commit();
         return userStatus;
     }
+    ////////////////////////查询////////////////////////////
 }

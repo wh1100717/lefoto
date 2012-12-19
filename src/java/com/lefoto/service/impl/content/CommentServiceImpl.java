@@ -6,7 +6,10 @@ package com.lefoto.service.impl.content;
 
 import com.lefoto.common.cache.UserCache;
 import com.lefoto.dao.iface.content.CommentDao;
+import com.lefoto.dao.iface.user.UserDao;
 import com.lefoto.model.content.LeComment;
+import com.lefoto.model.user.LeAtUser;
+import com.lefoto.model.user.LeUserStatus;
 import com.lefoto.service.iface.content.CommentService;
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +29,37 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void addComment(LeComment comment) {
         Map<String, String> result = parseCommentContent(comment);
         comment.setContent(result.get("content"));
-        //TODO 需要去做对被At的用户的处理
 
         commentDao.addComment(comment);
+
+        //对被At的用户的处理
+        String atUserNameString = result.get("atUserNames");
+        if (!atUserNameString.equals("")) {
+            String[] atUserNames = atUserNameString.split(",");
+            for (String atUserName : atUserNames) {
+                int atUserId = UserCache.getUserIdByUserName(atUserName);
+                LeAtUser atUser = new LeAtUser();
+                //objectType为0，表示是评论中at了用户
+                atUser.setObjectType(0);
+                atUser.setObjectId(comment.getId());
+                atUser.setUserId(atUserId);
+                userDao.addAtUser(atUser);
+                LeUserStatus userStatus = userDao.findUserStatus(atUserId);
+                if (userStatus != null) {
+                    userStatus.setNewAtCount(userStatus.getNewAtCount() + 1);
+                    userDao.updateUserStatus(userStatus);
+                }
+
+            }
+        }
+
     }
 
     @Override
@@ -64,18 +90,18 @@ public class CommentServiceImpl implements CommentService {
         String atUserNames = "";
         int objectType = comment.getObjectType();
         int objectId = comment.getObjectId();
-        
-        //将对该图片评论的用户添加的哦啊userMap中
+
+        //将对该图片评论的用户添加到userMap中
         List<LeComment> comments = commentDao.getComments(objectType, objectId);
         for (LeComment leComment : comments) {
             userMap.put(leComment.getUserName(), 1);
         }
-        
+
         //将该用户所关注的用户添加到userMap中
         List<Integer> followingIds = UserCache.getFollowersByUserId(comment.getUserId());
-        for(Integer followingId : followingIds){
+        for (Integer followingId : followingIds) {
             String userName = UserCache.getUserNameById(followingId);
-            if(userName != null){
+            if (userName != null) {
                 userMap.put(userName, 1);
             }
         }

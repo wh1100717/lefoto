@@ -5,9 +5,9 @@
 package com.lefoto.dao.impl.user;
 
 import com.lefoto.dao.iface.user.RelationDao;
-import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeRelationGroup;
 import com.lefoto.model.user.LeRelationship;
+import com.lefoto.model.user.LeUser;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -104,6 +104,7 @@ public class RelationDaoImpl implements RelationDao {
 
     /**
      * 获取所有的关系记录
+     *
      * @return
      */
     @Override
@@ -174,4 +175,5 @@ public class RelationDaoImpl implements RelationDao {
         session.getTransaction().commit();
         return relationGroups;
     }
+
 }

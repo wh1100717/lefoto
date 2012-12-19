@@ -11,6 +11,7 @@ import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import com.lefoto.model.user.LeUserStatus;
 import com.lefoto.service.iface.user.UserService;
 import java.util.List;
 import java.util.Random;
@@ -110,6 +111,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<LeRelationship> findAllRelationships() {
         return this.relationDao.findAllRelationships();
+    }
+
+    @Override
+    public void updateUserStatus(LeUserStatus userStatus) {
+        this.userDao.updateUserStatus(userStatus);
+    }
+
+    @Override
+    public List<LeUserStatus> findAllUserStatus() {
+        return this.userDao.findAllUserStatus();
+    }
+
+    @Override
+    public LeUserStatus findUserStatus(int userId) {
+        return this.userDao.findUserStatus(userId);
     }
 
 }

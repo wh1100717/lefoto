@@ -4,6 +4,7 @@
  */
 package com.lefoto.dao.impl.media;
 
+import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
@@ -42,6 +43,9 @@ public class PhotoDaoImpl implements PhotoDao {
         session.beginTransaction();
         session.delete(photo);
         session.getTransaction().commit();
+        //从缓存中删除图片
+        PhotoCache.removePhoto(photo);
+
     }
 
     @Override
@@ -52,6 +56,40 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
     }
 
+    @Override
+    public void addPhotoUp(LePhotoUp photoUp) {
+        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
+        if (photo == null) {
+            return;
+        }
+        photo.setUpCount(photo.getUpCount() + 1);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.persist(photoUp);
+        session.merge(photo);
+        session.getTransaction().commit();
+        //更新内存
+        PhotoCache.addPhotoUp(photoUp);
+
+    }
+
+    @Override
+    public void cancelUpPhoto(LePhotoUp photoUp) {
+        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.delete(photoUp);
+        if (photo != null) {
+            photo.setUpCount(photo.getUpCount() - 1);
+            session.merge(photo);
+        }
+        session.getTransaction().commit();
+        //更新内存
+        PhotoCache.removePhotoUp(photoUp);
+
+    }
+
+    ////////////////////////查询////////////////////////////
     @Override
     public LePhoto findPhotoById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -95,33 +133,6 @@ public class PhotoDaoImpl implements PhotoDao {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public void addPhotoUp(LePhotoUp photoUp) {
-        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
-        if (photo == null) {
-            return;
-        }
-        photo.setUpCount(photo.getUpCount() + 1);
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.persist(photoUp);
-        session.merge(photo);
-        session.getTransaction().commit();
-    }
-
-    @Override
-    public void cancelUpPhoto(LePhotoUp photoUp) {
-        LePhoto photo = this.findPhotoById(photoUp.getPhotoId());
-        Session session = this.sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.delete(photoUp);
-        if (photo != null) {
-            photo.setUpCount(photo.getUpCount() - 1);
-            session.merge(photo);
-        }
-        session.getTransaction().commit();
     }
 
     @Override
@@ -217,4 +228,5 @@ public class PhotoDaoImpl implements PhotoDao {
             return null;
         }
     }
+    ////////////////////////查询////////////////////////////
 }

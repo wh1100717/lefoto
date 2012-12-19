@@ -8,6 +8,7 @@ import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.model.user.LeUserInfo;
+import com.lefoto.model.user.LeUserStatus;
 import java.util.List;
 
 /**
@@ -131,7 +132,27 @@ public interface UserService {
 
     /**
      * 获取全部好友关系
+     *
      * @return
      */
     public List<LeRelationship> findAllRelationships();
+
+    /**
+     * 更新用户状态表
+     * @param userStatus
+     */
+    public void updateUserStatus(LeUserStatus userStatus);
+
+    /**
+     * 获取全部用户状态数据
+     * @return
+     */
+    public List<LeUserStatus> findAllUserStatus();
+
+    /**
+     * 根据userId获取用户状态
+     * @param userId
+     * @return
+     */
+    public LeUserStatus findUserStatus(int userId);
 }

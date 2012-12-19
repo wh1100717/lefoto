@@ -67,8 +67,6 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public void deletePhoto(LePhoto photo) {
         photoDao.deletePhoto(photo);
-        //从缓存中删除图片
-        PhotoCache.removePhoto(photo);
     }
 
     @Override
@@ -99,8 +97,6 @@ public class PhotoServiceImpl implements PhotoService {
             photoUp.setPhotoId(photoId);
             photoUp.setUserId(userId);
             photoDao.addPhotoUp(photoUp);
-            //更新内存
-            PhotoCache.addPhotoUp(photoUp);
         }
     }
 
@@ -109,8 +105,6 @@ public class PhotoServiceImpl implements PhotoService {
         LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
         if (photoUp != null) {
             photoDao.cancelUpPhoto(photoUp);
-            //更新内存
-            PhotoCache.removePhotoUp(photoUp);
         }
     }
 

@@ -6,6 +6,7 @@ package com.lefoto.common.cache;
 
 import com.lefoto.model.user.LeRelationship;
 import com.lefoto.model.user.LeUser;
+import com.lefoto.model.user.LeUserStatus;
 import com.lefoto.service.iface.user.UserService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,65 +24,116 @@ import java.util.Set;
 public class UserCache {
 
     static Map<String, Map<String, Object>> usersMap = new HashMap<String, Map<String, Object>>();
+    static Map<String, Integer> userNameMap = new HashMap<String, Integer>();
 
     /**
      * 初始化用户缓存 bean中存放LeUser类型的userBean followings中存放该用户所有关注人的userId
-     * followers中存放该用户所有粉丝的userId
+     * followers中存放该用户所有粉丝的userId followings中存放该用户所关注的用户的userId
+     * status中存放该用户所有的状态信息，包括新回复，新转发，新@等
      *
      * @param userService
      */
     static public void initUserMap(UserService userService) {
         List<LeUser> users = userService.findAllUsers();
         List<LeRelationship> relationships = userService.findAllRelationships();
+        List<LeUserStatus> userStatus = userService.findAllUserStatus();
+        Map<String, LeUserStatus> userStatusMap = new HashMap<String, LeUserStatus>();
+        if (userStatus != null) {
+            for (LeUserStatus leUserStatus : userStatus) {
+                userStatusMap.put(String.valueOf(leUserStatus.getUserId()), leUserStatus);
+            }
+        }
         for (int index = 0; index < users.size(); index++) {
             LeUser user = users.get(index);
+            String userIdString = String.valueOf(user.getId());
             Map<String, List<Integer>> relationMap = getRelations(user, relationships);
             Map<String, Object> userMap = new HashMap<String, Object>();
             userMap.put("bean", user);
             userMap.put("followings", relationMap.get("followings"));
             userMap.put("followers", relationMap.get("followers"));
-            usersMap.put(String.valueOf(user.getId()), userMap);
+            userMap.put("status", userStatusMap.get(userIdString));
+            usersMap.put(userIdString, userMap);
+        }
+        initUserNameMap(users);
+    }
+
+    static public void initUserNameMap(List<LeUser> users) {
+        for (LeUser user : users) {
+            userNameMap.put(user.getName(), user.getId());
         }
     }
 
     static public LeUser getUserById(int id) {
-        Map user = usersMap.get(String.valueOf(id));
-        if (user != null) {
-            return (LeUser) user.get("bean");
+        Map userMap = usersMap.get(String.valueOf(id));
+        if (userMap != null) {
+            return (LeUser) userMap.get("bean");
+        } else {
+            return null;
+        }
+    }
+
+    static public LeUser getUserByName(String userName) {
+        int userId = userNameMap.get(userName);
+        Map userMap = usersMap.get(String.valueOf(userId));
+        if (userMap != null) {
+            return (LeUser) userMap.get("bean");
+        } else {
+            return null;
+        }
+    }
+
+    static public int getUserIdByUserName(String userName) {
+        return userNameMap.get(userName);
+    }
+
+    static public LeUserStatus getUserStatusByUserId(int userId) {
+        Map userMap = usersMap.get(String.valueOf(userId));
+        if (userMap != null) {
+            return (LeUserStatus) userMap.get("status");
         } else {
             return null;
         }
     }
 
     static public String getUserNameById(int id) {
-        Map user = usersMap.get(String.valueOf(id));
-        if (user != null) {
-            return ((LeUser) user.get("bean")).getName();
+        Map userMap = usersMap.get(String.valueOf(id));
+        if (userMap != null) {
+            return ((LeUser) userMap.get("bean")).getName();
         } else {
             return null;
         }
     }
 
     static public List<Integer> getFollowingsByUserId(int userId) {
-        Map user = usersMap.get(String.valueOf(userId));
-        if (user != null) {
-            return (List<Integer>) user.get("followings");
+        Map userMap = usersMap.get(String.valueOf(userId));
+        if (userMap != null) {
+            return (List<Integer>) userMap.get("followings");
         } else {
             return null;
         }
     }
 
     static public List<Integer> getFollowersByUserId(int userId) {
-        Map user = usersMap.get(String.valueOf(userId));
-        if (user != null) {
-            return (List<Integer>) user.get("followers");
+        Map userMap = usersMap.get(String.valueOf(userId));
+        if (userMap != null) {
+            return (List<Integer>) userMap.get("followers");
         } else {
             return null;
         }
     }
 
     static public void updateUserBean(LeUser user) {
-        usersMap.get(String.valueOf(user.getId())).put("bean", user);
+        Map userMap = usersMap.get(String.valueOf(user.getId()));
+        if (userMap != null) {
+            userMap.put("bean", user);
+        }
+    }
+
+    static public void updateUserStatus(LeUserStatus userStatus) {
+        Map userMap = usersMap.get(String.valueOf(userStatus.getUserId()));
+        if (userMap != null) {
+            userMap.put("status", userStatus);
+        }
     }
 
     static public LeUser getRandomUser() {
@@ -130,5 +182,20 @@ public class UserCache {
         result.put("followings", followings);
         result.put("followers", followers);
         return result;
+    }
+
+    public static void delUser(LeUser user) {
+        usersMap.remove(user);
+
+    }
+
+    public static void addUser(LeUser user) {
+        String userIdString = String.valueOf(user.getId());
+        if (usersMap.get(userIdString) == null) {
+            Map<String, Object> userMap = new HashMap<String, Object>();
+            userMap.put("bean", user);
+            //TODO followings, followers, userStatus木有添加
+            usersMap.put(userIdString, userMap);
+        }
     }
 }
