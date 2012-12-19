@@ -4,12 +4,13 @@
  */
 package com.lefoto.service.impl.media;
 
-import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
+import com.lefoto.dao.iface.user.UserDao;
 import com.lefoto.model.media.LeAlbum;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
+import com.lefoto.model.user.LeUserStatus;
 import com.lefoto.service.iface.media.PhotoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PhotoServiceImpl implements PhotoService {
     private PhotoDao photoDao;
     @Autowired
     private AlbumDao albumDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void addPhoto(LePhoto photo) {
@@ -62,6 +65,12 @@ public class PhotoServiceImpl implements PhotoService {
         photoDao.addPhoto(forwardPhoto);
         photo.setForwardCount(photo.getForwardCount() + 1);
         photoDao.updatePhoto(photo);
+
+        LeUserStatus userStatus = userDao.findUserStatus(forward_user_id);
+        if (userStatus != null) {
+            userStatus.setNewForwardCount(userStatus.getNewForwardCount() + 1);
+            userDao.updateUserStatus(userStatus);
+        }
     }
 
     @Override
@@ -72,6 +81,31 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public void updatePhoto(LePhoto photo) {
         photoDao.updatePhoto(photo);
+    }
+
+    @Override
+    public void upPhoto(int photoId, int userId) {
+        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
+        if (photoUp == null) {
+            photoUp = new LePhotoUp();
+            photoUp.setPhotoId(photoId);
+            photoUp.setUserId(userId);
+            photoDao.addPhotoUp(photoUp);
+            LePhoto photo = photoDao.findPhotoById(photoId);
+            LeUserStatus userStatus = userDao.findUserStatus(photo.getUserId());
+            if (userStatus != null) {
+                userStatus.setNewForwardCount(userStatus.getNewForwardCount() + 1);
+                userDao.updateUserStatus(userStatus);
+            }
+        }
+    }
+
+    @Override
+    public void cancelUpPhoto(int photoId, int userId) {
+        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
+        if (photoUp != null) {
+            photoDao.cancelUpPhoto(photoUp);
+        }
     }
 
     @Override
@@ -87,25 +121,6 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<LePhoto> findPhotosByUserId(int userId) {
         return photoDao.findPhotosByUserId(userId);
-    }
-
-    @Override
-    public void upPhoto(int photoId, int userId) {
-        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
-        if (photoUp == null) {
-            photoUp = new LePhotoUp();
-            photoUp.setPhotoId(photoId);
-            photoUp.setUserId(userId);
-            photoDao.addPhotoUp(photoUp);
-        }
-    }
-
-    @Override
-    public void cancelUpPhoto(int photoId, int userId) {
-        LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
-        if (photoUp != null) {
-            photoDao.cancelUpPhoto(photoUp);
-        }
     }
 
     @Override
