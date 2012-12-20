@@ -10,27 +10,10 @@ ul,li { list-style:none;}
 .noime { ime-mode:disabled;}
 .fixedbar { position: fixed; top: 0; left: 0; z-index: 9999;}
 
-/*公共菜单*/
-.go-top, .go-mid { height:108px; background-color:#F1F1F1; }
-.go-top { width:100%; border-bottom:1px #DDD solid; }
-.go-mid,.wrap { position:relative; max-width: 1200px; margin: 0 auto; }
-.logo { position: absolute; left:0; top:24px; color: #333; height: 60px; width: 150px; }
-.small-txt { position: absolute; top: 32px; right: 0; font-size:14px; color: #C3C3C3; font-family: Arial; }
-.big-txt { font-size: 24px; color: #05700d;}
-.navigation { margin-left:180px; }
-.go-nav-li { float: left; height:104px; line-height:104px; text-align:center; width:80px; margin-left:10px; }
-.go-nav-li a { display:block; color:#808080; height:80px; }
-.go-nav-li a:hover { background-color:#096717; color:#EEE; -webkit-transition: all 0.3s linear; -moz-transition: all 0.3s linear;}
-.nav-a-on { background-color:#096717; color:#EEE !important; }
-
-.go-search { position:absolute; right:20px; top: 50px; background-color:#FFF; padding:7px; border:1px solid #E1E1E1; }
-.search-txt { color: #C3C3C3; height:20px; line-height:20px; width:200px; }
-.go-search-btn { height:34px; padding: 0 7px; margin: -7px -7px -7px 0; cursor:pointer;}
-
 
 
 .backToTop {position:fixed;cursor: pointer;height:52px; width:52px;background:transparent;right:10px;bottom:10px;z-index:9999;}
-.backToTop a {display:block;height:48px;width:48px;overflow: hidden;background:url(${RESOURCE_DIR}/src/images/scrollTop.png) no-repeat 0 0;}
+.backToTop a {display:block;height:48px;width:48px;overflow: hidden;background:url(/src/images/scrollTop.png) no-repeat 0 0;}
 .backToTop a:hover {background-position: -48px 0;}
 
 /*滚动条美化 start*/

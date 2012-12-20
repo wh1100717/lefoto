@@ -34,7 +34,11 @@
         });
     }
     
-    //自定义jQuery扩展函数，当滚动距离超过元素的位置时（即document.scrollTop大于元素的offsetTop时），元素将被固定
+    /*
+     * 自定义jQuery扩展函数部分
+     */
+    
+    //，当滚动距离超过元素的位置时（即document.scrollTop大于元素的offsetTop时），元素将被固定
     $.fn.scrollFix = function(){
         var self = $(this);
         //console.log(this);
@@ -47,6 +51,18 @@
                 self.removeClass('fixedbar'); 
             }
         })
+    }
+    
+    $.fn.getValueAndToObject = function(selector){
+        var data;
+        $(this).find(selector).each(function(){
+            var name = $(this).attr('name');
+            var value = $(this).attr('encode') ? encodeURI($(this).val()) : $(this).val();
+            if(name != undefined) {
+                data[name] = value;
+            }
+        });
+        return data;
     }
 })(jQuery);
 
@@ -61,15 +77,3 @@
 	    };
         $(window).bind("scroll", backToTopFun);
 })(jQuery);
-
-$.fn.getValueAndToObject = function(selector){
-    var data;
-    $(this).find(selector).each(function(){
-        var name = $(this).attr('name');
-        var value = $(this).attr('encode') ? encodeURI($(this).val()) : $(this).val();
-        if(name != undefined) {
-            data[name] = value;
-        }
-    });
-    return data;
-}

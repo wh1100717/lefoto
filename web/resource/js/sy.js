@@ -12,8 +12,8 @@
         })(dom.innerHTML));
         var len = data.length;
         if(len){
-            for(var i = 0, ar = data[i]; i < len ; i++) {
-                data[i] = parseObj(ar);
+            for(var i = 0; i < len ; i++) {
+                data[i] = parseObj(data[i]);
             }
         } else data[0] = def || '';
         return data.join('');
@@ -39,7 +39,9 @@
     var addPhotoLikeUrl = '/photo/upPhoto.html';//添加喜欢
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
     var addCommentUrl = '';//添加评论
-    var loadCommentUrl = 'xx.html';//获取评论
+    var loadCommentUrl = '/comment/getLimitComments.html';//获取评论
+    
+    var OBJ_IMG = 1;
 
     var iCur = -1;
     var leAToggle = 0;
@@ -48,13 +50,15 @@
     var NO_UP = '取消喜欢';
     function loadComment(id){ // 加载评论
         var data = {
-            photoId: id
+            objectId: id,
+            objectType: OBJ_IMG
         };
         $.get(loadCommentUrl,data,function(response){
-            if(response == 'success'){
-                //insertNewComment();
-            }else{
-                alert(response);
+            console.log(response);
+            res = eval(response);
+            var data = res.data;
+            if(response.size > 0){
+                tempToHTML('pl_'+id, data);
             }
         });
     }
@@ -111,8 +115,7 @@
             if(commentRange.is(':visible')){
                 commentRange.hide();
             }else{
-                loadComment();
-                commentRange.show();
+                loadComment(itemId, commentRange);
             }
             iCur = 0;
             return false;
@@ -220,7 +223,7 @@
         var wrap = target.closest('.fwrap');
         var id = target.attr('rel');
         var content = wrap.find('textarea[name=content]').val();
-        if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;}
+        if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;} 
         
         var comment = {};
         comment['content'] = encodeURI(content);

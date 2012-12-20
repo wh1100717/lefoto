@@ -40,7 +40,7 @@
             
             /*le一下*/
             .leMid {position: absolute; z-index: 1000; }
-            .leA {color: #DDD; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: #56820f no-repeat scroll 0 0;}
+            .leA {overflow:hidden; color: #DDD; text-indent: 500px; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: url(${RESOURCE_DIR}/src/images/smail_white.gif) transparent no-repeat scroll 0 0;}
 
             .downEle { position: absolute; z-index: 9999; border-bottom: 10px; -webkit-transition: -webkit-transform 0.3s ease-in-out; height: 50px; width: 50px; background-color: green;  transform: rotate(-60deg) scale(0.5);}
         </style>
@@ -159,19 +159,13 @@
                             <span>评论</span>
                         </a>
                     </div>-->
-                    <div id="i_{id}" class="comments" style="display:none;">
-                        <ul class="UL_list">
+                    <div class="comments" style="display:none;">
+                        <ul id="pl_{id}" class="UL_list">
                             <li>
                                 <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
+                                    <img style="height:32px; width: 32px;" src="{userFace}" />
                                 </a>
-                                <p class="Li_p">。。。。。。。hahh哈哈</p>
-                            </li>
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
-                                </a>
-                                <p class="Li_p">哦哦哦哦哦 a amamamm</p>
+                                <p class="Li_p">{content}</p>
                             </li>
                         </ul>
                         <div class="fwrap">
@@ -244,6 +238,6 @@
                 });
             }
         </script>
-    <#include "/layout/foot.ftl">
+<!--        <#include "/layout/foot.ftl">-->
     </body>  
 </html>  
