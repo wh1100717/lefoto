@@ -30,6 +30,7 @@
             <list>
                 <value>com.lefoto.model.user.LeDefaultUserFace</value>
                 <value>com.lefoto.model.user.LeRelationship</value>
+                <value>com.lefoto.model.user.LeUserStatus</value>
                 <value>com.lefoto.model.user.LeUser</value>
                 <value>com.lefoto.model.media.LeAlbum</value>
                 <value>com.lefoto.model.media.LeCategory</value>
