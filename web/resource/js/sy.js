@@ -120,25 +120,31 @@
         return false;
     }
     
-    var doAddPhotoLike = function(id){ //添加喜欢
+    var doAddPhotoLike = function(target){ //添加喜欢
+        var id = target.attr('rel');
         var data = {
             photoId:id
         };
         $.post(addPhotoLikeUrl,data,function(response){
             if(response == 'success'){
-                
+                target.addClass('isLike');
+                target.attr('data-up','1');
+                alert('tjcg');
             }else{
                 alert(response);
             }
         });
     }
-    var doCancelPhotoLike = function(id){ //取消喜欢
+    var doCancelPhotoLike = function(target){ //取消喜欢
+        var id = target.attr('rel');
         var data = {
             photoId:id
         };
         $.post(cancelPhotoLikeUrl,data,function(response){
             if(response == 'success'){
-                
+                target.removeClass('isLike');
+                target.attr('data-up','0');
+                alert('qxcg');
             }else{
                 alert(response);
             }
@@ -166,12 +172,11 @@
         var posL = (iMidW - eW)/2,
             posT = (iMidH - eH)/2;
         le.css({'top': posT + 'px','left': posL + 'px'});
-        if(leA.attr('data-up') == '0'){
-            leAToggle = 0;
-            leA.html(YES_UP);
-        }else if(leA.attr('data-up') == '1'){
-            leAToggle = 1;
-            leA.html(NO_UP);
+        leAToggle = parseInt(leA.attr('data-up'));
+        if(leAToggle){
+            leA.addClass('isLike');
+        } else {
+            leA.removeClass('isLike');
         }
         le.fadeIn(200);
     };
@@ -188,7 +193,7 @@
         var le = $('.leMid', this);
         if(box.height() > 40){
 
-        } else{
+        }else{
             box.stop().animate({'height': '0px'},300);
         }
         le.hide();
@@ -201,18 +206,18 @@
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
         var target = $(this);
-        var id = target.attr('rel');
-        var pEle = target.closest('.leMid');
+        //var id = target.attr('rel');
+        //var pEle = target.closest('.leMid');
         console.log(leAToggle);
         if(leAToggle){
             leAToggle = 0;
-            doCancelPhotoLike(id);
-            target.html(YES_UP);
+            doCancelPhotoLike(target);
+            //target.html(YES_UP);
         }else{
             leAToggle = 1;
-            doDown(pEle);
-            doAddPhotoLike(id);
-            target.html(NO_UP);
+            //doDown(pEle);
+            doAddPhotoLike(target);
+            //target.html(NO_UP);
         }
     }).delegate('.btn-addComment','click',function(){ //评论按钮被点击
         var target = $(this);

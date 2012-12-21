@@ -39,6 +39,7 @@
             .isList ul li a:hover { background-color: #408000;}
             
             /*le一下*/
+            .isLike { background-image: url(${RESOURCE_DIR}/src/images/smail_pink.gif) !important;}
             .leMid {position: absolute; z-index: 1000; }
             .leA {overflow:hidden; color: #DDD; text-indent: 500px; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: url(${RESOURCE_DIR}/src/images/smail_white.gif) transparent no-repeat scroll 0 0;}
 
