@@ -126,8 +126,12 @@ public class CommentController extends BaseController {
         int objectType = this.getParaIntFromRequest("objectType");
 
         List<LeComment> comments = commentService.getComments(objectType, objectId);
-
-        int size = comments.size();
+        int size;
+        if (comments == null) {
+            size = 0;
+        } else {
+            size = comments.size();
+        }
         JSONArray jsonArray = new JSONArray();
         LeComment comment;
 
