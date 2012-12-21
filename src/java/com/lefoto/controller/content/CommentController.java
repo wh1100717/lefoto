@@ -117,31 +117,29 @@ public class CommentController extends BaseController {
      */
     @RequestMapping(value = "/getLimitComments")
     public @ResponseBody
-    List<String> getLimitComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List result = new ArrayList();
-
+    String getLimitComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
         //对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
 
         List<LeComment> comments = commentService.getComments(objectType, objectId);
-        int size;
+        int totalSize;
         if (comments == null) {
-            size = 0;
+            totalSize = 0;
         } else {
-            size = comments.size();
+            totalSize = comments.size();
         }
         JSONArray jsonArray = new JSONArray();
         LeComment comment;
 
         //如果评论数大于5，取前两条和后三条
-        if (size > 5) {
+        if (totalSize > 5) {
             for (int index = 0; index < 5; index++) {
                 if (index < 2) {
                     comment = comments.get(index);
                 } else {
-                    comment = comments.get(size - 5 + index);
+                    comment = comments.get(totalSize - 5 + index);
                 }
                 JSONObject tmpObject = new JSONObject()
                         .element("id", comment.getId())
@@ -155,7 +153,7 @@ public class CommentController extends BaseController {
             }
         } else {
             //如果评论数小于等于5条，则全取
-            for (int index = 0; index < size; index++) {
+            for (int index = 0; index < totalSize; index++) {
                 comment = comments.get(index);
                 JSONObject tmpObject = new JSONObject()
                         .element("id", comment.getId())
@@ -171,9 +169,8 @@ public class CommentController extends BaseController {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("size", size);
-        result.add(jsonObject.toString());
-        return result;
+        jsonObject.put("size", totalSize);
+        return jsonObject.toString();
     }
 
     /**
@@ -186,9 +183,7 @@ public class CommentController extends BaseController {
      */
     @RequestMapping(value = "/getAllComments")
     public @ResponseBody
-    List<String> getAllComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List result = new ArrayList();
-
+    String getAllComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
         //对象类型，1表示图片
@@ -196,10 +191,15 @@ public class CommentController extends BaseController {
 
         List<LeComment> comments = commentService.getComments(objectType, objectId);
 
-        int size = comments.size();
+        int totalSize;
+        if (comments == null) {
+            totalSize = 0;
+        } else {
+            totalSize = comments.size();
+        }
         JSONArray jsonArray = new JSONArray();
         LeComment comment;
-        for (int index = 0; index < size; index++) {
+        for (int index = 0; index < totalSize; index++) {
             comment = comments.get(index);
             JSONObject tmpObject = new JSONObject()
                     .element("id", comment.getId())
@@ -213,9 +213,8 @@ public class CommentController extends BaseController {
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("size", size);
-        result.add(jsonObject.toString());
-        return result;
+        jsonObject.put("size", totalSize);
+        return jsonObject.toString();
     }
 
     /**
@@ -228,9 +227,7 @@ public class CommentController extends BaseController {
      */
     @RequestMapping(value = "/getMoreComments")
     public @ResponseBody
-    List<String> getMoreComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List result = new ArrayList();
-
+    String getMoreComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
         //对象类型，1表示图片
@@ -242,9 +239,16 @@ public class CommentController extends BaseController {
 
         List<LeComment> comments = commentService.getCommentsAjax(objectType, objectId, lastCommentId, size);
 
+        int totalSize;
+        if (comments == null) {
+            totalSize = 0;
+        } else {
+            totalSize = comments.size();
+        }
+
         JSONArray jsonArray = new JSONArray();
         LeComment comment;
-        for (int index = 0; index < comments.size(); index++) {
+        for (int index = 0; index < totalSize; index++) {
             comment = comments.get(index);
             JSONObject tmpObject = new JSONObject()
                     .element("id", comment.getId())
@@ -258,8 +262,7 @@ public class CommentController extends BaseController {
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
-        jsonObject.put("size", comments.size());
-        result.add(jsonObject.toString());
-        return result;
+        jsonObject.put("size", totalSize);
+        return jsonObject.toString();
     }
 }

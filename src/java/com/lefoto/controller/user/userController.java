@@ -37,8 +37,7 @@ public class userController extends BaseController {
 
     @RequestMapping(value = "/searchAtUsers")
     public @ResponseBody
-    List<String> searchAtUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List result = new ArrayList();
+    String searchAtUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, LeUser> userMap = new HashMap<String, LeUser>();
         String content = this.getParaStringFromRequest("content");
         String commentUserIds = this.getParaStringFromRequest("commentUserIds");
@@ -81,7 +80,6 @@ public class userController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("msg", Const.SUCCESS);
-        result.add(jsonObject.toString());
-        return result;
+        return jsonObject.toString();
     }
 }

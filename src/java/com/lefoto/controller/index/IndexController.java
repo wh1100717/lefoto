@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Eric
  */
 @Controller
-public class NdexController extends BaseController {
+public class IndexController extends BaseController {
 
     /**
      * 渲染网站首页，根据是否登录显示不同的内容
@@ -61,18 +61,15 @@ public class NdexController extends BaseController {
 
     @RequestMapping(value = "/index/getPhoto")
     public @ResponseBody
-    List<String> getPhoto(HttpServletRequest request) throws IOException {
-        List result = new ArrayList();
+    String getPhoto(HttpServletRequest request) throws IOException {
         LeUser ownUser = this.getRequestUser(request);
         //验证是否是本网站发出的请求
         if (!AuthenUtil.refererAuthen(request.getHeader("Referer"))) {
-            result.add("invalid request");
-            return result;
+            return "invalid request";
         }
         //验证是否是浏览器发出的请求
         if (!AuthenUtil.userAgentAuthen(request.getHeader("User-Agent"))) {
-            result.add("invalid request");
-            return result;
+            return "invalid request";
         }
 
 
@@ -88,8 +85,7 @@ public class NdexController extends BaseController {
         JSONArray jsonArray = new JSONArray();
         if (photos == null) {
             jsonObject.put("data", jsonArray);
-            result.add(jsonObject.toString());
-            return result;
+            return jsonObject.toString();
         }
         LePhotoUp up = null;
         for (int index = 0; index < photos.size(); index++) {
@@ -122,10 +118,7 @@ public class NdexController extends BaseController {
             }
             jsonArray.add(tmpObject);
         }
-
         jsonObject.put("data", jsonArray);
-
-        result.add(jsonObject.toString());
-        return result;
+        return jsonObject.toString();
     }
 }
