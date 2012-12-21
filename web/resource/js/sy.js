@@ -1,4 +1,4 @@
-(function(){
+;(function(){
     var doms = {};
     function tempToHTML(id, data, def){
         var dom = doms[id] == undefined ? (doms[id] = document.getElementById(id)) : doms[id]; //缓存dom模版，保存在doms对象中
@@ -11,7 +11,7 @@
             return new Function('data',html);
         })(dom.innerHTML));
         var len = data.length;
-        if(len){
+        if(len > 0){
             for(var i = 0; i < len ; i++) {
                 data[i] = parseObj(data[i]);
             }
@@ -20,8 +20,8 @@
         //dom.innerHTML = data.join('');
     }
     window.tempToHTML = tempToHTML;
-})();
-(function($){
+})()
+;(function($){
     //返回顶部start
     var backToTopEle = $('<div class="backToTop"><a href="javascript:void(0);" title="返回顶部"></a></div>')
         .css({ 'display': 'none' })
@@ -33,8 +33,8 @@
         };
     $(window).bind("scroll", backToTopFun);
     //返回顶部end
-})(jQuery);
-(function($){
+})(jQuery)
+;(function($){
     var getLikeUsersUrl = '/photo/getUpUsers.html';//获取喜欢
     var addPhotoLikeUrl = '/photo/upPhoto.html';//添加喜欢
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
@@ -54,12 +54,8 @@
             objectType: OBJ_IMG
         };
         $.get(loadCommentUrl,data,function(response){
-            console.log(response);
-            res = eval(response);
-            var data = res.data;
-            if(response.size > 0){
-                tempToHTML('pl_'+id, data);
-            }
+            var res = eval('('+response+')');
+            $('#pl_'+id).html(tempToHTML('pl_'+id, res.data)).closest('.comments').show();
         });
     }
     function doAddComment(comment){
@@ -99,7 +95,7 @@
             }
             shareDiv.hide();
             iCur = 1;
-        } else if(target.hasClass('share')) { //分享按钮被点击
+        } else if(target.hasClass('share')){ //分享按钮被点击
             if(pparent.height() > 40 && iCur == 2){
                 pparent.stop().animate({'height': '40px'},300);
                 return false;

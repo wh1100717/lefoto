@@ -12,7 +12,7 @@
         <style type="text/css">
             .ibar { padding: 10px 0;}
             .ibar-a { display: block; font-size: 12px; color: #808080; background-color: #F2F0F0; padding: 3px 10px; border-radius: 3px; margin: 0 7px;}
-            .comments { background-color: #FFF; border:1px #EEE solid; }
+            .comments { background-color: #FFF; border:1px #EEE solid; margin-top:20px;}
             .UL_list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
             .Li_p { margin-left: 36px;}
             .fwrap { padding: 7px 10px; overflow: hidden;}
