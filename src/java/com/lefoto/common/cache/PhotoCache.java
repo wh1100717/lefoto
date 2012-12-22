@@ -50,7 +50,7 @@ public class PhotoCache {
     static public List<LePhotoUp> findPhotoUps(int photoId) {
         List<LePhotoUp> result = new ArrayList<LePhotoUp>();
         for (LePhotoUp up : photoUpList) {
-            if(up.getPhotoId() == photoId){
+            if (up.getPhotoId() == photoId) {
                 result.add(up);
             }
         }
@@ -151,5 +151,20 @@ public class PhotoCache {
             }
         }
         return null;
+    }
+
+    public static void updatePhoto(LePhoto photo) {
+        int cateId = photo.getCategoryId();
+        List<LePhoto> photos = photoList.get(cateId);
+        if (photos == null) {
+            return;
+        }
+        for (int index = 0; index < photos.size(); index++) {
+            LePhoto lePhoto = photos.get(index);
+            if (lePhoto.getId() == photo.getId()) {
+                photos.set(index, photo);
+                return;
+            }
+        }
     }
 }
