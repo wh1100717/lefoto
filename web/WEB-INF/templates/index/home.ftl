@@ -33,15 +33,15 @@
 
             /*navmenu downlist*/
             .isList { position: relative;}
-            .isList ul { display: block; position: absolute; top: 40px; left: 0; z-index: 9999; width: 150px;}
-            .isList ul li { height: 30px; line-height: 30px; background-color: #558000; width:100%; padding: 0; margin: 0;}
+            .isList ul { display: block; background-color:#444; position: absolute; top: 40px; left: 0; z-index: 9999; width: 150px;}
+            .isList ul li { height: 30px; line-height: 30px; width:100%; padding: 0; margin: 0;}
             .isList ul li a { display: block; height: 100%; width: 100%;}
-            .isList ul li a:hover { background-color: #408000;}
+            .isList ul li a:hover { background-color:#333;}
             
             /*le一下*/
-            .isLike { background-image: url(${RESOURCE_DIR}/src/images/smail_pink.gif) !important;}
-            .leMid {position: absolute; z-index: 1000; }
-            .leA {overflow:hidden; color: #DDD; text-indent: 500px; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: url(${RESOURCE_DIR}/src/images/smail_white.gif) transparent no-repeat scroll 0 0;}
+            .isLike a.leA { background-image: url(${RESOURCE_DIR}/src/images/smile_pink50.png) !important;}
+            .leMid {position: absolute; z-index: 1000; background:url(${RESOURCE_DIR}/src/images/like_bg.png) }
+            .leA {overflow:hidden; color: #DDD; text-indent: 500px; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: url(${RESOURCE_DIR}/src/images/smile_white50.png) transparent no-repeat scroll center center;}
 
             .downEle { position: absolute; z-index: 9999; border-bottom: 10px; -webkit-transition: -webkit-transform 0.3s ease-in-out; height: 50px; width: 50px; background-color: green;  transform: rotate(-60deg) scale(0.5);}
         </style>
@@ -120,10 +120,10 @@
                             <div class="tabs">
                                 <ul class="tabAs clearfix">
                                     <li>
-                                        <a rel="{id}" class="icon comment" href ="javascript:;"><span>评论</span></a>
+                                        <a rel="{id}" class="icon comment" href ="javascript:;">{commentCount}<span>评论</span></a>
                                     </li>
                                     <li>
-                                        <a rel="{id}" class="icon like" href="javascript:;"><span>喜欢</span></a>
+                                        <a rel="{id}" class="icon like" href="javascript:;">{upCount}<span>喜欢</span></a>
                                     </li>
                                     <li>
                                         <a rel="{id}" class="icon share" href="javascript:;"><span>分享</span></a>
@@ -213,7 +213,7 @@
                 var url = '/photo/deletePhotoByAdmin.html';
                 $.post(url,data,function(response){
                     if(response == 'success'){
-                        $('#item_'+id).remove();
+                        $('#item_'+id).fadeOut(500);
                     }else{
                         alert('删除失败');
                     }
@@ -225,7 +225,7 @@
                 id: 'wf',//瀑布流ID
                 url:'/index/getPhoto.html',//数据请求接口，返回json格式
                 size: 10,//每次请求要加载的数据条数
-                colWidth: 460,//列宽
+                colWidth: 464,//列宽
                 colAmount: 2,//列数
                 view:'view',
                 params: { //请求数据时可向服务器发送附带参数

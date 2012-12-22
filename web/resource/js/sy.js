@@ -74,14 +74,8 @@
             loading = parent.find('.doLoading'),
             likeDiv = parent.find('div.like'),
             shareDiv = parent.find('div.share'),
-            itemId = target.attr('rel');
-
-        if(target.hasClass('like')) { //喜欢按钮被点击
-            if(pparent.height() > 40 && iCur == 1){
-                pparent.stop().animate({'height': '40px'},300);
-                return false;
-            }
-            if(likeDiv.length == 0) {
+            itemId = target.attr('rel'),
+            getLikeUsers = function(){
                 loading.show();
                 var data = {
                     photoId: itemId
@@ -90,8 +84,18 @@
                     $(response).appendTo(parent);
                     loading.hide();
                 });
+            };
+
+        if(target.hasClass('like')) { //喜欢按钮被点击
+            if(pparent.height() > 40 && iCur == 1){
+                pparent.stop().animate({'height': '40px'},300);
+                return false;
+            }
+            if(likeDiv.length == 0) {
+                getLikeUsers();
             } else {
-                likeDiv.show();
+                likeDiv.remove();
+                getLikeUsers();
             }
             shareDiv.hide();
             iCur = 1;
@@ -127,9 +131,8 @@
         };
         $.post(addPhotoLikeUrl,data,function(response){
             if(response == 'success'){
-                target.addClass('isLike');
+                target.parent().addClass('isLike');
                 target.attr('data-up','1');
-                alert('tjcg');
             }else{
                 alert(response);
             }
@@ -142,9 +145,8 @@
         };
         $.post(cancelPhotoLikeUrl,data,function(response){
             if(response == 'success'){
-                target.removeClass('isLike');
+                target.parent().removeClass('isLike');
                 target.attr('data-up','0');
-                alert('qxcg');
             }else{
                 alert(response);
             }
@@ -174,9 +176,9 @@
         le.css({'top': posT + 'px','left': posL + 'px'});
         leAToggle = parseInt(leA.attr('data-up'));
         if(leAToggle){
-            leA.addClass('isLike');
+            le.addClass('isLike');
         } else {
-            leA.removeClass('isLike');
+            le.removeClass('isLike');
         }
         le.fadeIn(200);
     };

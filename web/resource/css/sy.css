@@ -21,7 +21,7 @@ a { text-decoration: none;}
 .lside { padding: 3px; border: 1px #EEE solid; background-color: #FFF;}
 .mside ul li,.rside ul li { float: left;  text-align: center; height: 30px; line-height: 30px; padding: 5px 0; margin: -5px 0;}
 .mside ul li a,.rside ul li a { color: #EEE; display: block; width: 100%; height: 30px;}
-.mside ul li:hover,.rside ul li:hover,li.selected { background-color: #558000;}
+.mside ul li:hover,.rside ul li:hover,li.selected { background-color: #444;}
 .mside ul li:hover a,.rside ul li:hover a { color: #FFF;}
 .mside ul li { width: 80px; }
 .rside ul li { width:40px;}
@@ -29,22 +29,23 @@ a { text-decoration: none;}
 input.sbox { height: 22px; line-height: 22px; width: 180px; font-weight: 800;}
 input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin: -3px 0;}
 
-.navbarwrap { width: 100%; background-color: green;}
-.navbar { position: relative; margin: 0 auto; padding: 5px 0; background-color: green;}
+.navbarwrap { width: 100%; background-color: #333;}
+.navbar { position: relative; margin: 0 auto; padding: 5px 0; background-color: #333;}
 
 /*waterfall start*/
 .waterFall { display: block; width: 960px; margin: 0 auto; margin-top: 30px; position: relative; }
-.col { float: left; overflow-x: hidden; }
+.col { float: left; }
 .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
 .loading { display: inline-block; padding-left: 32px; background: url(/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
 /*waterfall end*/
 .iTop { padding: 7px 0 20px 0;}
 .iMid { text-align: center; overflow: hidden; width: 420px;}
 .iTop p { margin-bottom: 5px;}
-.item { position: relative; padding: 7px 15px; width: 420px; background-color: #FFF; border: 1px #E1E1E1 solid; box-shadow: 2px 2px 4px #E1E1E1;}
+.item { position: relative; padding: 7px 15px; width: 420px; background-color: #FFF; border: 1px #E1E1E1 solid; box-shadow: 3px 2px 5px #E1E1E1;}
 .Es { position: absolute; top: 15px; right: 0px; display: block; width: 45px; background: url(http://ipic.tuita.cc/img/theme/theme_canon/temp_bg.png?v=1346141329) right -32px no-repeat;}
 .Es:hover { background-color: #f1f1f1;}
 .Es span.num { display: inline-block; padding: 0 7px; line-height: 20px; height: 20px; border: 1px #E1E1E1 solid; border-width: 1px 0 1px 1px;}
 a.img { display: block; }
+.item:hover { z-index: 999; box-shadow: 0 0 20px rgba(0,136,196,0.5); -webkit-transition: box-shadow 0.3s linear; -moz-transition: box-shadow 0.3s linear;}
 .iTop img { float: left; }
 .iTop p { margin-left: 40px; line-height: 1.2;}
