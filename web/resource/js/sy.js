@@ -46,8 +46,6 @@
     var iCur = -1;
     var leAToggle = 0;
     
-    var YES_UP = '点击喜欢+1';
-    var NO_UP = '取消喜欢';
     function loadComment(id){ // 加载评论
         var data = {
             objectId: id,
@@ -126,6 +124,8 @@
     
     var doAddPhotoLike = function(target){ //添加喜欢
         var id = target.attr('rel');
+        var item = target.closest('.item');
+        var likeTab = $('a.like',item);
         var data = {
             photoId:id
         };
@@ -133,6 +133,7 @@
             if(response == 'success'){
                 target.parent().addClass('isLike');
                 target.attr('data-up','1');
+                likeTab.html('<span>'+ (parseInt(likeTab.text())+1)+'</span>')
             }else{
                 alert(response);
             }
@@ -140,6 +141,8 @@
     }
     var doCancelPhotoLike = function(target){ //取消喜欢
         var id = target.attr('rel');
+        var item = target.closest('.item');
+        var likeTab = $('a.like',item);
         var data = {
             photoId:id
         };
@@ -147,6 +150,7 @@
             if(response == 'success'){
                 target.parent().removeClass('isLike');
                 target.attr('data-up','0');
+                likeTab.html('<span>'+ (parseInt(likeTab.text())-1)+'</span>');
             }else{
                 alert(response);
             }

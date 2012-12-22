@@ -23,9 +23,10 @@
             .mask { display: block; position: absolute; z-index: -1; background-color: #000; filter:alpha(opacity=50); opacity: 0.5; width: 100%; height: 100%;}
             .tabsWrap { position: absolute; z-index: 999; bottom: 0px; left: 0; height: 0px; width: 420px;}
             .tabs { position: absolute;}
-            .tabs > ul li { float: left; height: 40px; width: 140px; text-align: center;}
+            .tabs > ul li { float: left; height: 40px; width: 140px; }
             .tabs > ul li a { display: block; padding-top: 10px; width: 100%; color: #DDD; height: 30px; box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15) inset,-1px 0 0 black inset,0 2px 0 rgba(255, 255, 255, 0.15),0 1px 0 black;}
-
+            .tabs > ul li a:hover { background-color: rgba(0,0,0,0.6);}
+            
             .like ul li { float: left; margin-left: 3px;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
@@ -44,6 +45,12 @@
             .leA {overflow:hidden; color: #DDD; text-indent: 500px; display: block; height: 100px; width: 100px; line-height: 100px; text-align: center; background: url(${RESOURCE_DIR}/src/images/smile_white50.png) transparent no-repeat scroll center center;}
 
             .downEle { position: absolute; z-index: 9999; border-bottom: 10px; -webkit-transition: -webkit-transform 0.3s ease-in-out; height: 50px; width: 50px; background-color: green;  transform: rotate(-60deg) scale(0.5);}
+            /*tab icon*/
+            a.comment { background:url(${RESOURCE_DIR}/src/images/icon_comment.png) transparent center center scroll no-repeat;}
+            a.like { background:url(${RESOURCE_DIR}/src/images/icon_like.png) transparent center center scroll no-repeat;}
+            a.share { background:url(${RESOURCE_DIR}/src/images/icon_zhuancai.png) transparent center center scroll no-repeat;}
+            a.icon { position:relative;}
+            a.icon span { position:absolute; top:10px; right:90px; display:inline-block; font-size:16px; font-weight:800; color:#999; text-align:right;}
         </style>
     </head>  
     <body>
@@ -120,13 +127,13 @@
                             <div class="tabs">
                                 <ul class="tabAs clearfix">
                                     <li>
-                                        <a rel="{id}" class="icon comment" href ="javascript:;">{commentCount}<span>评论</span></a>
+                                        <a rel="{id}" class="icon comment" href ="javascript:;"><span>{commentCount}</span></a>
                                     </li>
                                     <li>
-                                        <a rel="{id}" class="icon like" href="javascript:;">{upCount}<span>喜欢</span></a>
+                                        <a rel="{id}" class="icon like" href="javascript:;"><span>{upCount}</span></a>
                                     </li>
                                     <li>
-                                        <a rel="{id}" class="icon share" href="javascript:;"><span>分享</span></a>
+                                        <a rel="{id}" class="icon share" href="javascript:;"><span>{forwardCount}</span></a>
                                     </li>
                                 </ul>
                                 <div class="hide share">
