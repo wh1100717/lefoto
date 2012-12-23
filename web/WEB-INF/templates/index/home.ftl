@@ -13,7 +13,7 @@
             .ibar { padding: 10px 0;}
             .ibar-a { display: block; font-size: 12px; color: #808080; background-color: #F2F0F0; padding: 3px 10px; border-radius: 3px; margin: 0 7px;}
             .comments { background-color: #FFF; border:1px #EEE solid; margin-top:20px;}
-            .UL_list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
+            .list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
             .Li_p { margin-left: 36px;}
             .fwrap { padding: 7px 10px; overflow: hidden;}
             .fwrap > form { position: relative; overflow: hidden; }
@@ -30,7 +30,7 @@
             .like ul li { float: left; margin-left: 3px;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
-            .tabs .loading, .comments .loading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) transparent no-repeat center center scroll;}
+            .tabs .loading, .comments .loading,.list li.loading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) transparent no-repeat center center scroll;}
 
             /*navmenu downlist*/
             .isList { position: relative;}
@@ -111,14 +111,12 @@
         </div>
         <!--评论部分模板-->
         <script id="comment_temp" type="text/html">
-            <ul class="UL_list">
-                <li>
-                    <a class="fl" href="">
-                        <img style="height:32px; width: 32px;" src="{userFace}" />
-                    </a>
-                    <p class="Li_p">{content}</p>
-                </li>
-            </ul>
+            <li>
+                <a class="fl" href="">
+                    <img style="height:32px; width: 32px;" src="http://imgf.lefoto.me{userFace}" />
+                </a>
+                <p class="Li_p">{content}</p>
+            </li>
         </script>
         <!--瀑布流图片展示模板-->
         <script id="view" type="text/html">
@@ -177,7 +175,7 @@
                         </div>
                     </div>
                     <div class="comments" style="display:none;">
-                        <div class="list"></div>
+                        <ul class="list"></ul>
                         <div class="fwrap">
                             <form>
                                 <textarea class="editor" name="content" ></textarea>
