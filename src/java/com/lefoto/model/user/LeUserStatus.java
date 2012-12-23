@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -32,7 +33,7 @@ public class LeUserStatus implements Serializable {
     @Column(name = "new_at_count")
     private int newAtCount;
     @Column(name = "last_update_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime = new Date();
 
     public int getUserId() {

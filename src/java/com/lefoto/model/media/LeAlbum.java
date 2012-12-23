@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 相册类
@@ -36,10 +37,10 @@ public class LeAlbum implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "create_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date create_time;
     @Column(name = "update_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date update_time = new Date();
 
     public int getId() {

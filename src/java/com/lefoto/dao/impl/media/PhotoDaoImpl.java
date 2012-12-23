@@ -45,7 +45,6 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
         //从缓存中删除图片
         PhotoCache.removePhoto(photo);
-
     }
 
     @Override
@@ -54,6 +53,8 @@ public class PhotoDaoImpl implements PhotoDao {
         session.beginTransaction();
         session.merge(photo);
         session.getTransaction().commit();
+        //更新缓存
+        PhotoCache.updatePhoto(photo);
     }
 
     @Override

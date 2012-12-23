@@ -63,7 +63,7 @@ public class CommentController extends BaseController {
         LeComment comment = new LeComment();
         comment.setUserId(user.getId());
         comment.setUserName(user.getName());
-        comment.setObjectType(objectType);//0表示评论的是图片
+        comment.setObjectType(objectType);//1表示评论的是图片
         comment.setObjectId(objectId);
         comment.setObjectUserId(objectUserId);
         comment.setContent(content);
@@ -71,7 +71,7 @@ public class CommentController extends BaseController {
         //添加评论
         commentService.addComment(comment);
         //如果是图片，更新图片评论数
-        if (objectType == 0) {
+        if (objectType == 1) {
             LePhoto photo = photoService.findPhotoById(objectId);
             photo.addCommentCount();
             photoService.updatePhoto(photo);

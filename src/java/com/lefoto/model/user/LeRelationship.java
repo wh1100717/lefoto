@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 用户好友关系类
@@ -38,7 +39,7 @@ public class LeRelationship implements Serializable {
     @Column(name = "create_user_id", nullable = false)
     private int createUserId;
     @Column(name = "create_time", nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime = new Date();
 
     public int getId() {

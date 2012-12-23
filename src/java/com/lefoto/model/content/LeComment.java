@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * 评论类
@@ -44,9 +46,10 @@ public class LeComment implements Serializable {
     @Column(name = "channel")
     private int channel = 1;
     @Column(name = "create_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime = new Date();
     
+    @Transient
     private String userFace;
 
     public int getId() {

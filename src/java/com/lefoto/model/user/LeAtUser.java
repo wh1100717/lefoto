@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,7 +34,7 @@ public class LeAtUser implements Serializable {
     @Column(name = "user_id")
     private int userId;
     @Column(name = "create_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date create_time = new Date();
 
     public int getId() {

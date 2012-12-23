@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 用户扩展信息类
@@ -26,7 +27,7 @@ public class LeUserInfo implements Serializable {
     @Column(name = "age")
     private int age;
     @Column(name = "birthday")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
     @Column(name = "mobile")
     private int mobile;
@@ -39,7 +40,7 @@ public class LeUserInfo implements Serializable {
     @Column(name = "renren")
     private String renren;
     @Column(name = "last_update_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime = new Date();
     @Column(name = "is_delete")
     private int isDelete = 0;

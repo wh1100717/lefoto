@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 用户类
@@ -42,10 +43,10 @@ public class LeUser implements Serializable {
     @Column(name = "status")
     private int status = 1;
     @Column(name = "create_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date create_time = new Date();
     @Column(name = "last_update_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateTime = new Date();
     @Column(name = "is_delete")
     private int isDelete = 0;

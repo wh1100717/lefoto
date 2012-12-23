@@ -93,16 +93,20 @@ public class CommentServiceImpl implements CommentService {
 
         //将对该图片评论的用户添加到userMap中
         List<LeComment> comments = commentDao.getComments(objectType, objectId);
-        for (LeComment leComment : comments) {
-            userMap.put(leComment.getUserName(), 1);
+        if (comments != null) {
+            for (LeComment leComment : comments) {
+                userMap.put(leComment.getUserName(), 1);
+            }
         }
 
         //将该用户所关注的用户添加到userMap中
         List<Integer> followingIds = UserCache.getFollowersByUserId(comment.getUserId());
-        for (Integer followingId : followingIds) {
-            String userName = UserCache.getUserNameById(followingId);
-            if (userName != null) {
-                userMap.put(userName, 1);
+        if (followingIds != null) {
+            for (Integer followingId : followingIds) {
+                String userName = UserCache.getUserNameById(followingId);
+                if (userName != null) {
+                    userMap.put(userName, 1);
+                }
             }
         }
         String regex = "(@[^ ]*)";

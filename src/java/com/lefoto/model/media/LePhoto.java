@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 图片类
@@ -63,7 +64,7 @@ public class LePhoto implements Serializable {
     @Column(name = "channel")
     private int channel = 1;
     @Column(name = "create_time")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime = new Date();
     @Column(name = "is_delete")
     private int isDelete = 0;
