@@ -45,7 +45,8 @@
 
     var iCur = -1;
     var leAToggle = 0;
-    
+    //template
+    var comment_temp = 'comment_temp';
     function loadComment(id,commentRange){ // 加载评论
         var list = commentRange.find('.list');
         list.empty();
@@ -56,7 +57,7 @@
         list.addClass('loading');
         $.get(loadCommentUrl,data,function(response){
             var res = eval('('+response+')');
-            list.removeClass('loading').html(tempToHTML('comment_temp', res.data));
+            list.removeClass('loading').html(tempToHTML(comment_temp, res.data));
         });
     }
     function doAddComment(comment, callback){
@@ -124,7 +125,7 @@
     var doAddPhotoLike = function(target){ //添加喜欢
         var id = target.attr('rel');
         var item = target.closest('.item');
-        var likeTab = $('a.like',item);
+        var likeTab = $('a.like', item);
         var data = {
             photoId:id
         };
@@ -132,7 +133,7 @@
             if(response == 'success'){
                 target.parent().addClass('isLike');
                 target.attr('data-up','1');
-                likeTab.html('<span>'+ (parseInt(likeTab.text())+1)+'</span>')
+                likeTab.html('<span>'+ (parseInt(likeTab.text())+1)+'</span>');
             }else{
                 alert(response);
             }
@@ -226,16 +227,22 @@
         }
     }).delegate('.btn-addComment','click',function(){ //评论按钮被点击
         var target = $(this);
+        var item = target.closest('.item');
+        var commentTab = $('a.comment', item);
         var wrap = target.closest('.fwrap');
+        var list = wrap.find('.list');
         var id = target.attr('rel');
         var userId = wrap.find('input[name=userId]').val()
-        var content = wrap.find('textarea[name=content]').val();
+        var textarea = wrap.find('textarea[name=content]');
+        var content = textarea.val();
         if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;} 
         
         var comment = {};
         var callback = function(response){ //添加评论
             if(response == 'success'){
-                
+                textarea.val('');
+                list.append(tempToHTML(comment_temp, new Array(response)));
+                commentTab.html('<span>'+ (parseInt(commentTab.text())+1)+'</span>')
             } else {
                 alert(response);
             }
@@ -244,7 +251,6 @@
         comment['objectId'] = id;
         comment['objectType'] = 1;
         comment['objectUserId'] = userId;
-        console.log(comment);
         doAddComment(comment, callback);
     });
 })(jQuery);
