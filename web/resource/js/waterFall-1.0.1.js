@@ -90,8 +90,6 @@ waterFall.prototype = {
         for(var i=0; i < data.length; i++) {
             var tempViewId = this.view;
             var itemHtml = tempToHTML(tempViewId, new Array(data[i]));
-            //$.data(itemHtml,'data',data);
-            //console.log(itemHtml);
             //添加到高度最小的那一列
             this.minHeightColumn2().append(itemHtml);
         }

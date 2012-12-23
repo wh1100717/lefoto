@@ -30,7 +30,7 @@
             .like ul li { float: left; margin-left: 3px;}
             .share ul li { float: left; width: 25%;  font-size: 14px; height: 40px; line-height: 40px; text-align: center;}
             .share ul li a {color: #DDD;}
-            .doLoading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) no-repeat center center scroll;}
+            .tabs .loading, .comments .loading { height: 40px; background: url(${RESOURCE_DIR}/src/images/loading2.gif) transparent no-repeat center center scroll;}
 
             /*navmenu downlist*/
             .isList { position: relative;}
@@ -51,7 +51,15 @@
             a.share { background:url(${RESOURCE_DIR}/src/images/icon_zhuancai.png) transparent center center scroll no-repeat;}
             a.icon { position:relative;}
             a.icon span { position:absolute; top:10px; right:90px; display:inline-block; font-size:16px; font-weight:800; color:#999; text-align:right;}
+            
         </style>
+        <script type="text/javascript">
+            var user = {
+                id:'${user.id}',
+                name:'${user.name}',
+                face:'${user.face}'
+            }
+        </script>
     </head>  
     <body>
         <input name="cateId" type="hidden" value="${cateId}" />
@@ -101,6 +109,18 @@
                 <div id="wf"></div>
             </div>
         </div>
+        <!--评论部分模板-->
+        <script id="comment_temp" type="text/html">
+            <ul class="UL_list">
+                <li>
+                    <a class="fl" href="">
+                        <img style="height:32px; width: 32px;" src="{userFace}" />
+                    </a>
+                    <p class="Li_p">{content}</p>
+                </li>
+            </ul>
+        </script>
+        <!--瀑布流图片展示模板-->
         <script id="view" type="text/html">
             <div class="item" id="item_{id}">
                 <div style="padding-bottom:50px;">
@@ -152,60 +172,21 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="doLoading hide"></div>
+                                <div class="loading hide"></div>
                             </div>
                         </div>
                     </div>
-<!--                    <div class="ibar clearfix">
-                        <a class="ibar-a fr" href="javascript:;">
-                            <span>喜欢</span>
-                        </a>
-                        <a class="ibar-a fr" href="javascript:;">
-                            <span>采集</span>
-                        </a>
-                        <a class="ibar-a fr" href="#" onclick="return toList('{id}')">
-                            <span>评论</span>
-                        </a>
-                    </div>-->
                     <div class="comments" style="display:none;">
-                        <ul id="pl_{id}" class="UL_list">
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="{userFace}" />
-                                </a>
-                                <p class="Li_p">{content}</p>
-                            </li>
-                        </ul>
+                        <div class="list"></div>
                         <div class="fwrap">
                             <form>
                                 <textarea class="editor" name="content" ></textarea>
                                 <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
+                                <input name="pid" type="hidden" value="{id}" />
+                                <input name="userId" type="hidden" value="{userId}" />
                             </form>
                         </div>
                     </div>
-<!--
-                    <div id="i_{id}" class="comments" style="display:none;">
-                        <ul class="UL_list">
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
-                                </a>
-                                <p class="Li_p">。。。。。。。hahh哈哈</p>
-                            </li>
-                            <li>
-                                <a class="fl" href="">
-                                    <img style="height:32px; width: 32px;" src="" />
-                                </a>
-                                <p class="Li_p">哦哦哦哦哦 a amamamm</p>
-                            </li>
-                        </ul>
-                        <div class="fwrap">
-                            <form>
-                                <textarea class="editor" name="content" ></textarea>
-                                <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
-                            </form>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </script>

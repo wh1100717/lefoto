@@ -38,7 +38,7 @@
     var getLikeUsersUrl = '/photo/getUpUsers.html';//获取喜欢
     var addPhotoLikeUrl = '/photo/upPhoto.html';//添加喜欢
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
-    var addCommentUrl = '';//添加评论
+    var addCommentUrl = '/comment/addComment.html';//添加评论
     var loadCommentUrl = '/comment/getLimitComments.html';//获取评论
     
     var OBJ_IMG = 1;
@@ -46,33 +46,31 @@
     var iCur = -1;
     var leAToggle = 0;
     
-    function loadComment(id){ // 加载评论
+    function loadComment(id,commentRange){ // 加载评论
+        var list = commentRange.find('.list');
+        list.empty();
         var data = {
             objectId: id,
             objectType: OBJ_IMG
         };
+        list.addClass('loading');
         $.get(loadCommentUrl,data,function(response){
             var res = eval('('+response+')');
-            $('#pl_'+id).html(tempToHTML('pl_'+id, res.data)).closest('.comments').show();
+            list.removeClass('loading').html(tempToHTML('comment_temp', res.data));
         });
     }
-    function doAddComment(comment){
-        $.post(addCommentUrl,comment,function(response){ //添加评论
-            if(response == 'success'){
-
-            } else {
-                alert(response);
-            }
-        })
+    function doAddComment(comment, callback){
+        $.post(addCommentUrl,comment, callback);
     }
     function doClick(target) { //图片上TAB点击事件处理
         var parent = target.closest('.tabs'),
             pparent = parent.closest('.tabsWrap'),
             item  = target.closest('.item'),
-            loading = parent.find('.doLoading'),
+            loading = parent.find('.loading'),
             likeDiv = parent.find('div.like'),
             shareDiv = parent.find('div.share'),
             itemId = target.attr('rel'),
+            num = parseInt(target.text()),
             getLikeUsers = function(){
                 loading.show();
                 var data = {
@@ -114,6 +112,7 @@
                 commentRange.hide();
             }else{
                 loadComment(itemId, commentRange);
+                commentRange.show();
             }
             iCur = 0;
             return false;
@@ -229,13 +228,23 @@
         var target = $(this);
         var wrap = target.closest('.fwrap');
         var id = target.attr('rel');
+        var userId = wrap.find('input[name=userId]').val()
         var content = wrap.find('textarea[name=content]').val();
         if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;} 
         
         var comment = {};
-        comment['content'] = encodeURI(content);
-        comment['id'] = id;
-        //doAddComment(comment);
+        var callback = function(response){ //添加评论
+            if(response == 'success'){
+                
+            } else {
+                alert(response);
+            }
+        };
+        comment['content'] = content;
+        comment['objectId'] = id;
+        comment['objectType'] = 1;
+        comment['objectUserId'] = userId;
+        console.log(comment);
+        doAddComment(comment, callback);
     });
-    //$(document)
 })(jQuery);

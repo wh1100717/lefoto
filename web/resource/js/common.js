@@ -1,5 +1,6 @@
+
 //输入框警告
-(function($){
+;(function($){
     $.fn.showWaring = function(msg) {
         var target = $(this);
         var targetW = target.outerWidth(),

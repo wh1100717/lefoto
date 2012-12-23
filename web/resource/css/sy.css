@@ -36,7 +36,7 @@ input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin:
 .waterFall { display: block; width: 960px; margin: 0 auto; margin-top: 30px; position: relative; }
 .col { float: left; }
 .detectDiv { clear: both; text-align: center; color: #000; height: 32px; line-height: 32px; padding-bottom: 20px; }
-.loading { display: inline-block; padding-left: 32px; background: url(/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
+.detectDiv .loading { display: inline-block; padding-left: 32px; background: url(/src/images/loading2.gif) 0 0 scroll transparent no-repeat; }
 /*waterfall end*/
 .iTop { padding: 7px 0 20px 0;}
 .iMid { text-align: center; overflow: hidden; width: 420px;}
