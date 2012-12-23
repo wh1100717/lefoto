@@ -70,6 +70,7 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
         //更新内存
         PhotoCache.addPhotoUp(photoUp);
+        PhotoCache.updatePhoto(photo);
 
     }
 
@@ -86,6 +87,7 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
         //更新内存
         PhotoCache.removePhotoUp(photoUp);
+        PhotoCache.updatePhoto(photo);
 
     }
 

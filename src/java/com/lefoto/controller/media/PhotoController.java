@@ -94,7 +94,7 @@ public class PhotoController extends BaseController {
     String upPhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
-            photoService.upPhoto(photoId, user.getId());
+        photoService.upPhoto(photoId, user.getId());
         return Const.SUCCESS;
     }
 
@@ -108,22 +108,24 @@ public class PhotoController extends BaseController {
     }
 
     @RequestMapping(value = "/getUpUsers")
-    public ModelAndView getUpUsers(HttpServletRequest request){
+    public ModelAndView getUpUsers(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/index/likeUsers");
         //List result = new ArrayList();
         int photoId = this.getParaIntFromRequest("photoId");
         List<LePhotoUp> ups = PhotoCache.findPhotoUps(photoId);
-        
+
         List<LeUser> users = new ArrayList<LeUser>();
-        if(ups == null){
+        if (ups == null) {
             return mv;
         }
         for (LePhotoUp up : ups) {
             LeUser user = UserCache.getUserById(up.getUserId());
-            if(user == null){continue;}
+            if (user == null) {
+                continue;
+            }
             users.add(user);
         }
-        mv.addObject("upUsers",users);
+        mv.addObject("upUsers", users);
         return mv;
     }
 }

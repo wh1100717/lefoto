@@ -4,6 +4,7 @@
  */
 package com.lefoto.service.impl.media;
 
+import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.dao.iface.user.UserDao;
@@ -92,10 +93,12 @@ public class PhotoServiceImpl implements PhotoService {
             photoUp.setUserId(userId);
             photoDao.addPhotoUp(photoUp);
             LePhoto photo = photoDao.findPhotoById(photoId);
-            LeUserStatus userStatus = userDao.findUserStatus(photo.getUserId());
-            if (userStatus != null) {
-                userStatus.setNewForwardCount(userStatus.getNewForwardCount() + 1);
-                userDao.updateUserStatus(userStatus);
+            if (photo != null) {                
+                LeUserStatus userStatus = userDao.findUserStatus(photo.getUserId());
+                if (userStatus != null) {
+                    userStatus.setNewForwardCount(userStatus.getNewForwardCount() + 1);
+                    userDao.updateUserStatus(userStatus);
+                }
             }
         }
     }
@@ -105,6 +108,13 @@ public class PhotoServiceImpl implements PhotoService {
         LePhotoUp photoUp = this.findPhotoUp(photoId, userId);
         if (photoUp != null) {
             photoDao.cancelUpPhoto(photoUp);
+            LePhoto photo = photoDao.findPhotoById(photoId);
+            LeUserStatus userStatus = userDao.findUserStatus(photo.getUserId());
+            if (userStatus != null) {
+                userStatus.setNewForwardCount(userStatus.getNewForwardCount() - 1);
+                userDao.updateUserStatus(userStatus);
+            }
+
         }
     }
 
