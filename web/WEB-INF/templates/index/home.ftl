@@ -182,6 +182,11 @@
                                 <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
                                 <input name="pid" type="hidden" value="{id}" />
                                 <input name="userId" type="hidden" value="{userId}" />
+                                <ul class="atUL" style="display: none;">
+                                    <li>
+                                        <p>{name}</p>
+                                    </li>
+                                </ul>
                             </form>
                         </div>
                     </div>

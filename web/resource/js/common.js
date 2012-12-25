@@ -1,5 +1,5 @@
 
-//输入框警告
+//渐变警告
 ;(function($){
     $.fn.showWaring = function(msg) {
         var target = $(this);
@@ -52,6 +52,7 @@
                 self.removeClass('fixedbar'); 
             }
         })
+        return self;
     }
     
     $.fn.getValueAndToObject = function(selector){
@@ -64,6 +65,32 @@
             }
         });
         return data;
+    }
+    
+    //将数据和模版绑定
+    //参数 data 【存放json对的array数据】
+    $.fn.ToHTML = function(data, def){
+        var target = $(this);
+        //console.log(target[0]);
+        //生成模版函数
+        var tempFunc = target[0]['tempFunc'] || (target[0]['tempFunc'] = (function(html){
+            html = html.replace(/([\'|\\])/gm,"\\$1")   //转义掉 \ 和 '
+                        .replace(new RegExp('{([^{}]*)}','gim'), "'+(typeof data[\"$1\"] != 'undefined' ? data[\"$1\"] : '')+'")  //转化为包括变量的字符串
+                        .replace(/[\n\r]/gm,'');    //去除回车换行
+            html = ["return '", html ,"';"].join('');
+            return new Function('data',html);
+        })(target.html()));
+
+        var html = (function(tempFunc, data, def){
+            var len = data.length;
+            if(len) {
+                for(var i = 0; i < len ; i++) {
+                    data[i] = tempFunc(data[i]);//通过模版函数生成html
+                }
+            } else data[0] = def || '';
+            return data.join('');
+        })(tempFunc, data, def)
+        return target.html(html);
     }
 })(jQuery);
 

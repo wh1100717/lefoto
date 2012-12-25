@@ -1,3 +1,4 @@
+var _CB;
 ;(function(){
     var doms = {};
     function tempToHTML(id, data, def){
@@ -45,8 +46,17 @@
 
     var iCur = -1;
     var leAToggle = 0;
+    
     //template
     var comment_temp = 'comment_temp';
+    
+    //@功能参数
+    
+    var iTimer;
+    var queue = 1;
+    var _cb = '_CB';
+    var atUrl = 'data/jsonpData.cshtml';
+    
     function loadComment(id,commentRange){ // 加载评论
         var list = commentRange.find('.list');
         list.empty();
@@ -212,18 +222,12 @@
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
         var target = $(this);
-        //var id = target.attr('rel');
-        //var pEle = target.closest('.leMid');
-        console.log(leAToggle);
         if(leAToggle){
             leAToggle = 0;
             doCancelPhotoLike(target);
-            //target.html(YES_UP);
         }else{
             leAToggle = 1;
-            //doDown(pEle);
             doAddPhotoLike(target);
-            //target.html(NO_UP);
         }
     }).delegate('.btn-addComment','click',function(){ //评论按钮被点击
         var target = $(this);
@@ -252,5 +256,37 @@
         comment['objectType'] = 1;
         comment['objectUserId'] = userId;
         doAddComment(comment, callback);
+    }).delegate('textarea','keyup',function() {
+        var target = $(this);
+        _CB = function(response){
+            var data = eval(response);
+            target.siblings('.atUL').ToHTML(data).show();
+        };
+        clearTimeout(iTimer);
+        iTimer = setTimeout(function(){ 
+            var atText = (function getAtText(input){
+                var REX = /(\b|\B)[^\s]+(\b|\B)/igm;
+                var match = REX.exec(input);
+                var lastMatch, atText, atIndex;
+                while(match) {
+                    lastMatch = match[0];
+                    match = REX.exec(input);
+                }
+                if(lastMatch && (atIndex = lastMatch.lastIndexOf('@')) > -1){
+                    atText = lastMatch.substring(atIndex + 1);
+                }
+                return atText;
+            })(target.val());
+            var param = atUrl + '?at='+atText+'&&callback=' + _cb + queue;
+            if(atText){
+                $('<script type="text/javascript">var '+_cb+queue+'='+_cb+';'+_cb+(queue - 1)+'=null;</script>').appendTo('body');
+                var callbackScript = document.createElement('script');
+                callbackScript.src = param;
+                document.body.appendChild(callbackScript);
+                queue++;
+            } else {
+                target.siblings('.atUL').hide();
+            }
+        },500);
     });
 })(jQuery);
