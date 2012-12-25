@@ -234,7 +234,7 @@ var _CB;
         var item = target.closest('.item');
         var commentTab = $('a.comment', item);
         var wrap = target.closest('.fwrap');
-        var list = wrap.find('.list');
+        var list = wrap.siblings('.list');
         var id = target.attr('rel');
         var userId = wrap.find('input[name=userId]').val()
         var textarea = wrap.find('textarea[name=content]');
@@ -243,13 +243,15 @@ var _CB;
         
         var comment = {};
         var callback = function(response){ //添加评论
-            if(response == 'success'){
-                textarea.val('');
-                list.append(tempToHTML(comment_temp, new Array(response)));
-                commentTab.html('<span>'+ (parseInt(commentTab.text())+1)+'</span>')
-            } else {
-                alert(response);
-            }
+            //if(response.data == 'success'){
+            var response = eval('('+response+')');
+            textarea.val('');
+            console.log(list);
+            list.append(tempToHTML(comment_temp, response.data));
+            commentTab.html('<span>'+ (parseInt(commentTab.text())+1)+'</span>');
+            //} else {
+            //    alert(response);
+            //}
         };
         comment['content'] = content;
         comment['objectId'] = id;
