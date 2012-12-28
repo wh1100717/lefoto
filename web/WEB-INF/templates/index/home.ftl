@@ -52,6 +52,11 @@
             a.icon { position:relative;}
             a.icon span { position:absolute; top:10px; right:90px; display:inline-block; font-size:16px; font-weight:800; color:#999; text-align:right;}
             
+            /*avatar*/
+            .lcol .iTop a.tx,.rcol .iTop a.tx { position:absolute;  }
+            .iTop a.tx img {border-radius: 5px;}
+            .lcol .iTop a.tx{  left:-90px; }
+            .rcol .iTop a.tx{  right:-90px;}
         </style>
         <script type="text/javascript">
             var user = {
@@ -123,12 +128,8 @@
             <div class="item" id="item_{id}">
                 <div style="padding-bottom:50px;">
                     <div class="iTop clearfix" style="position:relative;">
-                        <img width="36" height="36" src="http://imgf.lefoto.me{face}" />
-                        <p>{userName}</p>
+                        <a class="tx" title="{userName}"><img width="60" height="60" src="http://imgf.lefoto.me{face}" /></a>
                         <p>搞笑00000+10086</p>
-                        <a href="javascript:;" class="Es" style="z-index:999;">
-                            <span class="num">{commentCount}</span>
-                        </a>
                         <#if delete == 1>
                         <a style="z-index:999;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                         </#if>
@@ -216,7 +217,7 @@
                 id: 'wf',//瀑布流ID
                 url:'/index/getPhoto.html',//数据请求接口，返回json格式
                 size: 10,//每次请求要加载的数据条数
-                colWidth: 464,//列宽
+                colWidth: 450,//列宽
                 colAmount: 2,//列数
                 view:'view',
                 params: { //请求数据时可向服务器发送附带参数
@@ -224,6 +225,8 @@
                     type: $('input[name=type]').val()
                 }
             }).show();
+            $('#wf .col').eq(0).addClass('lcol');
+            $('#wf .col').eq(1).addClass('rcol');
             function weiboLogin(){
                 WB2.login(function(){
                     //callback function
