@@ -19,18 +19,19 @@ a { text-decoration: none;}
 
 .mside { width: 420px; margin: 0 auto;}
 .lside { padding: 3px; border: 1px #EEE solid; background-color: #FFF;}
-.mside ul li,.rside ul li { float: left;  text-align: center; height: 30px; line-height: 30px; padding: 5px 0; margin: -5px 0;}
-.mside ul li a,.rside ul li a { color: #EEE; display: block; width: 100%; height: 30px;}
-.mside ul li:hover,.rside ul li:hover,li.selected { background-color: #444;}
-.mside ul li:hover a,.rside ul li:hover a { color: #FFF;}
+.mside ul li,.rside > ul li { float: left;  text-align: center; height: 30px; line-height: 30px; padding: 5px 0; margin: -5px 0;}
+.mside ul li a,.rside > ul li a { color: #EEE; display: block; width: 100%; height: 30px;}
+.mside ul li:hover,.rside > ul li:hover,li.selected { background-color: #444;}
+.mside ul li:hover a,.rside > ul li:hover a { color: #FFF;}
 .mside ul li { width: 80px; }
-.rside ul li { width:40px;}
+.rside > ul li { width:40px; }
 .lside input { vertical-align: top; margin-right: -1px; float: left; border: 0 none; background-color: transparent; outline: none;}
 input.sbox { height: 22px; line-height: 22px; width: 180px; font-weight: 800;}
 input.sbtn { display: block; cursor: pointer; height: 28px; width: 36px; margin: -3px 0;}
 
-.navbarwrap { width: 100%; background-color: #333;}
-.navbar { position: relative; margin: 0 auto; padding: 5px 0; background-color: #333;}
+.navbarwrap,.navbar,.loginB { background-color: rgb(51,44,43)}
+.navbarwrap { width: 100%;}
+.navbar { position: relative; margin: 0 auto; padding: 5px 0;}
 
 /*waterfall start*/
 .waterFall { display: block; width: 960px; margin: 0 auto; margin-top: 30px; position: relative; }

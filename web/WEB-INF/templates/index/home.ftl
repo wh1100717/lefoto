@@ -57,6 +57,20 @@
             .iTop a.tx img {border-radius: 5px;}
             .lcol .iTop a.tx{  left:-90px; }
             .rcol .iTop a.tx{  right:-90px;}
+            
+            /*login*/
+            .login { position:absolute; z-index:1000; width:365px; background-color:#FFF; right:-20px; top:40px; border:rgb(51,44,43) solid; border-width:0 2px 2px 2px;}
+            .loginH { padding:10px 0 0 20px;}
+            .loginB { padding:7px;}
+            .loginB a { float:right; display:block; text-align:center; height:28px; width:60px; line-height:28px; background-color:#DDD; margin-left:5px;}
+            
+            .login ul li { margin-bottom:10px;}
+            .login li.li-last {height:22px;line-height:22px;}
+            .login li.li-last span { display:inline-block;  padding-left:16px; margin-right:30px; }
+            .login li.li-last a { color:#808080;}
+            .login li.li-last span input { margin-left:-14px; }
+            .loginH input.in { height:28px; padding-left:3px; border:1px #CCC solid; width:320px;}
+            .loginH p.desc { margin-bottom:7px; font-size:14px; font-weight:800;}
         </style>
         <script type="text/javascript">
             var user = {
@@ -89,9 +103,31 @@
                         <ul>
                             <li><a onclick="weiboLogin()"><img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"/></a></li>
 
-                            <li><a href="/login.html">登录</a></li>
+                            <li><a class="G" href="javascript:;">登录</a></li>
                             <li><a href="/register.html">注册</a></li>
                         </ul>
+                        <div class="login" style="display:none;">
+                            <div class="loginH">
+                                <ul>
+                                    <li>
+                                        <p class="desc">用户名或邮箱</p>
+                                        <input class="in" name="email" type="text" />
+                                    </li>
+                                    <li>
+                                        <p class="desc">密码</p>
+                                        <input class="in" name="email" type="text" />
+                                    </li>
+                                    <li class="li-last">
+                                        <span><input type="checkbox" checked="true" />自动登录</span>
+                                        <a href="">忘记密码？</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="loginB clearfix">                               
+                                <a href="">确定</a>
+                                <a class="cancel" href="javascript:;">取消</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="mside">
                         <ul>
@@ -131,7 +167,7 @@
                         <a class="tx" title="{userName}"><img width="60" height="60" src="http://imgf.lefoto.me{face}" /></a>
                         <p>搞笑00000+10086</p>
                         <#if delete == 1>
-                        <a style="z-index:999;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
+                        <a style="z-index:9;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                         </#if>
                     </div>
                     <div class="iMid" style="height:{height}px; position: relative;">

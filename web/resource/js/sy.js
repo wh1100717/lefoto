@@ -290,5 +290,16 @@ var _CB;
                 target.siblings('.atUL').hide();
             }
         },500);
+    }).delegate('.rside a.G','click',function(){
+        var target = $(this);
+        target.closest('.rside').find('.login').show();
+    }).delegate('.loginB a.cancel','click',function(){
+        var target = $(this);
+        target.closest('.rside').find('.login').hide();
     });
+    $('body').click(function(event){
+        if($(this).closest('.login').length == 0){
+            $('.login').hide();
+        }
+    })
 })(jQuery);
