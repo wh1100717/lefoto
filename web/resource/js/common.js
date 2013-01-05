@@ -3,8 +3,8 @@
 ;(function($){
     $.fn.showWaring = function(msg) {
         var target = $(this);
-        var targetW = target.outerWidth(),
-            targetH = target.outerHeight(),
+        var targetW = target.outerWidth(false),
+            targetH = target.outerHeight(false),
             targetTop = target.position().top,
             targetLeft = target.position().left;
         var waring;
@@ -13,8 +13,8 @@
             'position':'absolute',
             'top': targetTop + 'px',
             'left': targetLeft + 'px',
-            'width':(targetW - 0) + 'px',
-            'height': (targetH - 0) + 'px',
+            'width':targetW + 'px',
+            'height': targetH + 'px',
             'line-height': targetH + 'px',
             'text-align':'center',
             'opacity':'0',

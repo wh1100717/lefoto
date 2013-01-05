@@ -13,12 +13,13 @@
             .ibar { padding: 10px 0;}
             .ibar-a { display: block; font-size: 12px; color: #808080; background-color: #F2F0F0; padding: 3px 10px; border-radius: 3px; margin: 0 7px;}
             .comments { background-color: #FFF; border:1px #EEE solid; margin-top:20px;}
-            .list li { position: relative; padding: 7px 10px; height: 32px; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
-            .Li_p { margin-left: 36px;}
-            .fwrap { padding: 7px 10px; overflow: hidden;}
-            .fwrap > form { position: relative; overflow: hidden; }
-            .editor { resize: none; outline: none; width: 390px; border: 1px solid #DDD; height: 22px; padding: 3px; font-size: 12px; line-height: 1.5; background: whiteSmoke;}
-            .subbtn { display: block; background-color: #EEE; padding-left: 7px; width: 40px; position: absolute; right: 1px; top: 1px; height: 28px; line-height: 28px;}
+            .fwrap,.list .comLi { padding: 7px; }
+            .list .comLi { position: relative; border-bottom: 1px solid #EDEDED; background-color: #FAFAFA; }
+            
+            .fwrap { overflow: hidden;}
+            .fwrap .f { position: relative; overflow: hidden; height: 50px; }
+            .f .editor { float:right; font-family: "微软雅黑"; resize: none; outline: none; width: 288px; border: 1px solid #DDD; height: 40px; padding: 3px; padding-right:56px;  font-size: 12px; line-height: 1.5; background: whiteSmoke;}
+            .f a.subbtn { display: block; background-color: #EEE; padding-left: 7px; width: 46px; position: absolute; right: 1px; top: 1px; height: 46px; line-height: 46px;}
             /*hover action tabs*/
             .mask { display: block; position: absolute; z-index: -1; background-color: #000; filter:alpha(opacity=50); opacity: 0.5; width: 100%; height: 100%;}
             .tabsWrap { position: absolute; z-index: 999; bottom: 0px; left: 0; height: 0px; width: 420px;}
@@ -71,12 +72,21 @@
             .login li.li-last span input { margin-left:-14px; }
             .loginH input.in { height:28px; padding-left:3px; border:1px #CCC solid; width:320px;}
             .loginH p.desc { margin-bottom:7px; font-size:14px; font-weight:800;}
+            
+            
+            p.Li_p { margin-left: 40px; width:300px;font-weight:800; line-height:1.5;}
+            
+            li.comLi { position:relative;}
+            li.comLi .img36 { height:36px; width:36px;}
+            li.comLi .at { overflow:hidden; text-indent:-500px; display:none; position:absolute; top:9px; right:10px; height:36px; width:36px; background:url(${RESOURCE_DIR}/src/images/at.png) scroll 0 0 transparent no-repeat;}
+            li.comLi:hover .at { display:block;}
+            li.comLi .at:hover {background-image:url(${RESOURCE_DIR}/src/images/at_hover.png);}
         </style>
         <script type="text/javascript">
             var user = {
                 id:'${user.id}',
                 name:'${user.name}',
-                face:'${user.face}'
+                face:'http://imgf.lefoto.me/${user.face}'
             }
         </script>
     </head>  
@@ -152,11 +162,12 @@
         </div>
         <!--评论部分模板-->
         <script id="comment_temp" type="text/html">
-            <li>
+            <li class="comLi clearfix">
                 <a class="fl" href="">
-                    <img style="height:32px; width: 32px;" src="http://imgf.lefoto.me{userFace}" />
+                    <img class="img36" src="http://imgf.lefoto.me{userFace}" />
                 </a>
-                <p class="Li_p">{content}</p>
+                <p class="Li_p"><a class="un">{userName}</a>: {content}</p>
+                <a href="javascript:;" title="@Ta一下吧" class="at">{userName}</a>
             </li>
         </script>
         <!--瀑布流图片展示模板-->
@@ -214,8 +225,9 @@
                     <div class="comments" style="display:none;">
                         <ul class="list"></ul>
                         <div class="fwrap">
-                            <form>
-                                <textarea class="editor" name="content" ></textarea>
+                            <div class="f">
+                                <img style="height:48px; width:48px; position:absolute;" src="http://imgf.lefoto.me/${user.face}" />
+                                <textarea spellcheck="false" class="editor" name="content" ></textarea>
                                 <a rel="{id}" href="javascript:;" class="subbtn btn-addComment">评论</a>
                                 <input name="pid" type="hidden" value="{id}" />
                                 <input name="userId" type="hidden" value="{userId}" />
@@ -224,7 +236,7 @@
                                         <p>{name}</p>
                                     </li>
                                 </ul>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

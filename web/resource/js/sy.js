@@ -296,9 +296,14 @@ var _CB;
     }).delegate('.loginB a.cancel','click',function(){
         var target = $(this);
         target.closest('.rside').find('.login').hide();
+    }).delegate('.comLi a.at','click',function(){
+        var target = $(this);
+        var commentRange = target.closest('.comments');
+        var editor = commentRange.find('.editor');
+        editor.val(editor.val() + '@' + target.text());
     });
     $('body').click(function(event){
-        if($(this).closest('.login').length == 0){
+        if($(event.target).closest('.login').length == 0){
             $('.login').hide();
         }
     })
