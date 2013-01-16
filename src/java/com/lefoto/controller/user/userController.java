@@ -9,7 +9,6 @@ import com.lefoto.common.base.Const;
 import com.lefoto.common.cache.UserCache;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.content.CommentService;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +40,7 @@ public class userController extends BaseController {
         Map<String, LeUser> userMap = new HashMap<String, LeUser>();
         String content = this.getParaStringFromRequest("content");
         String commentUserIds = this.getParaStringFromRequest("commentUserIds");
+        String callback = this.getParaStringFromRequest("callback");
         LeUser ownUser = this.getRequestUser(request);
         LeUser user;
         if (commentUserIds != null && !commentUserIds.equals("")) {
@@ -54,32 +54,36 @@ public class userController extends BaseController {
             }
         }
         List<Integer> followingIds = UserCache.getFollowingsByUserId(ownUser.getId());
-        for (int followingId : followingIds) {
-            user = UserCache.getUserById(followingId);
-            if (user == null) {
-                continue;
-            }
-            userMap.put(user.getName(), user);
-        }
-        Set userNames = userMap.keySet();
-        JSONArray jsonArray = new JSONArray();
-        for (Iterator it = userNames.iterator(); it.hasNext();) {
-            String userName = (String) it.next();
-            if (userName.contains(content)) {
-                user = userMap.get(userName);
+        if (followingIds != null) {
+            for (int followingId : followingIds) {
+                user = UserCache.getUserById(followingId);
                 if (user == null) {
                     continue;
                 }
-                JSONObject tmpObject = new JSONObject()
-                        .element("userId", user.getId())
-                        .element("userName", user.getName())
-                        .element("face", user.getFace());
-                jsonArray.add(tmpObject);
+                userMap.put(user.getName(), user);
+            }
+        }
+        Set userNames = userMap.keySet();
+        JSONArray jsonArray = new JSONArray();
+        if (!userNames.isEmpty()) {
+            for (Iterator it = userNames.iterator(); it.hasNext();) {
+                String userName = (String) it.next();
+                if (userName.contains(content)) {
+                    user = userMap.get(userName);
+                    if (user == null) {
+                        continue;
+                    }
+                    JSONObject tmpObject = new JSONObject()
+                            .element("userId", user.getId())
+                            .element("userName", user.getName())
+                            .element("face", user.getFace());
+                    jsonArray.add(tmpObject);
+                }
             }
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("msg", Const.SUCCESS);
-        return jsonObject.toString();
+        return "window." + callback + "(" + jsonObject.toString() + ")";
     }
 }
