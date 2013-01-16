@@ -55,7 +55,7 @@ var _CB;
     var iTimer;
     var queue = 1;
     var _cb = '_CB';
-    var atUrl = 'data/jsonpData.cshtml';
+    var atUrl = '/user/searchAtUsers.html';
     
     function loadComment(id,commentRange){ // 加载评论
         var list = commentRange.find('.list');
@@ -279,7 +279,7 @@ var _CB;
                 }
                 return atText;
             })(target.val());
-            var param = atUrl + '?at='+atText+'&&callback=' + _cb + queue;
+            var param = atUrl + '?content='+atText+'&callback=' + _cb + queue;
             if(atText){
                 $('<script type="text/javascript">var '+_cb+queue+'='+_cb+';'+_cb+(queue - 1)+'=null;</script>').appendTo('body');
                 var callbackScript = document.createElement('script');
