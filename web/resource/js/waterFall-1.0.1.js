@@ -18,7 +18,7 @@ function getElementByClassName(tag, className) {
 function imgShow(imgEle) {
     $(imgEle).animate({ 'opacity': '1' }, 500);
 }
-(function($){
+;(function($){
 function waterFall(options) {
     var _options = waterFall.prototype.options;
     for(var n in _options) { //初始化瀑布流参数
@@ -33,9 +33,6 @@ function waterFall(options) {
     this.init();
 }
 waterFall.prototype = {
-    url: undefined,
-    startIndex: 0,
-    size: 10, //每次请求返回的数据量
     options: { //默认瀑布流配置参数
         id: '',
         url: '',
@@ -52,10 +49,9 @@ waterFall.prototype = {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
             offsetTop = document.getElementById('detectDiv').offsetTop,
             H = window.innerHeight || document.documentElement.clientHeight;   
-            if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= H) {
+            if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= 2*H) {
                 this.getData();
-            } else {
-                //console.log(this.loadFinish);
+                //console.log((offsetTop - scrollTop) + 'start loading data' + 2*H);
             }
     },
     //滚动监听
