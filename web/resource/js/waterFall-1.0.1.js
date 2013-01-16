@@ -9,10 +9,10 @@ function getElementByClassName(tag, className) {
     var tags = document.getElementsByTagName(tag);
     var reg = new RegExp("\\b" + className + "\\b") 
     for(var i=0; i<tags.length; i++) {
-		if(reg.test(tags[i].className)) {
-		    eles.push(tags[i]);
-		}
-	}
+        if(reg.test(tags[i].className)) {
+            eles.push(tags[i]);
+        }
+    }
     return eles;
 }
 function imgShow(imgEle) {
@@ -51,7 +51,6 @@ waterFall.prototype = {
             H = window.innerHeight || document.documentElement.clientHeight;   
             if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= 2*H) {
                 this.getData();
-                //console.log((offsetTop - scrollTop) + 'start loading data' + 2*H);
             }
     },
     //滚动监听
