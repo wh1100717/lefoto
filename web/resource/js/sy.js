@@ -41,7 +41,7 @@ var _CB;
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
     var addCommentUrl = '/comment/addComment.html';//添加评论
     var loadCommentUrl = '/comment/getLimitComments.html';//获取评论
-    
+    var loginUrl = '/login/';
     var OBJ_IMG = 1;
 
     var iCur = -1;
@@ -296,6 +296,20 @@ var _CB;
     }).delegate('.loginB a.cancel','click',function(){
         var target = $(this);
         target.closest('.rside').find('.login').hide();
+    }).delegate('.loginB a.btn-ok','click',function(){
+        var target = $(this);
+        var data = $('#_lf').getValueAndToObject('input');
+        if(!target.hasClass('dealing')){
+            target.addClass('dealing').html('正在登录...');
+            $.post(loginUrl,data, function(response){
+                var result = eval('(' + response + ')');//注：返回数据类型json，例如{'state':'error','msg':'账户或密码错误'}
+                if(result.state != 'SUCCESS'){
+                    target.removeClass('dealing').html('确定');
+                } else {
+                    target.siblings('a.cancel').click();
+                }
+            });
+        }
     }).delegate('.comLi a.at','click',function(){
         var target = $(this);
         var commentRange = target.closest('.comments');
@@ -306,5 +320,5 @@ var _CB;
         if($(event.target).closest('.login').length == 0){
             $('.login').hide();
         }
-    })
+    });
 })(jQuery);

@@ -63,7 +63,8 @@
             .login { position:absolute; z-index:1000; width:365px; background-color:#FFF; right:-20px; top:40px; border:rgb(51,44,43) solid; border-width:0 2px 2px 2px;}
             .loginH { padding:10px 0 0 20px;}
             .loginB { padding:7px;}
-            .loginB a { float:right; display:block; text-align:center; height:28px; width:60px; line-height:28px; background-color:#DDD; margin-left:5px;}
+            .loginB a { float:right; display:block; height:28px; padding:0 15px; line-height:28px; background-color:#DDD; margin-left:5px;}
+            .loginB a.dealing { background-color:#808080; color:#CCCCCC; cursor:default;}
             
             .login ul li { margin-bottom:10px;}
             .login li.li-last {height:22px;line-height:22px;}
@@ -81,11 +82,15 @@
             li.comLi .at { overflow:hidden; text-indent:-500px; display:none; position:absolute; top:9px; right:10px; height:36px; width:36px; background:url(${RESOURCE_DIR}/src/images/at.png) scroll 0 0 transparent no-repeat;}
             li.comLi:hover .at { display:block;}
             li.comLi .at:hover {background-image:url(${RESOURCE_DIR}/src/images/at_hover.png);}
+            
+            
+            /*has login*/
+            .rside a.tx { display:block; margin-right:20px;}
         </style>
         <script type="text/javascript">
             var user = {
                 id:'${user.id}',
-                name:'${user.name}',
+                name:'${user.userName}',
                 face:'http://imgf.lefoto.me/${user.face}'
             }
         </script>
@@ -110,6 +115,7 @@
                         </form>
                     </div>
                     <div class="rside fr">
+                        <#if user == null>
                         <ul>
                             <li><a onclick="weiboLogin()"><img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"/></a></li>
 
@@ -117,39 +123,58 @@
                             <li><a href="/register.html">注册</a></li>
                         </ul>
                         <div class="login" style="display:none;">
-                            <div class="loginH">
-                                <ul>
-                                    <li>
-                                        <p class="desc">用户名或邮箱</p>
-                                        <input class="in" name="email" type="text" />
-                                    </li>
-                                    <li>
-                                        <p class="desc">密码</p>
-                                        <input class="in" name="email" type="text" />
-                                    </li>
-                                    <li class="li-last">
-                                        <span><input type="checkbox" checked="true" />自动登录</span>
-                                        <a href="">忘记密码？</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="loginB clearfix">                               
-                                <a href="">确定</a>
-                                <a class="cancel" href="javascript:;">取消</a>
-                            </div>
+                            <form id="_lf">
+                                <div class="loginH">
+                                    <ul>
+                                        <li>
+                                            <p class="desc">用户名或邮箱</p>
+                                            <input class="in noime" name="email" type="text" />
+                                        </li>
+                                        <li>
+                                            <p class="desc">密码</p>
+                                            <input class="in noime" name="p" type="password" />
+                                        </li>
+                                        <li class="li-last">
+                                            <span><input name="auto" type="checkbox" checked="true" />自动登录</span>
+                                            <a href="">忘记密码？</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="loginB clearfix">
+                                    <a href="javascript:;" class="btn-ok">确定</a>
+                                    <a class="cancel" href="javascript:;">取消</a>
+                                </div>
+                            </form>
                         </div>
+                        <#else>
+                        <a href="javascript:;" class="tx"><img style="height:24px; width:24px;" src="http://imgf.lefoto.me/${user.face}" /></a>
+                        <div class="info hide">
+                            <h3>
+                                <a href="javascript:;">
+                                    <img style="height:48px; width:48px;" src="http://imgf.lefoto.me/${user.face}" />
+                                    <span>${uesr.name}</span>
+                                </a>
+                            </h3>
+                            <ul>
+                                <li><a href="javascript:;">个人主页</a></li>
+                                <li><a href="javascript:;">设置</a></li>
+                                <li class="line"></li>
+                                <li><a href="javascript:;">退出</a></li>
+                            </ul>
+                        </div>
+                        </#if>
                     </div>
                     <div class="mside">
                         <ul>
-                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&&type=2">搞笑</a></li>
-                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2&&type=2">萌宠</a></li>
-                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&&type=2">童真</a></li>
-                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&&type=2">美女</a></li>
+                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&type=2">搞笑</a></li>
+                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2&type=2">萌宠</a></li>
+                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&type=2">童真</a></li>
+                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&type=2">美女</a></li>
                             <li class="isList">
-                                <a href="/index.html?cateId=${cateId}&&type=2">随便看看</a>
+                                <a href="/index.html?cateId=${cateId}&type=2">随便看看</a>
                                 <ul style="display:none;">
-                                    <li><a href="/index.html?cateId=${cateId}&&type=0">最新图片</a></li>
-                                    <li><a href="/index.html?cateId=${cateId}&&type=1">最热图片</a></li>
+                                    <li><a href="/index.html?cateId=${cateId}&type=0">最新图片</a></li>
+                                    <li><a href="/index.html?cateId=${cateId}&type=1">最热图片</a></li>
                                 </ul>
                             </li>
                         </ul>
