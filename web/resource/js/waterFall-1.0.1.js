@@ -47,9 +47,9 @@ waterFall.prototype = {
     //加载数据前检测是否能继续加载数据
     loadDetect: function() {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
-            offsetTop = document.getElementById('detectDiv').offsetTop,
-            H = window.innerHeight || document.documentElement.clientHeight;   
-            if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= 2*H) {
+            //offsetTop = document.getElementById('detectDiv').offsetTop,
+            H = window.innerHeight || document.documentElement.clientHeight; 
+            if(!this.loadFinish && !this.isLoading && this.minColHeight - scrollTop <= 2*H) {
                 this.getData();
             }
     },
@@ -88,6 +88,8 @@ waterFall.prototype = {
             //添加到高度最小的那一列
             this.minHeightColumn2().append(itemHtml);
         }
+        this.minColHeight = this.minHeightColumn2().height();
+        console.log(this.minColHeight);
         return this;
     },
     //向服务器请求数据
