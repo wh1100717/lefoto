@@ -47,9 +47,9 @@ waterFall.prototype = {
     //加载数据前检测是否能继续加载数据
     loadDetect: function() {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
-            //offsetTop = document.getElementById('detectDiv').offsetTop,
-            H = window.innerHeight || document.documentElement.clientHeight; 
-            if(!this.loadFinish && !this.isLoading && this.minColHeight - scrollTop <= 2*H) {
+            offsetTop = $('.lcol').height() < $('.rcol').height() ? $('.lcol').height() : $('.rcol').height(),
+            H = window.innerHeight || document.documentElement.clientHeight;   
+            if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= 3*H) {
                 this.getData();
             }
     },
