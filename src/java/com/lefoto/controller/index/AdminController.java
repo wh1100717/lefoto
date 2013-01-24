@@ -18,19 +18,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Eric
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private LoadInfoServlet loadInfoServlet;
 
-    @RequestMapping(value = "/admin/synPhotoCache")
+    @RequestMapping(value = "/synPhotoCache")
     public @ResponseBody
     String synPhotoCache(HttpServletRequest request) throws IOException {
         loadInfoServlet.photoCacheInit();
         return Const.SUCCESS;
     }
 
-    @RequestMapping(value = "/admin/synUserCache")
+    @RequestMapping(value = "/synUserCache")
     public @ResponseBody
     String synUserCache(HttpServletRequest request) throws IOException {
         loadInfoServlet.userCacheInit();

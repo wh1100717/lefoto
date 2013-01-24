@@ -11,7 +11,7 @@ public class Const {
     public static final int MAX_PHOTO_CACHE_RECORDS = 20000;
     
     //Resource
-    public static final String RESOURCE_DIR = "";
+    public static final String RESOURCE_DIR = "http://src.lefoto.me";
     
     //Request
     public static final String SESSION_ID = "sessionId";

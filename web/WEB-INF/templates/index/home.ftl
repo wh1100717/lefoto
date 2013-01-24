@@ -172,7 +172,7 @@
                             <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&type=2">搞笑</a></li>
                             <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&type=2">童真</a></li>
                             <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&type=2">美女</a></li>
-                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=5&type=2">漫画</a></li>
+                            <li <#if cateId == 5>class="selected"</#if>><a href="/index.html?cateId=5&type=2">漫画</a></li>
                             <li class="isList">
                                 <a href="/index.html?cateId=${cateId}&type=2">随便看看</a>
                                 <ul style="display:none;">
@@ -211,7 +211,7 @@
                 </div>
                 <div class="iMid" style="height:{height}px; position: relative;">
                     <a class="img" href="#" style="height:{height}px; display:block;">
-                        <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img.lefoto.me{url}" onload="imgShow(this);" />
+                        <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img{url_tag}.lefoto.me{url}" onload="imgShow(this);" />
                     </a>
                     <div class="leMid" style="display:none;">
                         <a rel="{id}" data-up="{up}" class="leA"></a>
@@ -270,7 +270,7 @@
             </div>
         </div>
     </script>
-    <script src="${RESOURCE_DIR}/src/js/waterFall-1.0.1.js?v=0.0.0.1" type="text/javascript"></script>
+    <script src="${RESOURCE_DIR}/src/js/waterFall-1.0.1.js?v=0.0.0.2" type="text/javascript"></script>
     <script src="${RESOURCE_DIR}/src/js/sy.js?v=0.0.0.1" type="text/javascript"></script>
     <script type="text/javascript">
         function deleteImg(id){
@@ -291,7 +291,7 @@
         $('#navbar').scrollFix();
         new waterFall({
             id: 'wf',//瀑布流ID
-            url:'/index/getPhoto.html',//数据请求接口，返回json格式
+            url:'/photo/getPhotos.html',//数据请求接口，返回json格式
             size: 10,//每次请求要加载的数据条数
             colWidth: 450,//列宽
             colAmount: 2,//列数
