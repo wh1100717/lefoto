@@ -47,9 +47,9 @@ waterFall.prototype = {
     //加载数据前检测是否能继续加载数据
     loadDetect: function() {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
-            offsetTop = $('.lcol').height() < $('.rcol').height() ? $('.lcol').height() : $('.rcol').height(),
-            H = window.innerHeight || document.documentElement.clientHeight;   
-            if(!this.loadFinish && !this.isLoading && offsetTop - scrollTop <= 3*H) {
+            //offsetTop = document.getElementById('detectDiv').offsetTop,
+            H = window.innerHeight || document.documentElement.clientHeight; 
+            if(!this.loadFinish && !this.isLoading && this.minColHeight - scrollTop <= 2*H) {
                 this.getData();
             }
     },
@@ -130,7 +130,8 @@ waterFall.prototype = {
         var id = this.id,
             colWidth = this.colWidth,
             colAmount = this.colAmount;
-        var detectDiv = '<div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加载...</span></div>';
+        var detectDiv = '<div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加
+载...</span></div>';
         var contentHtml = this.createCols(colAmount) + detectDiv;
         var wf_wrap = $('#'+ id);
         var colCss = {
