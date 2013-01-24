@@ -12,12 +12,17 @@ import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
 import com.lefoto.service.iface.user.UserService;
+import com.sun.media.jai.codec.SeekableStream;
+import java.awt.color.CMMException;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import javax.imageio.ImageIO;
+import javax.media.jai.JAI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,16 +65,30 @@ public class photoPopulize {
                     upYunPath = UpYunUtil.upload(file);
                     count = 5;
                 } catch (Exception e) {
+                    System.err.println("上传至又拍云出错" + count + "次");
                     count++;
                 }
             }
             if (upYunPath == null || upYunPath.equals("")) {
+                System.err.println("上传又拍云出错");
+                index++;
                 continue;
             }
-            System.out.println("上传图片" + index + ":" + file.getName());
-            BufferedImage bufferedImage = ImageIO.read(file);
+            System.out.println("上传图片" + index + " : " + file.getName());
+            BufferedImage bufferedImage;
+            try {
+                // We try it with ImageIO
+                bufferedImage =  ImageIO.read(file);
+            } catch (CMMException ex) {
+                // If we failed...
+                // We reset the inputStream (start from the beginning)
+                InputStream is = new FileInputStream(file);
+                // And use JAI
+                bufferedImage =  JAI.create("stream", SeekableStream.wrapInputStream(is, true)).getAsBufferedImage();
+            }
+
             LePhoto photo = new LePhoto();
-            photo.setCategoryId(4);
+            photo.setCategoryId(2);
             photo.setName(file.getName());
             photo.setUrl(upYunPath);
             photo.setUserId(user.getId());
@@ -86,6 +105,7 @@ public class photoPopulize {
                     photoService.addPhoto(photo);
                     count = 5;
                 } catch (Exception e) {
+                    System.err.println("写入数据库出错" + count + "次");
                     count++;
                 }
             }
@@ -95,6 +115,7 @@ public class photoPopulize {
                     FileUtil.Move(file, desPath);
                     count = 5;
                 } catch (Exception e) {
+                    System.err.println("文件移动出错" + count + "次");
                     count++;
                 }
             }

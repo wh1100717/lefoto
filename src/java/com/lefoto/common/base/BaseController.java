@@ -53,6 +53,22 @@ public abstract class BaseController {
         return Integer.parseInt(result);
     }
 
+        public int getParaIntFromRequestCheckZero(String paraName) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        Map<String, String[]> paramMap = request.getParameterMap();
+        if (paramMap == null) {
+            return -1;
+        }
+        if (paramMap.get(paraName) == null) {
+            return -1;
+        }
+        String result = paramMap.get(paraName)[0];
+        if (result == null || result.equals("")) {
+            return -1;
+        }
+        return Integer.parseInt(result);
+    }
+    
     public BaseController() {
         this.formatUtil = new FormatUtil();
     }

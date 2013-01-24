@@ -8,10 +8,10 @@ public class Const {
     public static final String MESSAGE = "message";
     
     //Cache
-    public static final int MAX_PHOTO_CACHE_RECORDS = 10000;
+    public static final int MAX_PHOTO_CACHE_RECORDS = 20000;
     
     //Resource
-    public static final String RESOURCE_DIR = "";
+    public static final String RESOURCE_DIR = "http://src.lefoto.me";
     
     //Request
     public static final String SESSION_ID = "sessionId";
@@ -28,5 +28,5 @@ public class Const {
     public static String DEFAULT_USER_NAME_PATH = "D:/NBWS/lefoto/web/WEB-INF/userName.xml";
     public static String DEFAULT_USER_FACE_PATH = "D:/imgGrab/populize/face";
     public static int DEFAULT_USER_NAME_LINES = 7930;
-    public static String PHOTO_POPULIZE_PATH = "D:/imgGrab/populize/beauty/Todo";
+    public static String PHOTO_POPULIZE_PATH = "D:/imgGrab/populize/pet";
 }

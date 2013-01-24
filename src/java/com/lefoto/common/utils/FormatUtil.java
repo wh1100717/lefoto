@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class FormatUtil {
 
-    public String trimAll(String input) {
+    static public String trimAll(String input) {
         String dest = "";
         if (input != null) {
             Pattern p = Pattern.compile("\\s*|\t|\r|\n");
@@ -33,8 +33,18 @@ public class FormatUtil {
          */
     }
 
-    public boolean checkEmailFormat(String email) {
-        email = this.trimAll(email);
+    static public int getUrlTag(String url) {
+        int checkChar = 1;
+        char[] charSet = url.toCharArray();
+        int length = charSet.length;
+        if (length >= 6) {
+            checkChar = charSet[length - 6];
+        }
+        return checkChar % 3 + 1;
+    }
+
+    static public boolean checkEmailFormat(String email) {
+        email = trimAll(email);
         String regex = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
@@ -42,15 +52,15 @@ public class FormatUtil {
         return result;
     }
 
-    public String checkPasswordFormat(String password, String passconf) {
+    static public String checkPasswordFormat(String password, String passconf) {
         //如果password和passconf不相同，则返回两次输入的密码不一致
-        if(!password.trim().equals(passconf.trim())){
+        if (!password.trim().equals(passconf.trim())) {
             return "passconfError";
         }
         //简单判断用户密码是否大于六位
-        if(password.length()>=6){
+        if (password.length() >= 6) {
             return "right";
-        }else{
+        } else {
             return "lengthError";
         }
     }

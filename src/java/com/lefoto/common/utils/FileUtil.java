@@ -15,6 +15,9 @@ public class FileUtil {
     public static boolean Move(File srcFile, String destPath) {
         // Destination directory
         File dir = new File(destPath);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
 
         // Move file to new directory
         boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
