@@ -17,9 +17,9 @@ import java.util.List;
  * @author Eric
  */
 public class PhotoCache {
-    //1代表搞笑 | 2代表萌宠 | 3代表童真 | 4代表美女
+    //1代表搞笑 | 2代表萌宠 | 3代表童真 | 4代表美女 | 5代表漫画
 
-    static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(5);
+    static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(6);
     static List<LePhotoUp> photoUpList = new ArrayList<LePhotoUp>();
 
     static public String initPhotoList(PhotoService photoService) {
@@ -28,6 +28,7 @@ public class PhotoCache {
         photoList.add(photoService.getPhotosByAdmin(2, Const.MAX_PHOTO_CACHE_RECORDS));
         photoList.add(photoService.getPhotosByAdmin(3, Const.MAX_PHOTO_CACHE_RECORDS));
         photoList.add(photoService.getPhotosByAdmin(4, Const.MAX_PHOTO_CACHE_RECORDS));
+        photoList.add(photoService.getPhotosByAdmin(5, Const.MAX_PHOTO_CACHE_RECORDS));
         photoUpList = photoService.getAllPhotoUps();
         return Const.SUCCESS;
     }

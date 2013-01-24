@@ -44,9 +44,9 @@ public class IndexController extends BaseController {
         ModelAndView mv = new ModelAndView("/index/home");
         LeUser homeUser = this.getRequestUser(request);
         int cateId = this.getParaIntFromRequest("cateId");
-        int type = this.getParaIntFromRequest("type");
-        cateId = cateId == 0 ? 1 : cateId;
-        type = type == 0 ? 0 : type;
+        int type = this.getParaIntFromRequestCheckZero("type");
+        cateId = cateId == 0 ? 2 : cateId;
+        type = type == -1 ? 2 : type;
         if (homeUser != null && homeUser.getEmail().equals("admin@lefoto.me")) {
             mv.addObject("delete", 1);
         }
@@ -71,7 +71,6 @@ public class IndexController extends BaseController {
         if (!AuthenUtil.userAgentAuthen(request.getHeader("User-Agent"))) {
             return "invalid request";
         }
-
 
         int cateId = this.getParaIntFromRequest("cateId");
         int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
