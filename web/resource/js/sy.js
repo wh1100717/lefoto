@@ -41,7 +41,7 @@ var _CB;
     var cancelPhotoLikeUrl = '/photo/cancelUpPhoto.html';//取消喜欢
     var addCommentUrl = '/comment/addComment.html';//添加评论
     var loadCommentUrl = '/comment/getLimitComments.html';//获取评论
-    var loginUrl = '/login/';
+    var loginUrl = 'login/submit.html';
     var OBJ_IMG = 1;
 
     var iCur = -1;

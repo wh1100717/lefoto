@@ -130,8 +130,7 @@ waterFall.prototype = {
         var id = this.id,
             colWidth = this.colWidth,
             colAmount = this.colAmount;
-        var detectDiv = '<div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加
-载...</span></div>';
+        var detectDiv = '<div id="detectDiv" class="detectDiv"><span class="loading">正在很费力的加载...</span></div>';
         var contentHtml = this.createCols(colAmount) + detectDiv;
         var wf_wrap = $('#'+ id);
         var colCss = {

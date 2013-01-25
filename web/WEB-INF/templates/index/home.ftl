@@ -134,7 +134,7 @@
                                         </li>
                                         <li>
                                             <p class="desc">密码</p>
-                                            <input class="in noime" name="p" type="password" />
+                                            <input class="in noime" name="password" type="password" />
                                         </li>
                                         <li class="li-last">
                                             <span><input name="auto" type="checkbox" checked="true" />自动登录</span>
