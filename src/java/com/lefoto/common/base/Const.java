@@ -8,6 +8,10 @@ public class Const {
     public static final String MESSAGE = "message";
     public static final String STATUS = "status";
     
+    //Default
+    public static final int DEFAULT_CATEGORY_ID = 2;
+    public static final int DEFAULT_BROWSE_TYPE = 2;
+    
     //Cache
     public static final int MAX_PHOTO_CACHE_RECORDS = 20000;
     

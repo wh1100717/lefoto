@@ -5,6 +5,7 @@
 package com.lefoto.controller.index;
 
 import com.lefoto.common.base.BaseController;
+import com.lefoto.common.base.Const;
 import com.lefoto.model.user.LeUser;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,9 @@ public class IndexController extends BaseController {
         ModelAndView mv = new ModelAndView("/index/home");
         LeUser homeUser = this.getRequestUser(request);
         int cateId = this.getParaIntFromRequest("cateId");
-        int type = this.getParaIntFromRequestCheckZero("type");
-        cateId = cateId == 0 ? 2 : cateId;
-        type = type == -1 ? 2 : type;
+        int type = this.getParaIntFromRequest("type");
+        cateId = cateId == -1 ? Const.DEFAULT_CATEGORY_ID : cateId;
+        type = type == -1 ? Const.DEFAULT_BROWSE_TYPE : type;
         if (homeUser != null && homeUser.getEmail().equals("admin@lefoto.me")) {
             mv.addObject("delete", 1);
         }

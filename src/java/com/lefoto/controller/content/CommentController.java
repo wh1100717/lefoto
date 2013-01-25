@@ -12,7 +12,6 @@ import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.content.CommentService;
 import com.lefoto.service.iface.media.PhotoService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,18 +46,47 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/addComment")
     public @ResponseBody
     String addComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //请求参数
+        JSONObject jsonObject = new JSONObject();
+
+        //获取用户
+        LeUser user = this.getRequestUser(request);
+        if (user == null) {
+            //用户未登录
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "用户未登录");
+            return jsonObject.toString();
+        }
 
         //评论内容
         String content = this.getParaStringFromRequest("content");
+
         //所评论的对象Id
         int objectId = this.getParaIntFromRequest("objectId");
+        if (objectId == -1) {
+            //ObjectId错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象ID");
+            return jsonObject.toString();
+        }
+
         //所评论的对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
+        if (objectType == -1) {
+            //ObjectType错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象类型");
+            return jsonObject.toString();
+
+        }
+
         //发表该对象的用户Id
         int objectUserId = this.getParaIntFromRequest("objectUserId");
-
-        LeUser user = this.getRequestUser(request);
+        if (objectType == -1) {
+            //objectUserId
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取该对象拥有者ID");
+            return jsonObject.toString();
+        }
 
         LeComment comment = new LeComment();
         comment.setUserId(user.getId());
@@ -88,8 +116,6 @@ public class CommentController extends BaseController {
                 .element("channel", comment.getChannel());
         jsonArray.add(tmpObject);
 
-
-        JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", 1);
         return jsonObject.toString();
@@ -108,10 +134,12 @@ public class CommentController extends BaseController {
     public @ResponseBody
     String deleteComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LeUser user = this.getRequestUser(request);
-        if (user == null) {
+        int commentId = this.getParaIntFromRequest("commentId");
+
+        if (user == null || commentId == -1) {
             return Const.FAILURE;
         }
-        int commentId = this.getParaIntFromRequest("commentId");
+
         LeComment comment = commentService.findCommentById(commentId);
         int objectUserId = comment.getObjectUserId();
         int userId = comment.getUserId();
@@ -134,10 +162,26 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/getLimitComments")
     public @ResponseBody
     String getLimitComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
+        if (objectId == -1) {
+            //ObjectId错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象ID");
+            return jsonObject.toString();
+        }
+
         //对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
+        if (objectType == -1) {
+            //ObjectType错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象类型");
+            return jsonObject.toString();
+
+        }
 
         List<LeComment> comments = commentService.getComments(objectType, objectId);
         int totalSize;
@@ -183,7 +227,6 @@ public class CommentController extends BaseController {
             }
         }
 
-        JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", totalSize);
         return jsonObject.toString();
@@ -200,10 +243,25 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/getAllComments")
     public @ResponseBody
     String getAllComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
+        if (objectId == -1) {
+            //ObjectId错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象ID");
+            return jsonObject.toString();
+        }
+
         //对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
+        if (objectType == -1) {
+            //ObjectType错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象类型");
+            return jsonObject.toString();
+        }
 
         List<LeComment> comments = commentService.getComments(objectType, objectId);
 
@@ -227,7 +285,6 @@ public class CommentController extends BaseController {
                     .element("channel", comment.getChannel());
             jsonArray.add(tmpObject);
         }
-        JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", totalSize);
         return jsonObject.toString();
@@ -244,23 +301,36 @@ public class CommentController extends BaseController {
     @RequestMapping(value = "/getMoreComments")
     public @ResponseBody
     String getMoreComments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+
         //对象ID,如果ObjectType为1，表示photoId
         int objectId = this.getParaIntFromRequest("objectId");
+        if (objectId == -1) {
+            //ObjectId错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象ID");
+            return jsonObject.toString();
+        }
+
         //对象类型，1表示图片
         int objectType = this.getParaIntFromRequest("objectType");
+        if (objectType == -1) {
+            //ObjectType错误
+            jsonObject.put(Const.STATUS, Const.FAILURE);
+            jsonObject.put(Const.MESSAGE, "未获取对象类型");
+            return jsonObject.toString();
+        }
+
         //最后一条评论Id，类似于getPhoto中的lastPhotoId
         int lastCommentId = this.getParaIntFromRequest("lastCommentId");
         //一次要获取的评论数量，如果size为0，则表示获取全部剩余评论
         int size = this.getParaIntFromRequest("size");
+        lastCommentId = lastCommentId == -1 ? 0 : lastCommentId;
+        size = size == -1 ? 10 : size;
 
         List<LeComment> comments = commentService.getCommentsAjax(objectType, objectId, lastCommentId, size);
 
-        int totalSize;
-        if (comments == null) {
-            totalSize = 0;
-        } else {
-            totalSize = comments.size();
-        }
+        int totalSize = comments == null ? 0 : comments.size();
 
         JSONArray jsonArray = new JSONArray();
         LeComment comment;
@@ -276,7 +346,6 @@ public class CommentController extends BaseController {
                     .element("channel", comment.getChannel());
             jsonArray.add(tmpObject);
         }
-        JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", jsonArray);
         jsonObject.put("size", totalSize);
         return jsonObject.toString();

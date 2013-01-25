@@ -30,9 +30,13 @@ public class AlbumController extends BaseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addAlbum(HttpServletRequest request) throws Exception {
         LeUser user = this.getRequestUser(request);
+        if (user == null) {
+            return Const.FAILURE;
+        }
         String albumName = this.getParaStringFromRequest("albumName");
         String description = this.getParaStringFromRequest("description");
         int cateId = this.getParaIntFromRequest("cateId");
+        cateId = cateId == -1 ? Const.DEFAULT_CATEGORY_ID : cateId;
         LeAlbum album = albumService.findUserAlbumByName(albumName, user.getId());
         if (album != null) {
             return Const.FAILURE;

@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -46,9 +47,8 @@ public class PhotoController extends BaseController {
     public ModelAndView show(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/photo/detail");
         int photoId = this.getParaIntFromRequest("photoId");
-        LeUser user = this.getRequestUser(request);
-        if (user != null) {
-            mv.addObject("user", user);
+        if (photoId == -1) {
+            return new ModelAndView(new RedirectView("/index.html"));
         }
         LePhoto photo = photoService.findPhotoById(photoId);
         List<LeComment> comments = commentService.getCommentsAjax(0, photo.getId(), 0, 20);
@@ -77,6 +77,11 @@ public class PhotoController extends BaseController {
         int type = this.getParaIntFromRequest("type");
 //        List photos = photoService.getPhotos(cateId, lastPhotoId, size, type);
 
+        cateId = cateId == -1 ? Const.DEFAULT_CATEGORY_ID : cateId;
+        lastPhotoId = lastPhotoId == -1 ? 0 : lastPhotoId;
+        size = size == -1 ? 10 : size;
+        type = type == -1 ? Const.DEFAULT_BROWSE_TYPE : type;
+
         List photos = PhotoCache.getPhotos(cateId, lastPhotoId, size, type);
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -100,7 +105,7 @@ public class PhotoController extends BaseController {
                     .element("id", photo.getId())
                     .element("url", photo.getUrl() + "!420")
                     .element("description", photo.getDescription())
-                    .element("downCount", photo.getDownCount() == 0 ? "":photo.getDownCount())
+                    .element("downCount", photo.getDownCount() == 0 ? "" : photo.getDownCount())
                     .element("upCount", photo.getUpCount() == 0 ? "" : photo.getUpCount())
                     .element("forwardCount", photo.getForwardCount() == 0 ? "" : photo.getForwardCount())
                     .element("commentCount", photo.getCommentCount() == 0 ? "" : photo.getCommentCount())
@@ -119,7 +124,7 @@ public class PhotoController extends BaseController {
         jsonObject.put("data", jsonArray);
         return jsonObject.toString();
     }
-    
+
     @RequestMapping(value = "/deletePhotoByAdmin")
     public @ResponseBody
     String deletePhotoByAdmin(HttpServletRequest request) {
@@ -129,6 +134,9 @@ public class PhotoController extends BaseController {
         }
         int photoId = this.getParaIntFromRequest("photoId");
         int cateId = this.getParaIntFromRequest("cateId");
+        if (photoId == -1 || cateId == -1) {
+            return Const.FAILURE;
+        }
         try {
             //从数据库和缓存中删除图片
             LePhoto photo = PhotoCache.getPhotoById(photoId, cateId);
@@ -146,6 +154,9 @@ public class PhotoController extends BaseController {
     String deletePhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
+        if (user == null || photoId == -1) {
+            return Const.FAILURE;
+        }
         LePhoto photo = photoService.findPhotoById(photoId);
         if (photo == null) {
             return Const.FAILURE;
@@ -162,6 +173,9 @@ public class PhotoController extends BaseController {
     String upPhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
+        if (user == null || photoId == -1) {
+            return Const.FAILURE;
+        }
         photoService.upPhoto(photoId, user.getId());
         return Const.SUCCESS;
     }
@@ -171,6 +185,9 @@ public class PhotoController extends BaseController {
     String cancelUpPhoto(HttpServletRequest request) {
         LeUser user = this.getRequestUser(request);
         int photoId = this.getParaIntFromRequest("photoId");
+        if (user == null || photoId == -1) {
+            return Const.FAILURE;
+        }
         photoService.cancelUpPhoto(photoId, user.getId());
         return Const.SUCCESS;
     }
@@ -180,6 +197,9 @@ public class PhotoController extends BaseController {
         ModelAndView mv = new ModelAndView("/index/likeUsers");
         //List result = new ArrayList();
         int photoId = this.getParaIntFromRequest("photoId");
+        if (photoId == -1) {
+            return mv;
+        }
         List<LePhotoUp> ups = PhotoCache.findPhotoUps(photoId);
 
         List<LeUser> users = new ArrayList<LeUser>();

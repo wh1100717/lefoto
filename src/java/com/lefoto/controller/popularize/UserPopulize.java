@@ -39,9 +39,7 @@ public class UserPopulize extends BaseController {
     public @ResponseBody
     String userCreation() throws FileNotFoundException, IOException {
         int amount = this.getParaIntFromRequest("amount");
-        if (amount == 0) {
-            amount = 1;
-        }
+        amount = amount == -1 ? 1 : amount;
         for (int i = 0; i < amount; i++) {
             LeUser user = new LeUser();
             String userName = getUserName();
@@ -224,5 +222,4 @@ public class UserPopulize extends BaseController {
         reader.close();
         return null;
     }
-
 }
