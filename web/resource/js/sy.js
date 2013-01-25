@@ -303,7 +303,7 @@ var _CB;
             target.addClass('dealing').html('正在登录...');
             $.post(loginUrl,data, function(response){
                 var result = eval('(' + response + ')');//注：返回数据类型json，例如{'state':'error','msg':'账户或密码错误'}
-                if(result.state != 'SUCCESS'){
+                if(result.status != 'success'){
                     target.removeClass('dealing').html('确定');
                 } else {
                     target.siblings('a.cancel').click();

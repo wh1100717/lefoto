@@ -6,12 +6,13 @@ public class Const {
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String MESSAGE = "message";
+    public static final String STATUS = "status";
     
     //Cache
     public static final int MAX_PHOTO_CACHE_RECORDS = 20000;
     
     //Resource
-    public static final String RESOURCE_DIR = "http://src.lefoto.me";
+    public static final String RESOURCE_DIR = "";
     
     //Request
     public static final String SESSION_ID = "sessionId";
