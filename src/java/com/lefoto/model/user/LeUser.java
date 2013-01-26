@@ -38,6 +38,7 @@ public class LeUser implements Serializable {
     private String face = "";
     @Column(name = "sex")
     private int sex = 0;
+    //type: 1表示系统生成用户 | 2表示真实用户
     @Column(name = "type")
     private int type = 1;
     @Column(name = "status")

@@ -23,12 +23,14 @@ public class PhotoCache {
     static List<LePhotoUp> photoUpList = new ArrayList<LePhotoUp>();
 
     static public String initPhotoList(PhotoService photoService) {
-        photoList.add(photoService.getPhotosByAdmin(0, Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(1, Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(2, Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(3, Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(4, Const.MAX_PHOTO_CACHE_RECORDS));
-        photoList.add(photoService.getPhotosByAdmin(5, Const.MAX_PHOTO_CACHE_RECORDS));
+        //type：1表示为网站上传类型图片 | 2表示为用户上传类型图片 | 3表示为待筛选类型图片 | 4表示待审核类型图片 | 5表示审核完成但不显示在首页类型图片
+        Integer[] types = new Integer[]{1, 2};
+        photoList.add(photoService.getPhotosByAdmin(0, Const.MAX_PHOTO_CACHE_RECORDS, types));
+        photoList.add(photoService.getPhotosByAdmin(1, Const.MAX_PHOTO_CACHE_RECORDS, types));
+        photoList.add(photoService.getPhotosByAdmin(2, Const.MAX_PHOTO_CACHE_RECORDS, types));
+        photoList.add(photoService.getPhotosByAdmin(3, Const.MAX_PHOTO_CACHE_RECORDS, types));
+        photoList.add(photoService.getPhotosByAdmin(4, Const.MAX_PHOTO_CACHE_RECORDS, types));
+        photoList.add(photoService.getPhotosByAdmin(5, Const.MAX_PHOTO_CACHE_RECORDS, types));
         photoUpList = photoService.getAllPhotoUps();
         return Const.SUCCESS;
     }

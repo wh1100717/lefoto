@@ -29,12 +29,12 @@ public interface PhotoDao {
     public void addPhotoUp(LePhotoUp photoUp);
 
     public void cancelUpPhoto(LePhotoUp photoUp);
-    
+
     public LePhotoUp findPhotoUp(int photoId, int userId);
 
     public List getPhotos(int cateId, int lastPhotoId, int size);
 
-    public List getPhotosByAdmin(int cateId, int size);
+    public List getPhotosByAdmin(int cateId, int size, Integer[] types);
 
     public List<LePhotoUp> findPhotoUps(int photoId);
 

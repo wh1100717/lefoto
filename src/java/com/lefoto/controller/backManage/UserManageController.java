@@ -4,12 +4,14 @@
  */
 package com.lefoto.controller.backManage;
 
+import com.imageGrab.utils.FileUtil;
+import com.imageGrab.utils.StringUtil;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.PhotoUtil;
-import com.lefoto.common.utils.StringUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.service.iface.user.UserService;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +62,7 @@ public class UserManageController {
                 //这里不必处理IO流关闭的问题，因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉，我是看它的源码才知道的  
                 File destFile = new File(realPath, destFileName);
                 FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFile);
-                java.awt.image.BufferedImage bi = javax.imageio.ImageIO.read(destFile);
+                BufferedImage bi = FileUtil.getImageInfo(destFile);
                 //上传到UpYun
                 String upYunPath = UpYunUtil.upload(destFile);
                 //根据地址 获取相应的头像地址

@@ -41,6 +41,7 @@ public class LePhoto implements Serializable {
     private int albumId = 0;
     @Column(name = "file_size")
     private long fileSize = 0;
+    //type：1表示为网站上传类型图片 | 2表示为用户上传类型图片 | 3表示为待筛选类型图片 | 4表示待审核类型图片 | 5表示审核完成但不显示在首页类型图片
     @Column(name = "type")
     private int type = 1;
     @Column(name = "width")

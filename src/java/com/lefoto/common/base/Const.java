@@ -27,7 +27,10 @@ public class Const {
     public static final int COOKIE_EXPIRE_TIME = 86400;//1 * 24 * 3600
     
     //Upload
-    public static String UPLOAD_FOLDER_PATH = "/WEB-INF/upload";
+    public static String UPLOAD_FOLDER_PATH = "WEB-INF/upload/";
+    
+    //Properties
+    public static String IMAGE_GRAB_PROPERTIES_PATH = "WEB-INF/conf/imageGrab.properties";
     
     //Populize
     public static String DEFAULT_USER_NAME_PATH = "D:/NBWS/lefoto/web/WEB-INF/userName.xml";

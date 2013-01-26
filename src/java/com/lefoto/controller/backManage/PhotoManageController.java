@@ -4,14 +4,16 @@
  */
 package com.lefoto.controller.backManage;
 
+import com.imageGrab.utils.FileUtil;
+import com.imageGrab.utils.StringUtil;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
 import com.lefoto.common.utils.PhotoUtil;
-import com.lefoto.common.utils.StringUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -79,7 +81,7 @@ public class PhotoManageController extends BaseController {
                 //这里不必处理IO流关闭的问题，因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉，我是看它的源码才知道的  
                 File destFile = new File(realPath, destFileName);
                 FileUtils.copyInputStreamToFile(myfile.getInputStream(), destFile);
-                java.awt.image.BufferedImage bi = javax.imageio.ImageIO.read(destFile);
+                BufferedImage bi = FileUtil.getImageInfo(destFile);
                 System.out.println("图片宽度: " + bi.getWidth());
                 System.out.println("图片高度: " + bi.getHeight());
 

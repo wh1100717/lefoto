@@ -110,7 +110,7 @@ public interface PhotoService {
      * @param size 最大获取数据的数量
      * @return
      */
-    public List getPhotosByAdmin(int cateId, int size);
+    public List getPhotosByAdmin(int cateId, int size, Integer[] types);
 
     /**
      * 根据PhotoId 找到跟这张照片有关的所有LePhotoUp记录

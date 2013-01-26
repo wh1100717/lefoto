@@ -4,25 +4,19 @@
  */
 package com.lefoto.controller.popularize;
 
+import com.imageGrab.utils.FileUtil;
 import com.lefoto.common.base.Const;
-import com.lefoto.common.utils.FileUtil;
 import com.lefoto.common.utils.RandomUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.user.LeUser;
 import com.lefoto.service.iface.media.PhotoService;
 import com.lefoto.service.iface.user.UserService;
-import com.sun.media.jai.codec.SeekableStream;
-import java.awt.color.CMMException;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
-import javax.imageio.ImageIO;
-import javax.media.jai.JAI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,17 +69,8 @@ public class photoPopulize {
                 continue;
             }
             System.out.println("上传图片" + index + " : " + file.getName());
-            BufferedImage bufferedImage;
-            try {
-                // We try it with ImageIO
-                bufferedImage =  ImageIO.read(file);
-            } catch (CMMException ex) {
-                // If we failed...
-                // We reset the inputStream (start from the beginning)
-                InputStream is = new FileInputStream(file);
-                // And use JAI
-                bufferedImage =  JAI.create("stream", SeekableStream.wrapInputStream(is, true)).getAsBufferedImage();
-            }
+            BufferedImage bufferedImage = FileUtil.getImageInfo(file);
+           
 
             LePhoto photo = new LePhoto();
             photo.setCategoryId(2);
@@ -96,6 +81,7 @@ public class photoPopulize {
             photo.setFileSize(file.length());
             photo.setHeight(bufferedImage.getHeight());
             photo.setWidth(bufferedImage.getWidth());
+            photo.setType(1);
 
             //图片创建时间为近20天内的任意时刻随机 60*60*24*20 = 1728000
             photo.setCreateTime(new Date(System.currentTimeMillis() - 1000 * RandomUtil.getRandomNum(0, 1728000)));
@@ -112,7 +98,7 @@ public class photoPopulize {
             count = 0;
             while (count < 5) {
                 try {
-                    FileUtil.Move(file, desPath);
+                    FileUtil.move(file, desPath);
                     count = 5;
                 } catch (Exception e) {
                     System.err.println("文件移动出错" + count + "次");

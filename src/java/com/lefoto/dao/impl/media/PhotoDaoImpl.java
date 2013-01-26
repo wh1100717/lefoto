@@ -197,10 +197,12 @@ public class PhotoDaoImpl implements PhotoDao {
     }
 
     @Override
-    public List getPhotosByAdmin(int cateId, int size) {
+    public List getPhotosByAdmin(int cateId, int size, Integer[] types) {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
+        criteria.add(Restrictions.eq("type", 1));
+        criteria.add(Restrictions.in("type", types));
         if (cateId != 0) {
             criteria.add(Restrictions.eq("categoryId", cateId));
         }

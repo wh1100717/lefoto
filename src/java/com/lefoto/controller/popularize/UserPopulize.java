@@ -4,9 +4,9 @@
  */
 package com.lefoto.controller.popularize;
 
+import com.imageGrab.utils.FileUtil;
 import com.lefoto.common.base.BaseController;
 import com.lefoto.common.base.Const;
-import com.lefoto.common.utils.FileUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.user.LeDefaultUserFace;
 import com.lefoto.model.user.LeUser;
@@ -110,7 +110,7 @@ public class UserPopulize extends BaseController {
             while (count < 5) {
                 try {
                     userService.addDefaultUserFace(defaultUserFace);
-                    FileUtil.Move(face, desPath);
+                    FileUtil.move(face, desPath);
                     count = 5;
                     System.out.println("Face No." + index + " : Done with name " + face.getName());
                 } catch (Exception e) {

@@ -4,7 +4,7 @@
  */
 package com.lefoto.spider;
 
-import com.lefoto.common.utils.JsonUtil;
+import com.imageGrab.utils.JsonUtil;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
