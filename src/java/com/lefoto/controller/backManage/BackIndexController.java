@@ -62,6 +62,12 @@ public class BackIndexController extends BaseController {
     }
     @Autowired
     CategoryService categoryService;
+    
+    @RequestMapping(value = "/grabPhotoManage")
+    public ModelAndView grabPhotoManage(HttpServletRequest request){
+        ModelAndView mv = new ModelAndView("/back/grabPhotoManage");
+        return mv;
+    }
 
     /**
      * 显示分类管理模块

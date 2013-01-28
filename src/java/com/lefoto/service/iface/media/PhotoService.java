@@ -124,4 +124,7 @@ public interface PhotoService {
      * @return
      */
     public List<LePhotoUp> getAllPhotoUps();
+
+    public List<LePhoto> getGrabPhotosByAdmin(int size);
+
 }

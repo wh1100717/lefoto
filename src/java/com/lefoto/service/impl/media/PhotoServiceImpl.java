@@ -93,7 +93,7 @@ public class PhotoServiceImpl implements PhotoService {
             photoUp.setUserId(userId);
             photoDao.addPhotoUp(photoUp);
             LePhoto photo = photoDao.findPhotoById(photoId);
-            if (photo != null) {                
+            if (photo != null) {
                 LeUserStatus userStatus = userDao.findUserStatus(photo.getUserId());
                 if (userStatus != null) {
                     userStatus.setNewForwardCount(userStatus.getNewForwardCount() + 1);
@@ -157,4 +157,10 @@ public class PhotoServiceImpl implements PhotoService {
     public List<LePhotoUp> getAllPhotoUps() {
         return photoDao.getAllPhotoUps();
     }
+
+    @Override
+    public List<LePhoto> getGrabPhotosByAdmin(int size) {
+        return photoDao.getGrabPhotosByAdmin(size);
+    }
+
 }

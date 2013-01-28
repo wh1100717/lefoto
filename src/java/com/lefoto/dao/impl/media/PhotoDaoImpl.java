@@ -39,12 +39,16 @@ public class PhotoDaoImpl implements PhotoDao {
 
     @Override
     public void deletePhoto(LePhoto photo) {
+        //从缓存中删除图片
+        if (photo.getType() == 3) {
+            PhotoCache.remveGrabPhoto(photo);
+        } else {
+            PhotoCache.removePhoto(photo);
+        }
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.delete(photo);
         session.getTransaction().commit();
-        //从缓存中删除图片
-        PhotoCache.removePhoto(photo);
     }
 
     @Override
@@ -89,7 +93,6 @@ public class PhotoDaoImpl implements PhotoDao {
         //更新内存
         PhotoCache.removePhotoUp(photoUp);
         PhotoCache.updatePhoto(photo);
-
     }
 
     ////////////////////////查询////////////////////////////
@@ -201,13 +204,32 @@ public class PhotoDaoImpl implements PhotoDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(LePhoto.class);
-        criteria.add(Restrictions.eq("type", 1));
         criteria.add(Restrictions.in("type", types));
         if (cateId != 0) {
             criteria.add(Restrictions.eq("categoryId", cateId));
         }
         if (size == 0) {
             size = 10000;
+        }
+        criteria.setMaxResults(size);
+        criteria.addOrder(Order.asc("id"));
+        List photos = criteria.list();
+        session.getTransaction().commit();
+        if (photos != null && !photos.isEmpty()) {
+            return photos;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<LePhoto> getGrabPhotosByAdmin(int size) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LePhoto.class);
+        criteria.add(Restrictions.eq("type", 3));
+        if (size == 0) {
+            size = 20000;
         }
         criteria.setMaxResults(size);
         criteria.addOrder(Order.asc("id"));

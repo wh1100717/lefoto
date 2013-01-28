@@ -125,6 +125,70 @@ public class PhotoController extends BaseController {
         return jsonObject.toString();
     }
 
+    @RequestMapping(value = "/getGrabPhotos")
+    public @ResponseBody
+    String getGrabPhoto(HttpServletRequest request) throws IOException {
+        LeUser ownUser = this.getRequestUser(request);
+        //验证是否是本网站发出的请求
+        if (!AuthenUtil.refererAuthen(request.getHeader("Referer"))) {
+            return "invalid request";
+        }
+        //验证是否是浏览器发出的请求
+        if (!AuthenUtil.userAgentAuthen(request.getHeader("User-Agent"))) {
+            return "invalid request";
+        }
+        if (ownUser == null || !ownUser.getEmail().equals("admin@lefoto.me")) {
+            return Const.FAILURE;
+        }
+
+        int lastPhotoId = this.getParaIntFromRequest("lastPhotoId");
+        int size = this.getParaIntFromRequest("size");
+        lastPhotoId = lastPhotoId == -1 ? 0 : lastPhotoId;
+        size = size == -1 ? 10 : size;
+
+        List photos = PhotoCache.getGrabPhotos(lastPhotoId, size);
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        if (photos == null) {
+            jsonObject.put("data", jsonArray);
+            return jsonObject.toString();
+        }
+        LePhotoUp up = null;
+        for (int index = 0; index < photos.size(); index++) {
+            LePhoto photo = (LePhoto) photos.get(index);
+            LeUser user = UserCache.getUserById(photo.getUserId());
+            if (ownUser != null) {
+                up = PhotoCache.findPhotoUp(photo.getId(), ownUser.getId());
+            }
+            int height = photo.getHeight();
+            int width = photo.getWidth();
+            if (width > 420) {
+                height = height * 420 / width;
+            }
+            JSONObject tmpObject = new JSONObject()
+                    .element("id", photo.getId())
+                    .element("url", photo.getUrl() + "!420")
+                    .element("description", photo.getDescription())
+                    .element("downCount", photo.getDownCount() == 0 ? "" : photo.getDownCount())
+                    .element("upCount", photo.getUpCount() == 0 ? "" : photo.getUpCount())
+                    .element("forwardCount", photo.getForwardCount() == 0 ? "" : photo.getForwardCount())
+                    .element("commentCount", photo.getCommentCount() == 0 ? "" : photo.getCommentCount())
+                    .element("userId", photo.getUserId())
+                    .element("userName", photo.getUserName())
+                    .element("face", user.getFace() + "!small")
+                    .element("height", height)
+                    .element("url_tag", FormatUtil.getUrlTag(photo.getUrl()));
+            if (up != null) {
+                tmpObject.put("up", 1);
+            } else {
+                tmpObject.put("up", 0);
+            }
+            jsonArray.add(tmpObject);
+        }
+        jsonObject.put("data", jsonArray);
+        return jsonObject.toString();
+    }
+    
     @RequestMapping(value = "/deletePhotoByAdmin")
     public @ResponseBody
     String deletePhotoByAdmin(HttpServletRequest request) {
@@ -140,6 +204,29 @@ public class PhotoController extends BaseController {
         try {
             //从数据库和缓存中删除图片
             LePhoto photo = PhotoCache.getPhotoById(photoId, cateId);
+            photoService.deletePhoto(photo);
+            //从又拍云上删除图片
+            UpYunUtil.delete(photo.getUrl());
+        } catch (Exception e) {
+            return Const.FAILURE;
+        }
+        return Const.SUCCESS;
+    }
+
+    @RequestMapping(value = "/deleteGrabPhotoByAdmin")
+    public @ResponseBody
+    String deleteGrabPhotoByAdmin(HttpServletRequest request) {
+        LeUser user = this.getRequestUser(request);
+        if (user == null || !user.getEmail().equals("admin@lefoto.me")) {
+            return Const.FAILURE;
+        }
+        int photoId = this.getParaIntFromRequest("photoId");
+        if (photoId == -1) {
+            return Const.FAILURE;
+        }
+        try {
+            //从数据库和缓存中删除图片
+            LePhoto photo = PhotoCache.getGrabPhotoById(photoId);
             photoService.deletePhoto(photo);
             //从又拍云上删除图片
             UpYunUtil.delete(photo.getUrl());
@@ -166,6 +253,29 @@ public class PhotoController extends BaseController {
         }
         photoService.deletePhoto(photo);
         return Const.SUCCESS;
+    }
+    
+    @RequestMapping(value = "/changeGrabPhotoTypByAdmin")
+    public @ResponseBody
+    String changeGrabPhotoTypeByAdmin(HttpServletRequest request){
+        LeUser user = this.getRequestUser(request);
+        if (user == null || !user.getEmail().equals("admin@lefoto.me")) {
+            return Const.FAILURE;
+        }
+        int photoId = this.getParaIntFromRequest("photoId");
+        int cateId = this.getParaIntFromRequest("cateId");
+        if(photoId == -1 || cateId == -1 || cateId == 0){
+            return Const.FAILURE;
+        }
+        LePhoto photo = PhotoCache.getGrabPhotoById(photoId);
+        if(photo == null){
+            return Const.FAILURE;
+        }
+        photo.setCategoryId(cateId);
+        photo.setType(1);
+        photoService.updatePhoto(photo);
+        return Const.SUCCESS;
+
     }
 
     @RequestMapping(value = "/upPhoto")

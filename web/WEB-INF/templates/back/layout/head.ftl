@@ -2,7 +2,7 @@
 <title>Lefoto Admin Panel</title>
 
 <link rel="stylesheet" href="/src/plugins/backtemplate/css/layout.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="/src/css/bootstrap.css" type="text/css" media="screen" />
+<!--<link rel="stylesheet" href="/src/css/bootstrap.css" type="text/css" media="screen" />-->
 <link href='http://fonts.googleapis.com/css?family=Cuprum&amp;subset=latin' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="/src/plugins/conformdialog/css/styles.css" />
 <link rel="stylesheet" type="text/css" href="/src/plugins/conformdialog/jquery.confirm/jquery.confirm.css" />

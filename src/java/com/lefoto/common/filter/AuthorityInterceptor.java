@@ -30,7 +30,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o) throws Exception {
         
         if(LoadInfoServlet.isNotInit){
-            loadInfoServlet.init();
+            loadInfoServlet.init(hsr);
         }
         
         hsr.setAttribute("RESOURCE_DIR", Const.RESOURCE_DIR);
@@ -38,7 +38,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
         //权限验证
         String email = (String) hsr.getSession().getAttribute("email");
         //临时测试的时候 添加管理员用户
-        email = "admin@lefoto.me";
+//        email = "admin@lefoto.me";
         //Done
         if (email != null) {
             LeUser user = this.userService.findUserByEmail(email);

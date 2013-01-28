@@ -6,9 +6,9 @@
     <h3>Content</h3>
     <ul class="toggle">
         <li class="icn_new_article"><a href="/back/albumManage.html">相册管理</a></li>
-        <li class="icn_edit_article"><a href="/back/photoManage.html">照片管理</a></li>
+        <li class="icn_edit_article"><a href="/back/photoManage.html">图片管理</a></li>
         <li class="icn_categories"><a href="/back/categoryManage.html">分类管理</a></li>
-        <li class="icn_tags"><a href="#">Tags</a></li>
+        <li class="icn_tags"><a href="/back/grabPhotoManage.html">抓取图片管理</a></li>
     </ul>
     <h3>Users</h3>
     <ul class="toggle">

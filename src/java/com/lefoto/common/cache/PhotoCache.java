@@ -21,6 +21,7 @@ public class PhotoCache {
 
     static List<List<LePhoto>> photoList = new ArrayList<List<LePhoto>>(6);
     static List<LePhotoUp> photoUpList = new ArrayList<LePhotoUp>();
+    static List<LePhoto> grabPhotoList = new ArrayList<LePhoto>();
 
     static public String initPhotoList(PhotoService photoService) {
         //type：1表示为网站上传类型图片 | 2表示为用户上传类型图片 | 3表示为待筛选类型图片 | 4表示待审核类型图片 | 5表示审核完成但不显示在首页类型图片
@@ -32,6 +33,7 @@ public class PhotoCache {
         photoList.add(photoService.getPhotosByAdmin(4, Const.MAX_PHOTO_CACHE_RECORDS, types));
         photoList.add(photoService.getPhotosByAdmin(5, Const.MAX_PHOTO_CACHE_RECORDS, types));
         photoUpList = photoService.getAllPhotoUps();
+        grabPhotoList = photoService.getGrabPhotosByAdmin(Const.MAX_PHOTO_CACHE_RECORDS);
         return Const.SUCCESS;
     }
 
@@ -96,6 +98,42 @@ public class PhotoCache {
         }
     }
 
+    public static String remveGrabPhoto(LePhoto photo) {
+        if (grabPhotoList == null) {
+            return Const.FAILURE;
+        }
+        grabPhotoList.remove(photo);
+        return Const.SUCCESS;
+    }
+
+    static public List<LePhoto> getGrabPhotos(int lastPhotoId, int size) {
+        if (grabPhotoList == null) {
+            return null;
+        }
+        List<LePhoto> result = new ArrayList<LePhoto>();
+        boolean flag = true;
+        int count = 0;
+        if (lastPhotoId == 0) {
+            flag = false;
+        }
+        for (int index = grabPhotoList.size() - 1; index >= 0; index--) {
+            LePhoto photo = grabPhotoList.get(index);
+            if (flag) {
+                if (photo.getId() == lastPhotoId) {
+                    flag = false;
+                    continue;
+                }
+                continue;
+            }
+            result.add(photo);
+            count++;
+            if (count >= size) {
+                return result;
+            }
+        }
+        return null;
+    }
+
     static public List<LePhoto> getPhotos(int cateId, int lastPhotoId, int size, int type) {
         //type : 0表示按时间顺序排序 | 1表示按热度排序 | 2便是随便看看  也就是随机排序
         int count = 0;
@@ -148,7 +186,22 @@ public class PhotoCache {
 
     public static LePhoto getPhotoById(int photoId, int cateId) {
         List<LePhoto> photos = photoList.get(cateId);
+        if (photos == null) {
+            return null;
+        }
         for (LePhoto photo : photos) {
+            if (photo.getId() == photoId) {
+                return photo;
+            }
+        }
+        return null;
+    }
+
+    public static LePhoto getGrabPhotoById(int photoId) {
+        if (grabPhotoList == null) {
+            return null;
+        }
+        for (LePhoto photo : grabPhotoList) {
             if (photo.getId() == photoId) {
                 return photo;
             }

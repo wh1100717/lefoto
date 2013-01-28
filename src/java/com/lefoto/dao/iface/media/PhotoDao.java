@@ -39,4 +39,6 @@ public interface PhotoDao {
     public List<LePhotoUp> findPhotoUps(int photoId);
 
     public List<LePhotoUp> getAllPhotoUps();
+
+    public List<LePhoto> getGrabPhotosByAdmin(int size);
 }

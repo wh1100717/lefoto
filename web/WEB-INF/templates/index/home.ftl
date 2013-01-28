@@ -87,6 +87,7 @@
             /*has login*/
             .rside a.tx { display:block; margin-right:20px;}
         </style>
+        <#if user != null>
         <script type="text/javascript">
             var user = {
                 id:'${user.id}',
@@ -94,6 +95,7 @@
                 face:'http://imgf.lefoto.me/${user.face}'
             }
         </script>
+        </#if>
     </head>  
     <body>
         <input name="cateId" type="hidden" value="${cateId}" />
@@ -252,6 +254,7 @@
                 </div>
                 <div class="comments" style="display:none;">
                     <ul class="list"></ul>
+                    <#if user != null>
                     <div class="fwrap">
                         <div class="f">
                             <img style="height:48px; width:48px; position:absolute;" src="http://imgf.lefoto.me/${user.face}" />
@@ -266,6 +269,7 @@
                             </ul>
                         </div>
                     </div>
+                    </#if>
                 </div>
             </div>
         </div>

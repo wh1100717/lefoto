@@ -6,7 +6,7 @@
             <hgroup>
                 <h1 class="site_title"><a href="index.html">Lefoto Back Manage</a></h1>
                 <h2 class="section_title">Category Manage</h2>
-                <div class="btn_view_site"><a href="/index/show.html">Lefoto</a></div>
+                <div class="btn_view_site"><a href="/index.html">Lefoto</a></div>
             </hgroup>
         </header>
         <!-- end of header bar -->
