@@ -73,6 +73,7 @@
             .login li.li-last span input { margin-left:-14px; }
             .loginH input.in { height:28px; padding-left:3px; border:1px #CCC solid; width:320px;}
             .loginH p.desc { margin-bottom:7px; font-size:14px; font-weight:800;}
+            .login .loginH .waring { color:red; font-size:12px; font-weight:400; margin-left:30px;}
 
 
             p.Li_p { margin-left: 40px; width:300px;font-weight:800; line-height:1.5;}
@@ -87,9 +88,12 @@
             /*has login*/
             .rside a.tx { display:block; margin-right:20px;}
         </style>
+        <script type="text/javascript">
+            var user;
+        </script>
         <#if user != null>
         <script type="text/javascript">
-            var user = {
+            user = {
                 id:'${user.id}',
                 name:'${user.userName}',
                 face:'http://imgf.lefoto.me/${user.face}'
@@ -97,101 +101,98 @@
         </script>
         </#if>
     </head>  
-    <body>
-        <input name="cateId" type="hidden" value="${cateId}" />
-        <input name="type" type="hidden" value="${type}" />
-        <div class="le-header">
-            <div class="le-iupload">
-                <a href="javascript:;">
-                    <img src="${RESOURCE_DIR}/src/images/upload_btn.png" alt="" />
-                </a>
-            </div>
+<body>
+    <input name="cateId" type="hidden" value="${cateId}" />
+    <input name="type" type="hidden" value="${type}" />
+    <div class="le-header">
+        <div class="le-iupload">
+            <a href="javascript:;">
+                <img src="${RESOURCE_DIR}/src/images/upload_btn.png" alt="" />
+            </a>
         </div>
-        <div class="le-content">
-            <div id="navbar" class="navbarwrap">
-                <div class="navbar clearfix">
-                    <!--
-                    <div class="lside fl">
-                        <form action="" method="get">
-                            <input autocomplete="off" class="sbox" name="kw" type="text" value="搜搜看吧" onfocus="if(this.value=='搜搜看吧'){this.value='';};" onblur="if(this.value==''){this.value='搜搜看吧';};" x-webkit-speech />
-                            <input class="sbtn" type="submit" value="搜搜" />
+    </div>
+    <div class="le-content">
+        <div id="navbar" class="navbarwrap">
+            <div class="navbar clearfix">
+                <!--
+                <div class="lside fl">
+                    <form action="" method="get">
+                        <input autocomplete="off" class="sbox" name="kw" type="text" value="搜搜看吧" onfocus="if(this.value=='搜搜看吧'){this.value='';};" onblur="if(this.value==''){this.value='搜搜看吧';};" x-webkit-speech />
+                        <input class="sbtn" type="submit" value="搜搜" />
+                    </form>
+                </div>
+                -->
+                <div class="rside fr">
+                    <ul id="_in">
+                        <li><a onclick="weiboLogin()"><img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"/></a></li>
+                        <li><a class="G" href="javascript:;">登录</a></li>
+                        <li><a href="/register.html">注册</a></li>
+                    </ul>
+                    <div class="login" style="display:none;">
+                        <form id="_lf">
+                            <div class="loginH">
+                                <ul>
+                                    <li>
+                                        <p class="desc">用户名或邮箱<span id="loginMsg" class="waring"></span></p>
+                                        <input class="in noime" name="email" type="text" />
+                                    </li>
+                                    <li>
+                                        <p class="desc">密码</p>
+                                        <input class="in noime" name="password" type="password" />
+                                    </li>
+                                    <li class="li-last">
+                                        <span><input name="auto" type="checkbox" checked="true" />自动登录</span>
+                                        <a href="">忘记密码？</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="loginB clearfix">
+                                <a href="javascript:;" class="btn-ok">确定</a>
+                                <a class="cancel" href="javascript:;">取消</a>
+                            </div>
                         </form>
                     </div>
-                    -->
-                    <div class="rside fr">
-                        <#if user == null>
+                    <!--
+                    <a href="javascript:;" class="tx"><img style="height:24px; width:24px;" src="http://imgf.lefoto.me/${user.face}" /></a>-->
+                    <div class="info hide">
+                        <h3>
+                            <a href="javascript:;">
+                                <img style="height:48px; width:48px;" src="http://imgf.lefoto.me/${user.face}" />
+                                <span>${user.name}</span>
+                            </a>
+                        </h3>
                         <ul>
-                            <li><a onclick="weiboLogin()"><img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"/></a></li>
-
-                            <li><a class="G" href="javascript:;">登录</a></li>
-                            <li><a href="/register.html">注册</a></li>
-                        </ul>
-                        <div class="login" style="display:none;">
-                            <form id="_lf">
-                                <div class="loginH">
-                                    <ul>
-                                        <li>
-                                            <p class="desc">用户名或邮箱</p>
-                                            <input class="in noime" name="email" type="text" />
-                                        </li>
-                                        <li>
-                                            <p class="desc">密码</p>
-                                            <input class="in noime" name="password" type="password" />
-                                        </li>
-                                        <li class="li-last">
-                                            <span><input name="auto" type="checkbox" checked="true" />自动登录</span>
-                                            <a href="">忘记密码？</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="loginB clearfix">
-                                    <a href="javascript:;" class="btn-ok">确定</a>
-                                    <a class="cancel" href="javascript:;">取消</a>
-                                </div>
-                            </form>
-                        </div>
-                        <#else>
-                        <a href="javascript:;" class="tx"><img style="height:24px; width:24px;" src="http://imgf.lefoto.me/${user.face}" /></a>
-                        <div class="info hide">
-                            <h3>
-                                <a href="javascript:;">
-                                    <img style="height:48px; width:48px;" src="http://imgf.lefoto.me/${user.face}" />
-                                    <span>${user.name}</span>
-                                </a>
-                            </h3>
-                            <ul>
-                                <li><a href="javascript:;">个人主页</a></li>
-                                <li><a href="javascript:;">设置</a></li>
-                                <li class="line"></li>
-                                <li><a href="javascript:;">退出</a></li>
-                            </ul>
-                        </div>
-                        </#if>
-                    </div>
-                    <div class="mside">
-                        <ul>
-                            <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2&type=2">萌宠</a></li>
-                            <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&type=2">搞笑</a></li>
-                            <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&type=2">童真</a></li>
-                            <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&type=2">美女</a></li>
-                            <li <#if cateId == 5>class="selected"</#if>><a href="/index.html?cateId=5&type=2">漫画</a></li>
-                            <li class="isList">
-                                <a href="/index.html?cateId=${cateId}&type=2">随便看看</a>
-                                <ul style="display:none;">
-                                    <li><a href="/index.html?cateId=${cateId}&type=0">最新图片</a></li>
-                                    <li><a href="/index.html?cateId=${cateId}&type=1">最热图片</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="javascript:;">个人主页</a></li>
+                            <li><a href="javascript:;">设置</a></li>
+                            <li class="line"></li>
+                            <li><a href="javascript:;">退出</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="body-wrap">
-                <div id="wf"></div>
+                <div class="mside">
+                    <ul>
+                        <li <#if cateId == 2>class="selected"</#if>><a href="/index.html?cateId=2&type=2">萌宠</a></li>
+                        <li <#if cateId == 1>class="selected"</#if>><a href="/index.html?cateId=1&type=2">搞笑</a></li>
+                        <li <#if cateId == 3>class="selected"</#if>><a href="/index.html?cateId=3&type=2">童真</a></li>
+                        <li <#if cateId == 4>class="selected"</#if>><a href="/index.html?cateId=4&type=2">美女</a></li>
+                        <li <#if cateId == 5>class="selected"</#if>><a href="/index.html?cateId=5&type=2">漫画</a></li>
+                        <li class="isList">
+                            <a href="/index.html?cateId=${cateId}&type=2">随便看看</a>
+                            <ul style="display:none;">
+                                <li><a href="/index.html?cateId=${cateId}&type=0">最新图片</a></li>
+                                <li><a href="/index.html?cateId=${cateId}&type=1">最热图片</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <!--评论部分模板-->
-        <script id="comment_temp" type="text/html">
+        <div class="body-wrap">
+            <div id="wf"></div>
+        </div>
+    </div>
+    <!--评论部分模板-->
+    <script id="comment_temp" type="text/html">
         <li class="comLi clearfix">
             <a class="fl" href="">
                 <img class="img36" src="http://imgf.lefoto.me{userFace}" />
@@ -254,7 +255,6 @@
                 </div>
                 <div class="comments" style="display:none;">
                     <ul class="list"></ul>
-                    <#if user != null>
                     <div class="fwrap">
                         <div class="f">
                             <img style="height:48px; width:48px; position:absolute;" src="http://imgf.lefoto.me/${user.face}" />
@@ -269,7 +269,6 @@
                             </ul>
                         </div>
                     </div>
-                    </#if>
                 </div>
             </div>
         </div>
