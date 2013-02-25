@@ -127,6 +127,9 @@
         <script id="view" type="text/html">
             <div class="item" id="item_{id}">
                 <div style="padding-bottom:50px;">
+                    <div class="iTop clearfix" style="position:relative;">
+                        <p>{description}</p>
+                    </div>
                     <div class="iMid" style="height:{height}px; position: relative;">
                         <a class="img" href="#" style="height:{height}px; display:block;">
                             <img height="{height}" style="max-width: 420px; opacity: 0.2; fliter:alpha(opacity=20);" src="http://img{url_tag}.lefoto.me{url}" onload="imgShow(this);" />

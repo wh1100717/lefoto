@@ -19,7 +19,7 @@ public class CacheSyncJob{
     @Autowired
     private LoadInfoServlet loadInfoServlet;
 
-    @Scheduled(cron = "0 0 0/4 * * ?")
+    @Scheduled(cron = "0 0/10 * * * ?")
     public void cacheSyncJob() {
         System.out.println("Sync job begins!");
         int count = 0;

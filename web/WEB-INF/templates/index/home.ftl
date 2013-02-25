@@ -206,7 +206,7 @@
             <div style="padding-bottom:50px;">
                 <div class="iTop clearfix" style="position:relative;">
                     <a class="tx" title="{userName}"><img width="60" height="60" src="http://imgf.lefoto.me{face}" /></a>
-                    <p></p>
+                    <p>description</p>
                     <#if delete == 1>
                     <a style="z-index:9;position:absolute; display: block; background-color: green; color: #FFF; padding: 5px 10px; top: 70px; right: 0px;" href="javascript:deleteImg({id},${cateId})">删除</a>
                     </#if>

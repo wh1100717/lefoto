@@ -23,7 +23,7 @@ public class TestController {
     @RequestMapping(value = "/test")
     public @ResponseBody
     List<String> test(HttpServletRequest request) {
-        LeUser user = UserCache.getRandomUser();
+        LeUser user = UserCache.getRandomRobootUser();
         List<String> result = new ArrayList();
         result.add(user.getName());
         return result;

@@ -4,6 +4,7 @@
  */
 package com.lefoto.dao.iface.media;
 
+import com.lefoto.model.media.LeGrabRecord;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
@@ -41,4 +42,8 @@ public interface PhotoDao {
     public List<LePhotoUp> getAllPhotoUps();
 
     public List<LePhoto> getGrabPhotosByAdmin(int size);
+
+    public LeGrabRecord getGrabRecordByName(String name);
+
+    public void setGrabRecordByName(String name, String value);
 }

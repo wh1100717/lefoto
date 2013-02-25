@@ -6,6 +6,7 @@ package com.lefoto.controller.popularize;
 
 import com.imageGrab.utils.FileUtil;
 import com.lefoto.common.base.Const;
+import com.lefoto.common.cache.UserCache;
 import com.lefoto.common.utils.RandomUtil;
 import com.lefoto.common.utils.UpYunUtil;
 import com.lefoto.model.media.LePhoto;
@@ -44,7 +45,7 @@ public class photoPopulize {
         int index = 0;
         LeUser user;
         while (index < files.length) {
-            user = userService.getRandomUser();
+            user = UserCache.getRandomRobootUser();
             System.out.println("获得随机用户");
 //            if (index % 10 == 0) {
 //                String email = userPopulize.userCreate(userService);

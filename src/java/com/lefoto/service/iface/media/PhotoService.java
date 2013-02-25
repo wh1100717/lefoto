@@ -4,6 +4,7 @@
  */
 package com.lefoto.service.iface.media;
 
+import com.lefoto.model.media.LeGrabRecord;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
@@ -92,13 +93,14 @@ public interface PhotoService {
      * @return
      */
     public LePhotoUp findPhotoUp(int photoId, int userId);
-    
+
     /**
      * 获取图片
+     *
      * @param cateId 分类Id
      * @param lastPhotoId 异步Ajax请求过来最后一张图片的Id
      * @param size 要获取的记录数量
-     * @param type 
+     * @param type
      * @return
      */
     public List getPhotos(int cateId, int lastPhotoId, int size);
@@ -114,6 +116,7 @@ public interface PhotoService {
 
     /**
      * 根据PhotoId 找到跟这张照片有关的所有LePhotoUp记录
+     *
      * @param photoId
      * @return
      */
@@ -121,10 +124,15 @@ public interface PhotoService {
 
     /**
      * 获取全部喜欢图片的记录
+     *
      * @return
      */
     public List<LePhotoUp> getAllPhotoUps();
 
     public List<LePhoto> getGrabPhotosByAdmin(int size);
+
+    public LeGrabRecord getGrabRecordByName(String name);
+
+    public void setGrabRecordByName(String name, String value);
 
 }

@@ -6,6 +6,7 @@ package com.lefoto.dao.impl.media;
 
 import com.lefoto.common.cache.PhotoCache;
 import com.lefoto.dao.iface.media.PhotoDao;
+import com.lefoto.model.media.LeGrabRecord;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
 import java.util.List;
@@ -93,6 +94,20 @@ public class PhotoDaoImpl implements PhotoDao {
         //更新内存
         PhotoCache.removePhotoUp(photoUp);
         PhotoCache.updatePhoto(photo);
+    }
+
+    @Override
+    public void setGrabRecordByName(String name, String value) {
+        LeGrabRecord grabPhoto = this.getGrabRecordByName(name);
+        if (grabPhoto == null) {
+            grabPhoto = new LeGrabRecord();
+            grabPhoto.setName(name);
+        }
+        grabPhoto.setValue(value);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.merge(grabPhoto);
+        session.getTransaction().commit();
     }
 
     ////////////////////////查询////////////////////////////
@@ -251,6 +266,21 @@ public class PhotoDaoImpl implements PhotoDao {
         session.getTransaction().commit();
         if (ups != null && !ups.isEmpty()) {
             return ups;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public LeGrabRecord getGrabRecordByName(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(LeGrabRecord.class);
+        criteria.add(Restrictions.eq("name", name));
+        List grabRecord = criteria.list();
+        session.getTransaction().commit();
+        if (grabRecord != null && !grabRecord.isEmpty()) {
+            return (LeGrabRecord) grabRecord.get(0);
         } else {
             return null;
         }

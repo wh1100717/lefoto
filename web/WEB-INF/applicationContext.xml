@@ -36,6 +36,7 @@
                 <value>com.lefoto.model.media.LeCategory</value>
                 <value>com.lefoto.model.media.LePhoto</value>
                 <value>com.lefoto.model.media.LePhotoUp</value>
+                <value>com.lefoto.model.media.LeGrabRecord</value>
                 <value>com.lefoto.model.content.LeComment</value>
             </list>
         </property>

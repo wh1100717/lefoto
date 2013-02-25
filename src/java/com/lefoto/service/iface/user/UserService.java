@@ -56,13 +56,6 @@ public interface UserService {
     public List<LeUser> findAllUsers();
 
     /**
-     * 获取随机用户
-     *
-     * @return
-     */
-    public LeUser getRandomUser();
-
-    /**
      * 更新用户
      *
      * @param user
@@ -139,18 +132,21 @@ public interface UserService {
 
     /**
      * 更新用户状态表
+     *
      * @param userStatus
      */
     public void updateUserStatus(LeUserStatus userStatus);
 
     /**
      * 获取全部用户状态数据
+     *
      * @return
      */
     public List<LeUserStatus> findAllUserStatus();
 
     /**
      * 根据userId获取用户状态
+     *
      * @param userId
      * @return
      */

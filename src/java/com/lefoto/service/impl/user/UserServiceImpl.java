@@ -41,11 +41,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LeUser getRandomUser() {
-        return UserCache.getRandomUser();
-    }
-
-    @Override
     public void updateUser(LeUser user) {
         this.userDao.updateUser(user);
     }
@@ -64,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public LeUser findUserByEmail(String email) {
         return this.userDao.findUserByEmail(email);
     }
-    
+
     @Override
     public LeUser finUserById(int userId) {
         return this.userDao.findUserById(userId);
@@ -127,5 +122,4 @@ public class UserServiceImpl implements UserService {
     public LeUserStatus findUserStatus(int userId) {
         return this.userDao.findUserStatus(userId);
     }
-
 }

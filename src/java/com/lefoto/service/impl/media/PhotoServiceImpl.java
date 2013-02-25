@@ -9,6 +9,7 @@ import com.lefoto.dao.iface.media.AlbumDao;
 import com.lefoto.dao.iface.media.PhotoDao;
 import com.lefoto.dao.iface.user.UserDao;
 import com.lefoto.model.media.LeAlbum;
+import com.lefoto.model.media.LeGrabRecord;
 import com.lefoto.model.media.LePhoto;
 import com.lefoto.model.media.LePhotoUp;
 import com.lefoto.model.user.LeUserStatus;
@@ -163,4 +164,13 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.getGrabPhotosByAdmin(size);
     }
 
+    @Override
+    public LeGrabRecord getGrabRecordByName(String name) {
+        return photoDao.getGrabRecordByName(name);
+    }
+
+    @Override
+    public void setGrabRecordByName(String name, String value) {
+        photoDao.setGrabRecordByName(name, value);
+    }
 }

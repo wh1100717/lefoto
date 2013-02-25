@@ -24,6 +24,7 @@ import java.util.Set;
 public class UserCache {
 
     static Map<String, Map<String, Object>> usersMap = new HashMap<String, Map<String, Object>>();
+    static Map<String, Map<String, Object>> robootUsersMap = new HashMap<String, Map<String, Object>>();
     static Map<String, Integer> userNameMap = new HashMap<String, Integer>();
 
     /**
@@ -52,8 +53,12 @@ public class UserCache {
             userMap.put("followings", relationMap.get("followings"));
             userMap.put("followers", relationMap.get("followers"));
             userMap.put("status", userStatusMap.get(userIdString));
+            if (user.getType() == 1) {
+                robootUsersMap.put(userIdString, userMap);
+            }
             usersMap.put(userIdString, userMap);
         }
+        System.out.println(usersMap.keySet());
         initUserNameMap(users);
     }
 
@@ -136,9 +141,19 @@ public class UserCache {
         }
     }
 
-    static public LeUser getRandomUser() {
+    static public LeUser getRandomRobootUser() {
         Random random = new Random();
-        Set userIds = usersMap.keySet();
+        Set userIds = robootUsersMap.keySet();
+        if (userIds == null || userIds.isEmpty()) {
+            if (userIds == null) {
+                System.out.println("异常-虚拟用户为NULL!");
+                return null;
+            }
+            if (userIds.isEmpty()) {
+                System.out.println("异常-虚拟用户数量为0!");
+                return null;
+            }
+        }
         int selectedNumber = random.nextInt(userIds.size());
         int index = 0;
         for (Iterator it = userIds.iterator(); it.hasNext();) {
