@@ -43,7 +43,6 @@ var _CB;
     var loadCommentUrl = '/comment/getLimitComments.html';//获取评论
     var loginUrl = 'login/submit.html';
     var OBJ_IMG = 1;
-
     var iCur = -1;
     var leAToggle = 0;
     
@@ -196,6 +195,10 @@ var _CB;
         }
         le.fadeIn(200);
     };
+    var checkLogin = function(){
+        if(user == undefined){ $('.rside a.G').click(); return false;}
+        return true;
+    }
     $(document).delegate('.iMid','mouseenter',function(){ //鼠标进入图片
         var box = $('.tabsWrap', this);
         if(box.height() > 40){
@@ -221,6 +224,7 @@ var _CB;
     }).delegate('li.isList', 'mouseleave', function() { 
         $('ul',this).hide();
     }).delegate('a.leA','click',function(){
+        if(!checkLogin()){return;}
         var target = $(this);
         if(leAToggle){
             leAToggle = 0;
@@ -239,6 +243,7 @@ var _CB;
         var userId = wrap.find('input[name=userId]').val()
         var textarea = wrap.find('textarea[name=content]');
         var content = textarea.val();
+        if(!checkLogin()){return;}
         if($.trim(content).length == 0){ $('.editor', wrap).showWaring('请正确填写'); return ;} 
         
         var comment = {};
@@ -296,17 +301,22 @@ var _CB;
     }).delegate('.loginB a.cancel','click',function(){
         var target = $(this);
         target.closest('.rside').find('.login').hide();
+        //清空登陆框及提示信息
+        $('#loginMsg').html('');
+        $('#_lf').find('input').val('');
     }).delegate('.loginB a.btn-ok','click',function(){
         var target = $(this);
         var data = $('#_lf').getValueAndToObject('input');
         if(!target.hasClass('dealing')){
             target.addClass('dealing').html('正在登录...');
             $.post(loginUrl,data, function(response){
-                var result = eval('(' + response + ')');//注：返回数据类型json，例如{'state':'error','msg':'账户或密码错误'}
+                var result = eval('(' + response + ')');//注：返回数据类型json，例如{'status':'error','message':'账户或密码错误'}
                 if(result.status != 'success'){
                     target.removeClass('dealing').html('确定');
+                    $('#loginMsg').html(result.message);
                 } else {
                     target.siblings('a.cancel').click();
+                    alert("登录成功,需返回用户信息。数据格式：{'status':'success','user':{}}");
                 }
             });
         }
