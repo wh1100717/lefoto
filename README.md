@@ -1,9 +1,8 @@
 Lefoto
 =====
-[点击进入Lefoto网站](http://www.lefoto.me) | [点击进入ImageGrab项目](https://github.com/wh1100717/ImageGrab)
-
     Lefoto是一个集图片浏览、分享和自动搜集为一身的图片社区网站，其专注于强化分类图片的概念，提供用户浏览内容的优质性
-------
+
+[点击进入Lefoto网站](http://www.lefoto.me)  |  [点击进入ImageGrab项目](https://github.com/wh1100717/ImageGrab)
 
 ![github](https://raw.github.com/wh1100717/lefoto/master/web/resource/images/intro/website.png) 
 
