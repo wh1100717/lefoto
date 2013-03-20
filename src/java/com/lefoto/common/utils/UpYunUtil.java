@@ -4,24 +4,23 @@
  */
 package com.lefoto.common.utils;
 
+import com.lefoto.common.base.Const;
 import com.lefoto.model.common.UpYun;
-import java.util.List;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Date;
 
+/**
+ * 图片尺寸： 300定宽, 550定宽, （240限定最长边）,(200X200), (100X100), (140X120)
+ * @author Eric
+ */
 public class UpYunUtil {
 
-    final static String BUCKET_NAME = "lefoto";
-    final static String USER_NAME = "操作员";
-    final static String PASSWORD = "操作员密码";
+    final static String IMG_BUCKET_NAME = "";
+    final static String FACE_BUCKET_NAME = "";
+    final static String USER_NAME = "";
+    final static String PASSWORD = "";
 
     public static String upload(File file) throws Exception {
-        UpYun upyun = new UpYun(BUCKET_NAME, USER_NAME, PASSWORD);
+        UpYun upyun = new UpYun(IMG_BUCKET_NAME, USER_NAME, PASSWORD);
         String filePath = "/";
         filePath = filePath + String.valueOf(DateUtil.getYear()) + "/";
         filePath = filePath + String.valueOf(DateUtil.getMonth()) + "/";
@@ -30,13 +29,36 @@ public class UpYunUtil {
         filePath = filePath + file.getName();
         System.out.println(filePath);
         boolean result = upyun.writeFile(filePath, file, true);
-        if(result){
+        if (result) {
             return filePath;
-        }else{
+        } else {
+            return null;
+        }
+    }
+
+    public static String userFaceUpload(File file) throws Exception {
+        UpYun upyun = new UpYun(FACE_BUCKET_NAME, USER_NAME, PASSWORD);
+        String filePath = "/";
+        filePath = filePath + String.valueOf(DateUtil.getYear()) + "/";
+        filePath = filePath + String.valueOf(DateUtil.getMonth()) + "/";
+        filePath = filePath + String.valueOf(DateUtil.getDayOfMonth()) + "/";
+        filePath = filePath + String.valueOf(DateUtil.getHourOfDay()) + "/";
+        filePath = filePath + file.getName();
+        System.out.println(filePath);
+        boolean result = upyun.writeFile(filePath, file, true);
+        if (result) {
+            return filePath;
+        } else {
             return null;
         }
     }
     
+    public static String delete(String path) throws Exception{
+        UpYun upyun = new UpYun(IMG_BUCKET_NAME, USER_NAME, PASSWORD);
+        upyun.deleteFile(path);
+        return Const.SUCCESS;
+    }
+
     public static void main(String[] args) throws Exception {
         /// 初始化空间
         UpYun upyun = new UpYun("空间名", "操作员", "操作员密码");
@@ -61,7 +83,7 @@ public class UpYunUtil {
         upyun.setFileSecret("bac");
 
 //        System.out.println(upyun.writeFile("/google.jpg", file));
-         System.out.println(upyun.writeFile("/a/b/c/google.jpg", file, true)); //可自动创建父级目录（最多10级）
+        System.out.println(upyun.writeFile("/a/b/c/google.jpg", file, true)); //可自动创建父级目录（最多10级）
         /// 获取上传文件后的信息（仅图片空间有返回数据）
         System.out.println(upyun.getWritedFileInfo("x-upyun-width")); // 图片宽度
         System.out.println(upyun.getWritedFileInfo("x-upyun-height")); // 图片高度
